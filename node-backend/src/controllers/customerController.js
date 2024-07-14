@@ -1,4 +1,4 @@
-import customer, { customer as customer } from "../models/Customer.js";
+import customer from "../models/Customer.js";
 
 class CustomerController {
 
