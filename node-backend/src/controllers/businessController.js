@@ -1,10 +1,11 @@
-import business from "../models/Business.js";
+import { business as businessModel } from "../models/Business.js";
 
 class BusinessController {
 
     static async getAllBusinesses(req, res) {
         try {
-            res.status(200).json();
+            const businesses = await businessModel.find({});
+            res.status(200).json(businesses);
         } catch (error) {
             res.status(500).json({
                 message: "Internal server error on BusinessController.getAllBusinesses(): " + error
@@ -14,7 +15,8 @@ class BusinessController {
 
     static async getBusiness(req, res) {
         try {
-            res.status(200).json();
+            const business = await businessModel.findById(req.params.id);
+            res.status(200).json(business);
         } catch (error) {
             res.status(500).json({
                 message: "Internal server error on BusinessController.getBusiness(): " + error
@@ -24,7 +26,11 @@ class BusinessController {
 
     static async createBusiness(req, res) {
         try {
-            res.status(200).json();
+            const business = await businessModel.create(req.body);
+            res.status(200).json({
+                message: "Business successfully created.",
+                business: business
+            });
         } catch (error) {
             res.status(500).json({
                 message: "Internal server error on BusinessController.createBusiness(): " + error
@@ -34,7 +40,11 @@ class BusinessController {
 
     static async updateBusiness(req, res) {
         try {
-            res.status(200).json();
+            const business = await businessModel.findByIdAndUpdate(req.params.id, req.body);
+            res.status(200).json({
+                message: "Business successfully updated.",
+                business: business
+            });
         } catch (error) {
             res.status(500).json({
                 message: "Internal server error on BusinessController.updateBusiness(): " + error
@@ -44,7 +54,11 @@ class BusinessController {
 
     static async deleteBusiness(req, res) {
         try {
-            res.status(200).json();
+            const business = await businessModel.findByIdAndDelete(req.params.id);
+            res.status(200).json({
+                message: "Business successfully deleted.",
+                business: business
+            });
         } catch (error) {
             res.status(500).json({
                 message: "Internal server error on BusinessController.deleteBusiness(): " + error
