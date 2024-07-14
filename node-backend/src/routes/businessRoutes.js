@@ -1,4 +1,5 @@
 import express from "express";
+import BusinessController from "../controllers/businessController.js";
 
 const router = express.Router();
 

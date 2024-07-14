@@ -5,7 +5,8 @@ import customerRoutes from "./customerRoutes.js";
 import serviceRoutes from "./serviceRoutes.js";
 
 const router = (app) => {
-    app.use(express.json, appointmentRoutes, businessRoutes, customerRoutes, serviceRoutes);
+    app.route("/").get((req, res) => res.status(200).send("Business Node server"));
+    app.use(express.json(), appointmentRoutes, businessRoutes, customerRoutes, serviceRoutes);
 }
 
 export default router;
