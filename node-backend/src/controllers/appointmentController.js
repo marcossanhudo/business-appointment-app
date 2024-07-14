@@ -1,4 +1,4 @@
-//import Appointment from "../models/Appointment.js";
+import appointment from "../models/Appointment.js";
 
 class AppointmentController {
 

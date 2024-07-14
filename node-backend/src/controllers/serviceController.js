@@ -1,4 +1,4 @@
-//import Service from "../models/Service.js";
+import service from "../models/Service.js";
 
 class ServiceController {
 

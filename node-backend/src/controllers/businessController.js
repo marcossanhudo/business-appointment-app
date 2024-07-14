@@ -1,4 +1,4 @@
-//import Business from "../models/Business.js";
+import business from "../models/Business.js";
 
 class BusinessController {
 
