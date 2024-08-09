@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, View, StyleSheet, Button } from 'react-native';
 
-export function BusinessPage() {
+export function BusinessPage({ navigation, route }: any) {
 
-    const BUSINESS_INFO_ENDPOINT = 'http://localhost:3000/businesses/66b3ed1dd87adaf81f8905be'
+    const BUSINESS_INFO_ENDPOINT = 'http://localhost:3000/businesses/' + route.params.id;
 
     const [businessInfo, setBusinessInfo] = useState({
         name: null,
@@ -19,6 +19,8 @@ export function BusinessPage() {
             .then(res => res.json())
             .then(json => setBusinessInfo(json))
             .catch(error => console.log(error.message));
+
+        console.log(route);
     }, []);
 
     return(

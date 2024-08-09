@@ -1,27 +1,21 @@
 import { Image, StyleSheet, Platform } from 'react-native';
 import { BusinessPage } from '../BusinessPage';
+import HomePage from '../HomePage';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function HomeScreen() {
+const Stack = createNativeStackNavigator();
+
+const App = () => {
   return (
-    <BusinessPage></BusinessPage>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={ HomePage } />
+        <Stack.Screen
+          name="Business"
+          component={ BusinessPage } />
+      </Stack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+export default App;
