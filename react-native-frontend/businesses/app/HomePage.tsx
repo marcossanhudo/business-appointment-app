@@ -26,8 +26,6 @@ const HomePage = ({ navigation }: any) => {
     }, [ ]);
 
     const renderBusiness = (business: any) => {
-
-        console.log (business);
         return(
             <Pressable style={ styles.businessListing }
                 onPress={ () => navigation.navigate("Business", { id: business._id }) }>

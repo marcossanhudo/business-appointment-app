@@ -19,8 +19,6 @@ export function BusinessPage({ navigation, route }: any) {
             .then(res => res.json())
             .then(json => setBusinessInfo(json))
             .catch(error => console.log(error.message));
-
-        console.log(route);
     }, []);
 
     return(
