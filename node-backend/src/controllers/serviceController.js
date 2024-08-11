@@ -15,7 +15,7 @@ class ServiceController {
 
     static async getServicesFromBusiness(req, res) {
         try {
-            const foundServices = await service.find({ businessId: req.params.businessId });
+            const foundServices = await service.find({ businessId: req.query.businessId });
             res.status(200).json(foundServices);
         } catch (error) {
             res.status(500).json({

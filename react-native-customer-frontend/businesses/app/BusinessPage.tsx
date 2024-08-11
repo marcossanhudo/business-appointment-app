@@ -3,11 +3,10 @@ import { ScrollView, Text, View, StyleSheet, Button, Pressable } from 'react-nat
 import Styles from '@/constants/Styles';
 import { formatTime } from '@/scripts/formatting';
 import { FlatList } from 'react-native-gesture-handler';
+import { getBusiness } from '@/networking/controllers/businessController';
+import { getServicesFromBusiness } from '@/networking/controllers/serviceController';
 
 export const BusinessPage = ({ navigation, route }: any) => {
-
-    const BUSINESS_INFO_ENDPOINT = 'http://localhost:3000/businesses/' + route.params.id;
-    const SERVICE_INFO_ENDPOINT = 'http://localhost:3000/services/?businessId=' + route.params.id;
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -27,16 +26,14 @@ export const BusinessPage = ({ navigation, route }: any) => {
     }]);
 
     React.useEffect(() => {
-        fetch(BUSINESS_INFO_ENDPOINT, { method: "GET" })
-            .then(res => res.json())
+        getBusiness(route.params.id)
             .then(json => setBusinessInfo(json))
             .catch(error => { setError(true); console.log(error.message); })
             .finally(() => setLoading(false));
     }, []);
 
     React.useEffect(() => {
-        fetch(SERVICE_INFO_ENDPOINT, { method: "GET" })
-            .then(res => res.json())
+        getServicesFromBusiness(route.params.id)
             .then(json => setServices(json))
             .then(() => console.log(services))
             .catch(error => { setError(true); console.log(error.message); });

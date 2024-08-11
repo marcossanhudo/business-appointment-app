@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, FlatList, View, Text, Pressable } from 'react-native';
 import Styles from '@/constants/Styles';
 import { formatTime } from '@/scripts/formatting';
+import { getAllBusinesses } from '@/networking/controllers/businessController';
 
 const HomePage = ({ navigation }: any) => {
-
-    const BUSINESSES_ENDPOINT = 'http://localhost:3000/businesses';
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -20,8 +19,7 @@ const HomePage = ({ navigation }: any) => {
     ]);
 
     React.useEffect(() => {
-        fetch(BUSINESSES_ENDPOINT)
-            .then(response => response.json())
+        getAllBusinesses()
             .then(json => setBusinesses(json))
             .catch(error => { setError(true); console.log(error); })
             .finally(() => setLoading(false));
