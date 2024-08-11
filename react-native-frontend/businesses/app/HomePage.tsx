@@ -8,7 +8,7 @@ const HomePage = ({ navigation }: any) => {
     const BUSINESSES_ENDPOINT = 'http://localhost:3000/businesses';
 
     const [loading, setLoading] = useState(true);
-
+    const [error, setError] = useState(false);
     const [businesses, setBusinesses] = useState([
         {
             _id: String,
@@ -23,7 +23,7 @@ const HomePage = ({ navigation }: any) => {
         fetch(BUSINESSES_ENDPOINT)
             .then(response => response.json())
             .then(json => setBusinesses(json))
-            .catch(error => console.log(error))
+            .catch(error => { setError(true); console.log(error); })
             .finally(() => setLoading(false));
     }, [ ]);
 
@@ -49,6 +49,8 @@ const HomePage = ({ navigation }: any) => {
                 {   
                     loading
                     ? <Text>Loading</Text>
+                    : error
+                    ? <Text>An error occured. Please try again later.</Text>
                     : <View>
                         <FlatList
                             data={ businesses }
