@@ -1,17 +1,18 @@
 import { StyleSheet } from "react-native";
+import { SpacingSizes, FontSizes, FontWeights } from "@/constants/StyleVariables";
 
 export default StyleSheet.create({
     page: {
         backgroundColor: "#FFFFFF",
-        padding: 24,
+        padding: SpacingSizes.primary,
         display: 'flex',
         flexDirection: 'column',
-        gap: 24
+        gap: SpacingSizes.primary
     },
 
     businessListing: {
-        padding: 16,
-        marginRight: 16,
+        padding: SpacingSizes.secondary,
+        marginRight: SpacingSizes.secondary,
         backgroundColor: "#EAEAEA",
         borderWidth: 1,
         borderColor: "#CCCCCC",
@@ -19,73 +20,82 @@ export default StyleSheet.create({
         width: 240,
         display: 'flex',
         flexDirection: 'column',
-        gap: 16
+        gap: SpacingSizes.secondary
     },
     businessName: {
-        fontSize: 18,
+        fontSize: FontSizes.optionName,
         fontWeight: '700'
     },
     businessDescription: {
         display: 'flex',
         flexDirection: 'column',
-        gap: 8,
-        fontSize: 14,
+        gap: SpacingSizes.tertiary,
+        fontSize: FontSizes.bodyText,
         fontWeight: '400'
     },
 
     serviceListing: {
-        padding: 16,
-        marginBottom: 16,
+        padding: SpacingSizes.secondary,
+        marginBottom: SpacingSizes.secondary,
         display: 'flex',
         flexDirection: 'column',
-        gap: 16,
+        gap: SpacingSizes.secondary,
         backgroundColor: '#EAEAEA',
         borderWidth: 1,
         borderColor: '#CCCCCC',
         borderRadius: 8
     },
     serviceName: {
-        fontSize: 18,
+        fontSize: FontSizes.optionName,
         fontWeight: '700'
     },
     serviceDetails: {
-        fontSize: 14,
+        fontSize: FontSizes.bodyText,
         fontWeight: '400',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
 
+    infoBox: {
+        padding: SpacingSizes.secondary,
+
+        display: 'flex',
+        flexDirection: 'column',
+        gap: SpacingSizes.secondary,
+
+        borderWidth: 1,
+        borderColor: '#CCCCCC',
+        borderRadius: 8
+    },
+    infoBoxText: {
+        fontSize: FontSizes.bodyText,
+        fontWeight: '500'
+    },
+    infoBoxHeading: {
+        fontSize: FontSizes.bodyText,
+        fontWeight: '700'
+    },
+
+
     h1: {
-        fontSize: 24,
+        fontSize: FontSizes.h1,
         fontWeight: '700'
     },
     h2: {
-        fontSize: 18,
+        fontSize: FontSizes.h2,
         fontWeight: '700'
     },
-    descriptionText: {
-        fontSize: 14,
-        fontWeight: '500'
+    bodyText: {
+        fontSize: FontSizes.bodyText,
+        fontWeight: '400'
     },
-    descriptionHeading: {
-        fontSize: 14,
-        fontWeight: '700'
-    },
+
     row: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        gap: 16,
+        gap: SpacingSizes.secondary,
         alignContent: 'center'
-    },
-    box: { 
-        padding: 16,
-        borderColor: "#CCCCCC",
-        borderWidth: 1,
-        borderRadius: 8,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 16
     }
 });

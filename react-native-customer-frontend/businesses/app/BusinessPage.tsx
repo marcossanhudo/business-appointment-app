@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, View, StyleSheet, Button, Pressable } from 'react-native';
-import styles from '@/constants/Styles';
+import Styles from '@/constants/Styles';
 import { formatTime } from '@/scripts/formatting';
 import { FlatList } from 'react-native-gesture-handler';
 
@@ -44,9 +44,10 @@ export const BusinessPage = ({ navigation, route }: any) => {
 
     const renderService = (service: any) => {
         return(
-            <Pressable style={ styles.serviceListing }>
-                <Text style={ styles.serviceName }>{ service.name }</Text>
-                <View style={ styles.serviceDetails }>
+            <Pressable style={ Styles.serviceListing }
+                onPress={ () => navigation.navigate("Appointment", { business: businessInfo, service: service }) }>
+                <Text style={ Styles.serviceName }>{ service.name }</Text>
+                <View style={ Styles.serviceDetails }>
                     <Text>$ { service.appointmentPrice }</Text>
                     <Text>{ service.appointmentDurationInMinutes } minutes</Text>
                 </View>
@@ -57,30 +58,30 @@ export const BusinessPage = ({ navigation, route }: any) => {
         <ScrollView style={{ backgroundColor: '#FFFFFF' }}>
             {
                 loading
-                ? <View style={ styles.page }>
+                ? <View style={ Styles.page }>
                     <Text>Loading</Text>
                 </View>
                 : error
-                ? <View style={ styles.page }>
+                ? <View style={ Styles.page }>
                     <Text>An error occured. Please try again later.</Text>
                 </View>
-                : <View style={ styles.page }>
-                    <Text style={ styles.h1 }>{ businessInfo.name }</Text>
-                    <Text style={ styles.descriptionText }>{ businessInfo.description }</Text>
-                    <View style={ styles.box }>
-                        <Text style={ styles.descriptionText }>Open from { formatTime(businessInfo.openingTime) } to { formatTime(businessInfo.closingTime) }</Text>
-                        <View style={ styles.row }>
-                            <Text style={ styles.descriptionText }>{ businessInfo.address }</Text>
+                : <View style={ Styles.page }>
+                    <Text style={ Styles.h1 }>{ businessInfo.name }</Text>
+                    <Text style={ Styles.infoBoxText }>{ businessInfo.description }</Text>
+                    <View style={ Styles.infoBox }>
+                        <Text style={ Styles.infoBoxText }>Open from { formatTime(businessInfo.openingTime) } to { formatTime(businessInfo.closingTime) }</Text>
+                        <View style={ Styles.row }>
+                            <Text style={ Styles.infoBoxText }>{ businessInfo.address }</Text>
                             <Button title='Map' />
                         </View>
-                        <View style={ styles.row }>
-                            <Text style={ styles.descriptionHeading }>Payment options</Text>
+                        <View style={ Styles.row }>
+                            <Text style={ Styles.infoBoxHeading }>Payment options</Text>
                             <View>
                                 <Button title='Review' />
                             </View>
                         </View>
                     </View>
-                    <Text style={ styles.h2 }>Services</Text>
+                    <Text style={ Styles.h2 }>Services</Text>
                     <FlatList
                         data={ services }
                         renderItem={ ({item}) => renderService(item) }
