@@ -9,6 +9,7 @@ const FontSizes = {
     h2: 18,
     h3: 16,
     optionName: 18,
+    boxTitle: 16,
     bodyText: 14
 }
 

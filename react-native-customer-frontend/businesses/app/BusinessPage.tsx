@@ -72,7 +72,7 @@ export const BusinessPage = ({ navigation, route }: any) => {
                             <Button title='Map' />
                         </View>
                         <View style={ Styles.row }>
-                            <Text style={ Styles.infoBoxHeading }>Payment options</Text>
+                            <Text style={ Styles.infoBoxSecondaryHeading }>Payment options</Text>
                             <View>
                                 <Button title='Review' />
                             </View>

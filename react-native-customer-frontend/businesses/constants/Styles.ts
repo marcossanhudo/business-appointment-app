@@ -68,13 +68,17 @@ export default StyleSheet.create({
         borderColor: '#CCCCCC',
         borderRadius: 8
     },
+    infoBoxPrimaryHeading: {
+        fontSize: FontSizes.boxTitle,
+        fontWeight: '700'
+    },
+    infoBoxSecondaryHeading: {
+        fontSize: FontSizes.bodyText,
+        fontWeight: '700'
+    },
     infoBoxText: {
         fontSize: FontSizes.bodyText,
         fontWeight: '500'
-    },
-    infoBoxHeading: {
-        fontSize: FontSizes.bodyText,
-        fontWeight: '700'
     },
 
 

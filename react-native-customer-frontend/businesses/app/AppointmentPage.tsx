@@ -14,19 +14,21 @@ export const AppointmentPage = ({ navigation, route }: any) => {
     }]);
 
     return (
-        <ScrollView style={ Styles.page }>
-            <View style={ Styles.infoBox }>
-                <Text style={ Styles.infoBoxHeading }>{ serviceInfo.name }</Text>
-                <View style={ Styles.row }>
-                    <Text style={ Styles.infoBoxText }>{ businessInfo.name }</Text>
-                    <Text style={ Styles.infoBoxText }>$ { serviceInfo.appointmentPrice }</Text>
+        <ScrollView style={{ backgroundColor: '#FFFFFF' }}>
+            <View style={ Styles.page }>
+                <View style={ Styles.infoBox }>
+                    <Text style={ Styles.infoBoxPrimaryHeading }>{ serviceInfo.name }</Text>
+                    <View style={ Styles.row }>
+                        <Text style={ Styles.infoBoxText }>{ businessInfo.name }</Text>
+                        <Text style={ Styles.infoBoxText }>$ { serviceInfo.appointmentPrice }</Text>
+                    </View>
                 </View>
-            </View>
-            <View>
-                <Text style={ Styles.h2 }>Times available</Text>
-            </View>
-            <View>
-                <Text style={ Styles.h2 }>Attendants available</Text>
+                <View>
+                    <Text style={ Styles.h2 }>Times available</Text>
+                </View>
+                <View>
+                    <Text style={ Styles.h2 }>Attendants available</Text>
+                </View>
             </View>
         </ScrollView>
     );
