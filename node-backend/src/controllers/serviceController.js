@@ -13,6 +13,17 @@ class ServiceController {
         }
     }
 
+    static async getServicesFromBusiness(req, res) {
+        try {
+            const foundServices = await service.find({ businessId: req.params.businessId });
+            res.status(200).json(foundServices);
+        } catch (error) {
+            res.status(500).json({
+                message: "Internal server error on ServiceController.getServicesFromBusiness(): " + error.message
+            });
+        }
+    }
+
     static async getService(req, res) {
         try {
             const foundService = await service.findById(req.params.id);

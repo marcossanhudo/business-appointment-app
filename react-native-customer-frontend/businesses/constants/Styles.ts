@@ -8,6 +8,7 @@ export default StyleSheet.create({
         flexDirection: 'column',
         gap: 24
     },
+
     businessListing: {
         padding: 16,
         marginRight: 16,
@@ -31,6 +32,30 @@ export default StyleSheet.create({
         fontSize: 14,
         fontWeight: '400'
     },
+
+    serviceListing: {
+        padding: 16,
+        marginBottom: 16,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 16,
+        backgroundColor: '#EAEAEA',
+        borderWidth: 1,
+        borderColor: '#CCCCCC',
+        borderRadius: 8
+    },
+    serviceName: {
+        fontSize: 18,
+        fontWeight: '700'
+    },
+    serviceDetails: {
+        fontSize: 14,
+        fontWeight: '400',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+
     h1: {
         fontSize: 24,
         fontWeight: '700'

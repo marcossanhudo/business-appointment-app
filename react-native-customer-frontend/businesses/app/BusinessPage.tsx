@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, Text, View, StyleSheet, Button } from 'react-native';
+import { ScrollView, Text, View, StyleSheet, Button, Pressable } from 'react-native';
 import styles from '@/constants/Styles';
 import { formatTime } from '@/scripts/formatting';
+import { FlatList } from 'react-native-gesture-handler';
 
 export const BusinessPage = ({ navigation, route }: any) => {
 
     const BUSINESS_INFO_ENDPOINT = 'http://localhost:3000/businesses/' + route.params.id;
+    const SERVICE_INFO_ENDPOINT = 'http://localhost:3000/services/?businessId=' + route.params.id;
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -16,7 +18,13 @@ export const BusinessPage = ({ navigation, route }: any) => {
         closingTime: "",
         address: ""
     });
-    const [services, setServices] = useState({});
+    const [services, setServices] = useState([{
+        _id: "",
+        name: "",
+        appointmentDurationInMinutes: 0,
+        appointmentPrice: 0,
+        businessId: ""
+    }]);
 
     React.useEffect(() => {
         fetch(BUSINESS_INFO_ENDPOINT, { method: "GET" })
@@ -25,6 +33,25 @@ export const BusinessPage = ({ navigation, route }: any) => {
             .catch(error => { setError(true); console.log(error.message); })
             .finally(() => setLoading(false));
     }, []);
+
+    React.useEffect(() => {
+        fetch(SERVICE_INFO_ENDPOINT, { method: "GET" })
+            .then(res => res.json())
+            .then(json => setServices(json))
+            .then(() => console.log(services))
+            .catch(error => { setError(true); console.log(error.message); });
+    }, []);
+
+    const renderService = (service: any) => {
+        return(
+            <Pressable style={ styles.serviceListing }>
+                <Text style={ styles.serviceName }>{ service.name }</Text>
+                <View style={ styles.serviceDetails }>
+                    <Text>$ { service.appointmentPrice }</Text>
+                    <Text>{ service.appointmentDurationInMinutes } minutes</Text>
+                </View>
+            </Pressable>);
+    }
 
     return(
         <ScrollView style={{ backgroundColor: '#FFFFFF' }}>
@@ -54,6 +81,10 @@ export const BusinessPage = ({ navigation, route }: any) => {
                         </View>
                     </View>
                     <Text style={ styles.h2 }>Services</Text>
+                    <FlatList
+                        data={ services }
+                        renderItem={ ({item}) => renderService(item) }
+                    />
                 </View>
             } 
         </ScrollView>
