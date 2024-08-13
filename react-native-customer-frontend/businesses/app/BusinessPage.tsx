@@ -41,10 +41,10 @@ export const BusinessPage = ({ navigation, route }: any) => {
 
     const renderService = (service: any) => {
         return(
-            <Pressable style={ Styles.serviceListing }
-                onPress={ () => navigation.navigate("Appointment", { business: businessInfo, service: service }) }>
-                <Text style={ Styles.serviceName }>{ service.name }</Text>
-                <View style={ Styles.serviceDetails }>
+            <Pressable style={ Styles.verticalListOption }
+                onPress={ () => navigation.navigate("Appointment Time", { business: businessInfo, service: service }) }>
+                <Text style={ Styles.verticalListOptionName }>{ service.name }</Text>
+                <View style={ Styles.verticalListOptionDetails }>
                     <Text>$ { service.appointmentPrice }</Text>
                     <Text>{ service.appointmentDurationInMinutes } minutes</Text>
                 </View>

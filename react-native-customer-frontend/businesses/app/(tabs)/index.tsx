@@ -2,7 +2,8 @@ import { Image, StyleSheet, Platform } from 'react-native';
 import { BusinessPage } from '../BusinessPage';
 import HomePage from '../HomePage';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { AppointmentPage } from '../AppointmentPage';
+import { AppointmentTimePage } from '../AppointmentTimePage';
+import { AppointmentAttendantPage } from '../AppointmentAttendantPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,8 +17,13 @@ const App = () => {
           name="Business"
           component={ BusinessPage } />
         <Stack.Screen
-          name="Appointment"
-          component={ AppointmentPage } />
+          name="Appointment Time"
+          component={ AppointmentTimePage }
+          options={{ title: "New appointment" }} />
+        <Stack.Screen
+          name="Appointment Attendant"
+          component={ AppointmentAttendantPage }
+          options={{ title: "New appointment" }} />
       </Stack.Navigator>
   );
 }

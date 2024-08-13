@@ -34,7 +34,7 @@ export default StyleSheet.create({
         fontWeight: '400'
     },
 
-    serviceListing: {
+    verticalListOption: {
         padding: SpacingSizes.secondary,
         marginBottom: SpacingSizes.secondary,
         display: 'flex',
@@ -45,11 +45,11 @@ export default StyleSheet.create({
         borderColor: '#CCCCCC',
         borderRadius: 8
     },
-    serviceName: {
+    verticalListOptionName: {
         fontSize: FontSizes.optionName,
         fontWeight: '700'
     },
-    serviceDetails: {
+    verticalListOptionDetails: {
         fontSize: FontSizes.bodyText,
         fontWeight: '400',
         display: 'flex',
