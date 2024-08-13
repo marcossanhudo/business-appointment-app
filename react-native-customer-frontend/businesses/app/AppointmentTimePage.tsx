@@ -4,11 +4,10 @@ import Styles from '@/constants/Styles';
 
 export const AppointmentTimePage = ({ navigation, route }: any) => {
 
+    const appointmentDetails = route.params.appointmentDetails;
+
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    
-    const [businessInfo, setBusinessInfo] = useState(route.params.business);
-    const [serviceInfo, setService] = useState(route.params.service);
 
     const [timesAvailable, setTimesAvailable] = useState([{
 
@@ -32,7 +31,7 @@ export const AppointmentTimePage = ({ navigation, route }: any) => {
     const renderTimeAvailable = (timeAvailable: any) => {
         return (
             <Pressable style={ Styles.verticalListOption }
-                onPress={ () => navigation.navigate("Appointment Attendant", { business: businessInfo, service: serviceInfo, appointmentTime: timeAvailable }) }>
+                onPress={ () => navigation.navigate("Appointment Attendant", { appointmentDetails: { ...appointmentDetails, time: timeAvailable } }) }>
                 <Text style={ Styles.verticalListOptionName }>{ timeAvailable.startTime }</Text>
                 <Text style={ Styles.verticalListOptionDetails }>until { timeAvailable.endTime }</Text>
             </Pressable>
@@ -43,10 +42,10 @@ export const AppointmentTimePage = ({ navigation, route }: any) => {
         <ScrollView style={{ backgroundColor: '#FFFFFF' }}>
             <View style={ Styles.page }>
                 <View style={ Styles.infoBox }>
-                    <Text style={ Styles.infoBoxPrimaryHeading }>{ serviceInfo.name }</Text>
+                    <Text style={ Styles.infoBoxPrimaryHeading }>{ appointmentDetails.service.name }</Text>
                     <View style={ Styles.row }>
-                        <Text style={ Styles.infoBoxText }>{ businessInfo.name }</Text>
-                        <Text style={ Styles.infoBoxText }>$ { serviceInfo.appointmentPrice }</Text>
+                        <Text style={ Styles.infoBoxText }>{ appointmentDetails.business.name }</Text>
+                        <Text style={ Styles.infoBoxText }>$ { appointmentDetails.service.appointmentPrice }</Text>
                     </View>
                 </View>
                 <View>

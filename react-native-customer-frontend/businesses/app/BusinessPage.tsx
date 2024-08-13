@@ -42,7 +42,7 @@ export const BusinessPage = ({ navigation, route }: any) => {
     const renderService = (service: any) => {
         return(
             <Pressable style={ Styles.verticalListOption }
-                onPress={ () => navigation.navigate("Appointment Time", { business: businessInfo, service: service }) }>
+                onPress={ () => navigation.navigate("Appointment Time", { appointmentDetails: { business: businessInfo, service: service } }) }>
                 <Text style={ Styles.verticalListOptionName }>{ service.name }</Text>
                 <View style={ Styles.verticalListOptionDetails }>
                     <Text>$ { service.appointmentPrice }</Text>

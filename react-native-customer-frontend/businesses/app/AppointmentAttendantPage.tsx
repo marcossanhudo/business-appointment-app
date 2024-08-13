@@ -4,12 +4,10 @@ import Styles from '@/constants/Styles';
 
 export const AppointmentAttendantPage = ({ navigation, route }: any) => {
 
+    const appointmentDetails = route.params.appointmentDetails;
+
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-
-    const [businessInfo, setBusinessInfo] = useState(route.params.business);
-    const [serviceInfo, setServiceInfo] = useState(route.params.service);
-    const [apppointmentTime, setAppointmentTime] = useState(route.params.appointmentTime);
 
     const [attendantsAvailable, setAttendantsAvailable] = useState([{}]);
 
@@ -34,16 +32,16 @@ export const AppointmentAttendantPage = ({ navigation, route }: any) => {
         <ScrollView style={{ backgroundColor: '#FFFFFF' }}>
             <View style={ Styles.page }>
                 <View style={ Styles.infoBox }>
-                    <Text style={ Styles.infoBoxPrimaryHeading }>{ serviceInfo.name }</Text>
+                    <Text style={ Styles.infoBoxPrimaryHeading }>{ appointmentDetails.service.name }</Text>
                     <View style={ Styles.row }>
-                        <Text style={ Styles.infoBoxText }>{ businessInfo.name }</Text>
-                        <Text style={ Styles.infoBoxText }>$ { serviceInfo.appointmentPrice }</Text>
+                        <Text style={ Styles.infoBoxText }>{ appointmentDetails.business.name }</Text>
+                        <Text style={ Styles.infoBoxText }>$ { appointmentDetails.service.appointmentPrice }</Text>
                     </View>
                 </View>
                 <View>
                     <Text style={ Styles.h2 }>Time</Text>
                     <View style={ Styles.row }>
-                        <Text style={ Styles.bodyText }>{ apppointmentTime.startTime }</Text>
+                        <Text style={ Styles.bodyText }>{ appointmentDetails.time.startTime }</Text>
                         <Button title="Change" />
                     </View>
                 </View>
