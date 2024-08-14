@@ -12,11 +12,7 @@ export const AppointmentAttendantPage = ({ navigation, route }: any) => {
     const [attendantsAvailable, setAttendantsAvailable] = useState([{}]);
 
     React.useEffect(() => {
-        setAttendantsAvailable([
-            { name: "Alice" },
-            { name: "Bob" },
-            { name: "Charlie" }
-        ]);
+        setAttendantsAvailable([{}, { _id: null }]);
         setLoading(false);
     }, []);
 
@@ -24,7 +20,9 @@ export const AppointmentAttendantPage = ({ navigation, route }: any) => {
         return (
             <Pressable style={ Styles.verticalListOption }
                 onPress={ () => navigation.navigate("Appointment Summary", { appointmentDetails: { ...appointmentDetails, attendant: attendantAvailable }})}>
-                <Text style={ Styles.verticalListOptionName }>{ attendantAvailable.name }</Text>
+                <Text style={ Styles.verticalListOptionName }>{
+                    attendantAvailable._id === null ? "Anyone is okay" : attendantAvailable.name
+                }</Text>
             </Pressable>
         );
     }
@@ -35,8 +33,8 @@ export const AppointmentAttendantPage = ({ navigation, route }: any) => {
                 <View style={ Styles.infoBox }>
                     <Text style={ Styles.infoBoxPrimaryHeading }>{ appointmentDetails.service.name }</Text>
                     <View style={ Styles.row }>
-                        <Text style={ Styles.infoBoxText }>{ appointmentDetails.business.name }</Text>
-                        <Text style={ Styles.infoBoxText }>$ { appointmentDetails.service.appointmentPrice }</Text>
+                        <Text style={ Styles.infoBoxBodyText }>{ appointmentDetails.business.name }</Text>
+                        <Text style={ Styles.infoBoxBodyText }>$ { appointmentDetails.service.appointmentPrice }</Text>
                     </View>
                 </View>
                 <View>
@@ -61,6 +59,9 @@ export const AppointmentAttendantPage = ({ navigation, route }: any) => {
                             data={ attendantsAvailable }
                             renderItem={ ({item}) => renderAttendantAvailable(item) } />
                     }
+                    <View style={ Styles.infoBox }>
+                        <Text style={ Styles.infoBoxBodyText }>If the person you want isn’t available, try a different time.</Text>
+                    </View>
                 </View>
             </View>
         </ScrollView>

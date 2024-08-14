@@ -64,11 +64,11 @@ export const BusinessPage = ({ navigation, route }: any) => {
                 </View>
                 : <View style={ Styles.page }>
                     <Text style={ Styles.h1 }>{ businessInfo.name }</Text>
-                    <Text style={ Styles.infoBoxText }>{ businessInfo.description }</Text>
+                    <Text style={ Styles.infoBoxBodyText }>{ businessInfo.description }</Text>
                     <View style={ Styles.infoBox }>
-                        <Text style={ Styles.infoBoxText }>Open from { formatTime(businessInfo.openingTime) } to { formatTime(businessInfo.closingTime) }</Text>
+                        <Text style={ Styles.infoBoxBodyText }>Open from { formatTime(businessInfo.openingTime) } to { formatTime(businessInfo.closingTime) }</Text>
                         <View style={ Styles.row }>
-                            <Text style={ Styles.infoBoxText }>{ businessInfo.address }</Text>
+                            <Text style={ Styles.infoBoxBodyText }>{ businessInfo.address }</Text>
                             <Button title='Map' />
                         </View>
                         <View style={ Styles.row }>

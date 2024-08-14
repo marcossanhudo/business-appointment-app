@@ -87,7 +87,7 @@ export default StyleSheet.create({
         fontSize: FontSizes.bodyText,
         fontWeight: '700'
     },
-    infoBoxText: {
+    infoBoxBodyText: {
         fontSize: FontSizes.bodyText,
         fontWeight: '500'
     },

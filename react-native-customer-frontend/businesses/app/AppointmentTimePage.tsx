@@ -14,17 +14,7 @@ export const AppointmentTimePage = ({ navigation, route }: any) => {
     }]);
 
     React.useEffect(() => {
-        setTimesAvailable([
-            { startTime: "8 AM", endTime: "9 AM" },
-            { startTime: "9 AM", endTime: "10 AM" },
-            { startTime: "10 AM", endTime: "11 AM" },
-            { startTime: "11 AM", endTime: "12 PM" },
-            { startTime: "12 AM", endTime: "1 PM" },
-            { startTime: "1 PM", endTime: "2 PM" },
-            { startTime: "2 PM", endTime: "3 PM" },
-            { startTime: "3 PM", endTime: "4 PM" },
-            { startTime: "4 PM", endTime: "5 PM" }
-        ]);
+        setTimesAvailable([{}]);
         setLoading(false);
     }, []);
 
@@ -44,8 +34,8 @@ export const AppointmentTimePage = ({ navigation, route }: any) => {
                 <View style={ Styles.infoBox }>
                     <Text style={ Styles.infoBoxPrimaryHeading }>{ appointmentDetails.service.name }</Text>
                     <View style={ Styles.row }>
-                        <Text style={ Styles.infoBoxText }>{ appointmentDetails.business.name }</Text>
-                        <Text style={ Styles.infoBoxText }>$ { appointmentDetails.service.appointmentPrice }</Text>
+                        <Text style={ Styles.infoBoxBodyText }>{ appointmentDetails.business.name }</Text>
+                        <Text style={ Styles.infoBoxBodyText }>$ { appointmentDetails.service.appointmentPrice }</Text>
                     </View>
                 </View>
                 <View style={ Styles.verticalListContainer }>

@@ -16,15 +16,15 @@ export const AppointmentSummaryPage = ({ navigation, route }: any) => {
                     </View>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxSecondaryHeading }>Place</Text>
-                        <Text style={ Styles.infoBoxText }>{ appointmentDetails.business.name }</Text>
+                        <Text style={ Styles.infoBoxBodyText }>{ appointmentDetails.business.name }</Text>
                     </View>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxSecondaryHeading }>Time</Text>
-                        <Text style={ Styles.infoBoxText }>{ appointmentDetails.time.startTime }</Text>
+                        <Text style={ Styles.infoBoxBodyText }>{ appointmentDetails.time.startTime }</Text>
                     </View>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxSecondaryHeading }>Attendant</Text>
-                        <Text style={ Styles.infoBoxText }>{ appointmentDetails.attendant.name }</Text>
+                        <Text style={ Styles.infoBoxBodyText }>{ appointmentDetails.attendant.name }</Text>
                     </View>
                 </View>
                 <View style={[ Styles.infoBox, { backgroundColor: '#F0F0F0' } ]}>
