@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, FlatList, View, Text, Pressable } from 'react-native';
-import styles from '@/constants/Styles';
+import Styles from '@/constants/Styles';
 import { formatTime } from '@/scripts/formatting';
+import { getAllBusinesses } from '@/networking/controllers/businessController';
 
 const HomePage = ({ navigation }: any) => {
-
-    const BUSINESSES_ENDPOINT = 'http://localhost:3000/businesses';
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -20,8 +19,7 @@ const HomePage = ({ navigation }: any) => {
     ]);
 
     React.useEffect(() => {
-        fetch(BUSINESSES_ENDPOINT)
-            .then(response => response.json())
+        getAllBusinesses()
             .then(json => setBusinesses(json))
             .catch(error => { setError(true); console.log(error); })
             .finally(() => setLoading(false));
@@ -29,11 +27,11 @@ const HomePage = ({ navigation }: any) => {
 
     const renderBusiness = (business: any) => {
         return(
-            <Pressable style={ styles.businessListing }
+            <Pressable style={ Styles.businessListing }
                 onPress={ () => navigation.navigate("Business", { id: business._id }) }>
-                <Text style={ styles.businessName }>{ business.name }</Text>
+                <Text style={ Styles.businessName }>{ business.name }</Text>
                 <View
-                    style={ styles.businessDescription }>
+                    style={ Styles.businessDescription }>
                     <Text>Open from { formatTime(business.openingTime) } to { formatTime(business.closingTime) }</Text>
                     <Text>{ business.address }</Text>
                 </View>
@@ -42,10 +40,10 @@ const HomePage = ({ navigation }: any) => {
 
     return(
         <ScrollView style={{ backgroundColor: '#FFFFFF' }}>
-            <View style={ styles.page }>
-                <Text style={ styles.h1 }>Businesses</Text>
+            <View style={ Styles.page }>
+                <Text style={ Styles.h1 }>Businesses</Text>
                 <Text>What do you need today?</Text>
-                <Text style={ styles.h2 }>Places</Text>
+                <Text style={ Styles.h2 }>Places</Text>
                 {   
                     loading
                     ? <Text>Loading</Text>
