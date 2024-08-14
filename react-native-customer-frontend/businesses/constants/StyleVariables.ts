@@ -10,7 +10,9 @@ const FontSizes = {
     h3: 16,
     optionName: 18,
     boxTitle: 16,
-    bodyText: 14
+    bodyText: 14,
+    bigNumber: 18,
+    bigNumberLegend: 16
 }
 
 const FontWeights = {

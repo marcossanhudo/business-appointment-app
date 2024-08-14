@@ -4,6 +4,7 @@ import HomePage from '../HomePage';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AppointmentTimePage } from '../AppointmentTimePage';
 import { AppointmentAttendantPage } from '../AppointmentAttendantPage';
+import { AppointmentSummaryPage } from '../AppointmentSummaryPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,10 @@ const App = () => {
           name="Appointment Attendant"
           component={ AppointmentAttendantPage }
           options={{ title: "New appointment" }} />
+        <Stack.Screen
+          name="Appointment Summary"
+          component={ AppointmentSummaryPage }
+          options={{ title: "Review details" }} />
       </Stack.Navigator>
   );
 }

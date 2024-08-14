@@ -22,7 +22,8 @@ export const AppointmentAttendantPage = ({ navigation, route }: any) => {
 
     const renderAttendantAvailable = (attendantAvailable: any) => {
         return (
-            <Pressable style={ Styles.verticalListOption }>
+            <Pressable style={ Styles.verticalListOption }
+                onPress={ () => navigation.navigate("Appointment Summary", { appointmentDetails: { ...appointmentDetails, attendant: attendantAvailable }})}>
                 <Text style={ Styles.verticalListOptionName }>{ attendantAvailable.name }</Text>
             </Pressable>
         );
@@ -45,7 +46,7 @@ export const AppointmentAttendantPage = ({ navigation, route }: any) => {
                         <Button title="Change" />
                     </View>
                 </View>
-                <View>
+                <View style={ Styles.verticalListContainer }>
                     <Text style={ Styles.h2 }>Attendants available</Text>
                     {
                         loading

@@ -9,6 +9,12 @@ export default StyleSheet.create({
         flexDirection: 'column',
         gap: SpacingSizes.primary
     },
+    mainButtonArea: {
+        position: 'relative',
+        bottom: 0,
+        width: '100%',
+        padding: SpacingSizes.primary
+    },
 
     businessListing: {
         padding: SpacingSizes.secondary,
@@ -34,6 +40,11 @@ export default StyleSheet.create({
         fontWeight: '400'
     },
 
+    verticalListContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: SpacingSizes.secondary
+    },
     verticalListOption: {
         padding: SpacingSizes.secondary,
         marginBottom: SpacingSizes.secondary,
@@ -81,6 +92,15 @@ export default StyleSheet.create({
         fontWeight: '500'
     },
 
+    bigNumber: {
+        fontSize: FontSizes.bigNumber,
+        fontWeight: '700'
+    },
+    bigNumberLegend: {
+        fontSize: FontSizes.bigNumberLegend,
+        fontWeight: '500'
+    },
+
 
     h1: {
         fontSize: FontSizes.h1,
@@ -88,6 +108,10 @@ export default StyleSheet.create({
     },
     h2: {
         fontSize: FontSizes.h2,
+        fontWeight: '700'
+    },
+    h3: {
+        fontSize: FontSizes.h3,
         fontWeight: '700'
     },
     bodyText: {

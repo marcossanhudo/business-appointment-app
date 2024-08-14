@@ -78,11 +78,13 @@ export const BusinessPage = ({ navigation, route }: any) => {
                             </View>
                         </View>
                     </View>
-                    <Text style={ Styles.h2 }>Services</Text>
-                    <FlatList
-                        data={ services }
-                        renderItem={ ({item}) => renderService(item) }
-                    />
+                    <View style={ Styles.verticalListContainer }>
+                        <Text style={ Styles.h2 }>Services</Text>
+                        <FlatList
+                            data={ services }
+                            renderItem={ ({item}) => renderService(item) }
+                        />  
+                    </View>
                 </View>
             } 
         </ScrollView>

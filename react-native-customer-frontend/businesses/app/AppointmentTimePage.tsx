@@ -48,7 +48,7 @@ export const AppointmentTimePage = ({ navigation, route }: any) => {
                         <Text style={ Styles.infoBoxText }>$ { appointmentDetails.service.appointmentPrice }</Text>
                     </View>
                 </View>
-                <View>
+                <View style={ Styles.verticalListContainer }>
                     <Text style={ Styles.h2 }>Times available</Text>
                     {
                         loading
