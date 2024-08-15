@@ -24,4 +24,8 @@ function formatTime(time: string): string {
     return formattedTime;
 }
 
-export { formatTime };
+function ignoreDate(date: string) {
+    return new Date(date).toTimeString();
+}
+
+export { formatTime, ignoreDate };

@@ -1,4 +1,4 @@
-import { servicesRoute } from "../routes";
+import { servicesRoute, serviceAvailableTimesRoute } from "../routes";
 
 async function getServicesFromBusiness(businessId: string) { 
     return await fetch(servicesRoute + "?businessId=" + businessId, { method: "GET" })
@@ -10,4 +10,9 @@ async function getService(serviceId: string) {
         .then(res => res.json());
 }
 
-export { getServicesFromBusiness, getService };
+async function getServiceAvailableTimes(serviceId: string, appointmentDate: string) {
+    return await fetch(serviceAvailableTimesRoute + "?serviceId=" + serviceId + "&appointmentDate=" + appointmentDate, { method: "GET" })
+        .then(res => res.json());
+}
+
+export { getServicesFromBusiness, getService, getServiceAvailableTimes };

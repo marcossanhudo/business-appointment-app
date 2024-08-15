@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, View, FlatList, Text, Pressable } from 'react-native';
 import Styles from '@/constants/Styles';
+import { getServiceAvailableTimes } from '@/networking/controllers/serviceController';
+import { formatTime, ignoreDate } from '@/scripts/formatting';
 
 export const AppointmentTimePage = ({ navigation, route }: any) => {
 
@@ -12,18 +14,25 @@ export const AppointmentTimePage = ({ navigation, route }: any) => {
     const [timesAvailable, setTimesAvailable] = useState([{
 
     }]);
+    const [appointmentDate, setAppointmentDate] = useState(new Date(Date.now()).toISOString().split("T")[0]);
 
     React.useEffect(() => {
-        setTimesAvailable([{}]);
-        setLoading(false);
+        try {
+            getServiceAvailableTimes(appointmentDetails.service._id, appointmentDate)
+                .then(json => setTimesAvailable(json))
+                .catch(error => { setError(true); console.log(error); })
+                .finally(() => setLoading(false));
+        } catch (error) {
+            console.log(error);
+        }
     }, []);
 
     const renderTimeAvailable = (timeAvailable: any) => {
         return (
             <Pressable style={ Styles.verticalListOption }
                 onPress={ () => navigation.navigate("Appointment Attendant", { appointmentDetails: { ...appointmentDetails, time: timeAvailable } }) }>
-                <Text style={ Styles.verticalListOptionName }>{ timeAvailable.startTime }</Text>
-                <Text style={ Styles.verticalListOptionDetails }>until { timeAvailable.endTime }</Text>
+                <Text style={ Styles.verticalListOptionName }>{ formatTime(ignoreDate(timeAvailable.startTime)) }</Text>
+                <Text style={ Styles.verticalListOptionDetails }>until { formatTime(ignoreDate(timeAvailable.endTime)) }</Text>
             </Pressable>
         );
     };

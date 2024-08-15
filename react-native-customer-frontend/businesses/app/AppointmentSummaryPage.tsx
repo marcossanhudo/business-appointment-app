@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ScrollView, View, Text, Pressable, Button } from 'react-native';
 import Styles from '@/constants/Styles';
+import { formatTime, ignoreDate } from '@/scripts/formatting';
 
 export const AppointmentSummaryPage = ({ navigation, route }: any) => {
 
@@ -20,7 +21,7 @@ export const AppointmentSummaryPage = ({ navigation, route }: any) => {
                     </View>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxSecondaryHeading }>Time</Text>
-                        <Text style={ Styles.infoBoxBodyText }>{ appointmentDetails.time.startTime }</Text>
+                        <Text style={ Styles.infoBoxBodyText }>From { formatTime(ignoreDate(appointmentDetails.time.startTime)) } to { formatTime(ignoreDate(appointmentDetails.time.endTime)) }</Text>
                     </View>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxSecondaryHeading }>Attendant</Text>
