@@ -1,4 +1,6 @@
 import service from "../models/Service.js";
+import business from "../models/Business.js";
+import { convertMinutesToMilliseconds } from "../utils/conversions.js";
 
 class ServiceController {
 
@@ -73,6 +75,38 @@ class ServiceController {
         } catch (error) {
             res.status(500).json({
                 message: "Internal server error on ServiceController.deleteService(): " + error.message
+            });
+        }
+    }
+
+    static async getServiceAvailableTimes(req, res) {
+        try {
+            const availableTimes = [];
+
+            const appointmentService = await service.findById(req.query.serviceId);
+            const appointmentBusiness = await business.findById(appointmentService.businessId);
+            const appointmentDurationInMinutes = appointmentService.appointmentDurationInMinutes;
+
+            const appointmentDurationInMilliseconds = convertMinutesToMilliseconds(appointmentDurationInMinutes);
+            const businessOpeningTimeOnAppointmentDate = Date.parse(req.query.appointmentDate + "T" + appointmentBusiness.openingTime);
+            const businessClosingTimeOnAppointmentDate = Date.parse(req.query.appointmentDate + "T" + appointmentBusiness.closingTime);
+
+            var startTime = businessOpeningTimeOnAppointmentDate;
+            var endTime = startTime + appointmentDurationInMilliseconds;
+
+            while (endTime <= businessClosingTimeOnAppointmentDate) {
+                availableTimes.push({
+                    startTime: new Date(startTime),
+                    endTime: new Date(endTime)
+                });
+                startTime += appointmentDurationInMilliseconds;
+                endTime += appointmentDurationInMilliseconds;
+            }
+
+            res.status(200).json(availableTimes);
+        } catch (error) {
+            res.status(500).json({
+                message: "Internal server error on ServiceController.getServiceAvailableTimes(): " + error.message
             });
         }
     }
