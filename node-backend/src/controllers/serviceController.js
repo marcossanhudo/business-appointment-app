@@ -83,7 +83,7 @@ class ServiceController {
         try {
             const availableTimes = [];
 
-            const queryDateTime = req.query.appointmentDate;
+            const queryDateTime = Number.parseFloat(req.query.appointmentDate);
             const appointmentService = await service.findById(req.query.serviceId);
             const appointmentBusiness = await business.findById(appointmentService.businessId);
             const appointmentDurationInMinutes = appointmentService.appointmentDurationInMinutes;
