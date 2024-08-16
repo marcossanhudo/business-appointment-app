@@ -1,6 +1,6 @@
 import service from "../models/Service.js";
 import business from "../models/Business.js";
-import { convertMinutesToMilliseconds } from "../utils/conversions.js";
+import { convertMinutesToMilliseconds, midnight, timeToMilliseconds } from "../utils/conversions.js";
 
 class ServiceController {
 
@@ -83,13 +83,15 @@ class ServiceController {
         try {
             const availableTimes = [];
 
+            const queryDateTime = req.query.appointmentDate;
             const appointmentService = await service.findById(req.query.serviceId);
             const appointmentBusiness = await business.findById(appointmentService.businessId);
             const appointmentDurationInMinutes = appointmentService.appointmentDurationInMinutes;
-
+            
             const appointmentDurationInMilliseconds = convertMinutesToMilliseconds(appointmentDurationInMinutes);
-            const businessOpeningTimeOnAppointmentDate = Date.parse(req.query.appointmentDate + "T" + appointmentBusiness.openingTime);
-            const businessClosingTimeOnAppointmentDate = Date.parse(req.query.appointmentDate + "T" + appointmentBusiness.closingTime);
+            const appointmentDateMidnight = midnight(queryDateTime);
+            const businessOpeningTimeOnAppointmentDate = appointmentDateMidnight + timeToMilliseconds(appointmentBusiness.openingTime);
+            const businessClosingTimeOnAppointmentDate = appointmentDateMidnight + timeToMilliseconds(appointmentBusiness.closingTime);
 
             var startTime = businessOpeningTimeOnAppointmentDate;
             var endTime = startTime + appointmentDurationInMilliseconds;
