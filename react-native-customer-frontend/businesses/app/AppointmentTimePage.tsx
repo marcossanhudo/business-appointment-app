@@ -15,13 +15,11 @@ export const AppointmentTimePage = ({ navigation, route }: any) => {
     const [timesAvailable, setTimesAvailable] = useState([{
 
     }]);
-    const [appointmentDate, setAppointmentDate] = useState(new Date(Date.now()));
-
-    const [transitionalAppointmentDate, setTransitionalAppointmentDate] = useState(Date.now());
+    const [appointmentDate, setAppointmentDate] = useState(Date.now());
 
     React.useEffect(() => {
         try {
-            getServiceAvailableTimes(appointmentDetails.service._id, ignoreTime(appointmentDate.toISOString()))
+            getServiceAvailableTimes(appointmentDetails.service._id, appointmentDate)
                 .then(json => setTimesAvailable(json))
                 .catch(error => { setError(true); console.log(error); })
                 .finally(() => setLoading(false));
@@ -53,8 +51,8 @@ export const AppointmentTimePage = ({ navigation, route }: any) => {
                 <View style={ Styles.verticalListContainer }>
                     <Text style={ Styles.h2 }>Pick a time</Text>
                     <DatePicker
-                        date={ transitionalAppointmentDate }
-                        setDate={ setTransitionalAppointmentDate } />
+                        date={ appointmentDate }
+                        setDate={ setAppointmentDate } />
                     {
                         loading
                         ? <View>

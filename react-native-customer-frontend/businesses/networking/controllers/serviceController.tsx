@@ -10,7 +10,7 @@ async function getService(serviceId: string) {
         .then(res => res.json());
 }
 
-async function getServiceAvailableTimes(serviceId: string, appointmentDate: string) {
+async function getServiceAvailableTimes(serviceId: string, appointmentDate: number) {
     return await fetch(serviceAvailableTimesRoute + "?serviceId=" + serviceId + "&appointmentDate=" + appointmentDate, { method: "GET" })
         .then(res => res.json());
 }
