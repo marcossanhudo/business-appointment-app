@@ -66,7 +66,7 @@ export const BusinessPage = ({ navigation, route }: any) => {
                     <Text style={ Styles.h1 }>{ businessInfo.name }</Text>
                     <Text style={ Styles.infoBoxBodyText }>{ businessInfo.description }</Text>
                     <View style={ Styles.infoBox }>
-                        <Text style={ Styles.infoBoxBodyText }>Open from { formatTime(businessInfo.openingTime) } to { formatTime(businessInfo.closingTime) }</Text>
+                        <Text style={ Styles.infoBoxBodyText }>Open from { businessInfo.openingTime } to { businessInfo.closingTime }</Text>
                         <View style={ Styles.row }>
                             <Text style={ Styles.infoBoxBodyText }>{ businessInfo.address }</Text>
                             <Button title='Map' />

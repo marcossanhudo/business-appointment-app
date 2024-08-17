@@ -40,4 +40,19 @@ function UTCStringTimeToLocalMilliseconds(timeWithTimeZone) {
     return timeToMilliseconds(components[0]) + timeZoneToMilliseconds(components[1]);
 }
 
-export { minutesToMilliseconds, midnight, timeToMilliseconds, timeZoneToMilliseconds, UTCStringTimeToLocalMilliseconds };
+function getTimeZone(timeWithTimeZone) {
+    var components = timeWithTimeZone.split("+");
+    
+    if (components.length == 1) {
+        components = timeWithTimeZone.split("-");
+        return "-" + components[1];
+    }
+
+    return "+" + components[1];
+}
+
+function addTimeZone(dateTime, timeZone) {
+    return dateTime.toISOString().split("Z")[0] + timeZone;
+}
+
+export { minutesToMilliseconds, midnight, timeToMilliseconds, timeZoneToMilliseconds, UTCStringTimeToLocalMilliseconds, getTimeZone, addTimeZone };

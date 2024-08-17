@@ -1,6 +1,6 @@
 import service from "../models/Service.js";
 import business from "../models/Business.js";
-import { minutesToMilliseconds, midnight, timeToMilliseconds, UTCStringTimeToLocalMilliseconds } from "../utils/conversions.js";
+import { minutesToMilliseconds, midnight, timeToMilliseconds, UTCStringTimeToLocalMilliseconds, getTimeZone, addTimeZone } from "../utils/conversions.js";
 
 class ServiceController {
 
@@ -90,16 +90,17 @@ class ServiceController {
             
             const appointmentDurationInMilliseconds = minutesToMilliseconds(appointmentDurationInMinutes);
             const appointmentDateMidnight = midnight(queryDateTime);
-            const businessOpeningTimeOnAppointmentDate = appointmentDateMidnight + UTCStringTimeToLocalMilliseconds(appointmentBusiness.openingTime);
-            const businessClosingTimeOnAppointmentDate = appointmentDateMidnight + UTCStringTimeToLocalMilliseconds(appointmentBusiness.closingTime);
+            const businessOpeningTimeOnAppointmentDate = appointmentDateMidnight + timeToMilliseconds(appointmentBusiness.openingTime);
+            const businessClosingTimeOnAppointmentDate = appointmentDateMidnight + timeToMilliseconds(appointmentBusiness.closingTime);
+            const businessTimeZone = getTimeZone(appointmentBusiness.openingTime);
 
             var startTime = businessOpeningTimeOnAppointmentDate;
             var endTime = startTime + appointmentDurationInMilliseconds;
 
             while (endTime <= businessClosingTimeOnAppointmentDate) {
                 availableTimes.push({
-                    startTime: new Date(startTime),
-                    endTime: new Date(endTime)
+                    startTime: addTimeZone(new Date(startTime), businessTimeZone),
+                    endTime: addTimeZone(new Date(endTime), businessTimeZone)
                 });
                 startTime += appointmentDurationInMilliseconds;
                 endTime += appointmentDurationInMilliseconds;
