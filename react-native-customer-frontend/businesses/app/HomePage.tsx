@@ -32,7 +32,7 @@ const HomePage = ({ navigation }: any) => {
                 <Text style={ Styles.businessName }>{ business.name }</Text>
                 <View
                     style={ Styles.businessDescription }>
-                    <Text>Open from { formatTime(business.openingTime) } to { formatTime(business.closingTime) }</Text>
+                    <Text>Open from { business.openingTime } to { business.closingTime }</Text>
                     <Text>{ business.address }</Text>
                 </View>
             </Pressable>);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, View, FlatList, Text, Pressable, Button } from 'react-native';
 import Styles from '@/constants/Styles';
+import { formatTime, ignoreDate } from '@/scripts/formatting';
 
 export const AppointmentAttendantPage = ({ navigation, route }: any) => {
 
@@ -12,7 +13,7 @@ export const AppointmentAttendantPage = ({ navigation, route }: any) => {
     const [attendantsAvailable, setAttendantsAvailable] = useState([{}]);
 
     React.useEffect(() => {
-        setAttendantsAvailable([{}, { _id: null }]);
+        setAttendantsAvailable([{ name: "Alice" }, { _id: null }]);
         setLoading(false);
     }, []);
 
@@ -40,7 +41,7 @@ export const AppointmentAttendantPage = ({ navigation, route }: any) => {
                 <View>
                     <Text style={ Styles.h2 }>Time</Text>
                     <View style={ Styles.row }>
-                        <Text style={ Styles.bodyText }>{ appointmentDetails.time.startTime }</Text>
+                        <Text style={ Styles.bodyText }>From { appointmentDetails.time.startTime } to { appointmentDetails.time.endTime }</Text>
                         <Button title="Change" />
                     </View>
                 </View>

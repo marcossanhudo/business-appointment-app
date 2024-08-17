@@ -125,5 +125,29 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
         gap: SpacingSizes.secondary,
         alignContent: 'center'
+    },
+
+    datePicker: {
+        padding: SpacingSizes.tertiary,
+
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        gap: SpacingSizes.secondary,
+        alignContent: 'center',
+
+        borderWidth: 1,
+        borderColor: '#CCCCCC',
+        borderRadius: 8,
+
+        backgroundColor: "#F0F0F0"
+    },
+    datePickerSelectedDate: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        alignContent: 'center',
+        fontSize: FontSizes.bigNumber,
+        fontWeight: '500'
     }
 });

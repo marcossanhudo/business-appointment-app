@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, View, FlatList, Text, Pressable } from 'react-native';
 import Styles from '@/constants/Styles';
+import { getServiceAvailableTimes } from '@/networking/controllers/serviceController';
+import { formatTime, ignoreDate, ignoreTime } from '@/scripts/formatting';
+import { DatePicker } from '@/components/DatePicker';
 
 export const AppointmentTimePage = ({ navigation, route }: any) => {
 
@@ -12,11 +15,18 @@ export const AppointmentTimePage = ({ navigation, route }: any) => {
     const [timesAvailable, setTimesAvailable] = useState([{
 
     }]);
+    const [appointmentDate, setAppointmentDate] = useState(Date.now());
 
     React.useEffect(() => {
-        setTimesAvailable([{}]);
-        setLoading(false);
-    }, []);
+        try {
+            getServiceAvailableTimes(appointmentDetails.service._id, appointmentDate)
+                .then(json => setTimesAvailable(json))
+                .catch(error => { setError(true); console.log(error); })
+                .finally(() => setLoading(false));
+        } catch (error) {
+            console.log(error);
+        }
+    }, [appointmentDate]);
 
     const renderTimeAvailable = (timeAvailable: any) => {
         return (
@@ -39,7 +49,12 @@ export const AppointmentTimePage = ({ navigation, route }: any) => {
                     </View>
                 </View>
                 <View style={ Styles.verticalListContainer }>
-                    <Text style={ Styles.h2 }>Times available</Text>
+                    <Text style={ Styles.h2 }>Pick a time</Text>
+                    <Text style={ Styles.h3 }>Date</Text>
+                    <DatePicker
+                        date={ appointmentDate }
+                        setDate={ setAppointmentDate } />
+                    <Text style={ Styles.h3 }>Time</Text>
                     {
                         loading
                         ? <View>

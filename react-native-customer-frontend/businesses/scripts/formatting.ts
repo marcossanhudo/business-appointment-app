@@ -24,4 +24,16 @@ function formatTime(time: string): string {
     return formattedTime;
 }
 
-export { formatTime };
+function ignoreDate(date: string) {
+    return new Date(date).toTimeString();
+}
+
+function ignoreTime(date: string) {
+    return new Date(date).toISOString().split("T")[0];
+}
+
+function midnight(date: string) {
+    return new Date(date + "T00:00:00.000Z");
+}
+
+export { formatTime, ignoreDate, ignoreTime, midnight };

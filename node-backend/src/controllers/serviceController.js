@@ -1,4 +1,6 @@
 import service from "../models/Service.js";
+import business from "../models/Business.js";
+import { minutesToMilliseconds, midnight, timeToMilliseconds, UTCStringTimeToLocalMilliseconds, getTimeZone, addTimeZone } from "../utils/conversions.js";
 
 class ServiceController {
 
@@ -73,6 +75,41 @@ class ServiceController {
         } catch (error) {
             res.status(500).json({
                 message: "Internal server error on ServiceController.deleteService(): " + error.message
+            });
+        }
+    }
+
+    static async getServiceAvailableTimes(req, res) {
+        try {
+            const availableTimes = [];
+
+            const queryDateTime = Number.parseFloat(req.query.appointmentDate);
+            const appointmentService = await service.findById(req.query.serviceId);
+            const appointmentBusiness = await business.findById(appointmentService.businessId);
+            const appointmentDurationInMinutes = appointmentService.appointmentDurationInMinutes;
+            
+            const appointmentDurationInMilliseconds = minutesToMilliseconds(appointmentDurationInMinutes);
+            const appointmentDateMidnight = midnight(queryDateTime);
+            const businessOpeningTimeOnAppointmentDate = appointmentDateMidnight + timeToMilliseconds(appointmentBusiness.openingTime);
+            const businessClosingTimeOnAppointmentDate = appointmentDateMidnight + timeToMilliseconds(appointmentBusiness.closingTime);
+            const businessTimeZone = getTimeZone(appointmentBusiness.openingTime);
+
+            var startTime = businessOpeningTimeOnAppointmentDate;
+            var endTime = startTime + appointmentDurationInMilliseconds;
+
+            while (endTime <= businessClosingTimeOnAppointmentDate) {
+                availableTimes.push({
+                    startTime: addTimeZone(new Date(startTime), businessTimeZone),
+                    endTime: addTimeZone(new Date(endTime), businessTimeZone)
+                });
+                startTime += appointmentDurationInMilliseconds;
+                endTime += appointmentDurationInMilliseconds;
+            }
+
+            res.status(200).json(availableTimes);
+        } catch (error) {
+            res.status(500).json({
+                message: "Internal server error on ServiceController.getServiceAvailableTimes(): " + error.message
             });
         }
     }
