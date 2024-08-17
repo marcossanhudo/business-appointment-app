@@ -26,14 +26,14 @@ export const AppointmentTimePage = ({ navigation, route }: any) => {
         } catch (error) {
             console.log(error);
         }
-    }, []);
+    }, [appointmentDate]);
 
     const renderTimeAvailable = (timeAvailable: any) => {
         return (
             <Pressable style={ Styles.verticalListOption }
                 onPress={ () => navigation.navigate("Appointment Attendant", { appointmentDetails: { ...appointmentDetails, time: timeAvailable } }) }>
-                <Text style={ Styles.verticalListOptionName }>{ formatTime(ignoreDate(timeAvailable.startTime)) }</Text>
-                <Text style={ Styles.verticalListOptionDetails }>until { formatTime(ignoreDate(timeAvailable.endTime)) }</Text>
+                <Text style={ Styles.verticalListOptionName }>{ timeAvailable.startTime }</Text>
+                <Text style={ Styles.verticalListOptionDetails }>until { timeAvailable.endTime }</Text>
             </Pressable>
         );
     };

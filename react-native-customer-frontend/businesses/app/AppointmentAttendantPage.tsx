@@ -13,7 +13,7 @@ export const AppointmentAttendantPage = ({ navigation, route }: any) => {
     const [attendantsAvailable, setAttendantsAvailable] = useState([{}]);
 
     React.useEffect(() => {
-        setAttendantsAvailable([{}, { _id: null }]);
+        setAttendantsAvailable([{ name: "Alice" }, { _id: null }]);
         setLoading(false);
     }, []);
 
@@ -41,7 +41,7 @@ export const AppointmentAttendantPage = ({ navigation, route }: any) => {
                 <View>
                     <Text style={ Styles.h2 }>Time</Text>
                     <View style={ Styles.row }>
-                        <Text style={ Styles.bodyText }>From { formatTime(ignoreDate(appointmentDetails.time.startTime)) } to { formatTime(ignoreDate(appointmentDetails.time.endTime)) }</Text>
+                        <Text style={ Styles.bodyText }>From { appointmentDetails.time.startTime } to { appointmentDetails.time.endTime }</Text>
                         <Button title="Change" />
                     </View>
                 </View>

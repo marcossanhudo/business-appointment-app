@@ -21,7 +21,7 @@ export const AppointmentSummaryPage = ({ navigation, route }: any) => {
                     </View>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxSecondaryHeading }>Time</Text>
-                        <Text style={ Styles.infoBoxBodyText }>From { formatTime(ignoreDate(appointmentDetails.time.startTime)) } to { formatTime(ignoreDate(appointmentDetails.time.endTime)) }</Text>
+                        <Text style={ Styles.infoBoxBodyText }>From { appointmentDetails.time.startTime } to { appointmentDetails.time.endTime }</Text>
                     </View>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxSecondaryHeading }>Attendant</Text>

@@ -19,7 +19,7 @@ export const DatePicker = ({ date, setDate }: any) => {
             accessibilityLabel="Date picker"
             accessibilityHint="Sets the date"
             accessibilityLanguage={ accessibilityLanguage }
-            style={[ Styles.infoBox, Styles.row ]}
+            style={[ Styles.infoBox, Styles.row, { backgroundColor: "#F0F0F0" } ]}
         >
             <Button title="<"
                 accessibilityLabel="Previous day"
