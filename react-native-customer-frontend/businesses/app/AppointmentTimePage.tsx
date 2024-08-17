@@ -50,9 +50,11 @@ export const AppointmentTimePage = ({ navigation, route }: any) => {
                 </View>
                 <View style={ Styles.verticalListContainer }>
                     <Text style={ Styles.h2 }>Pick a time</Text>
+                    <Text style={ Styles.h3 }>Date</Text>
                     <DatePicker
                         date={ appointmentDate }
                         setDate={ setAppointmentDate } />
+                    <Text style={ Styles.h3 }>Time</Text>
                     {
                         loading
                         ? <View>
