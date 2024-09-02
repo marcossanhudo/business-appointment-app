@@ -6,7 +6,8 @@ const serviceSchema = new mongoose.Schema({
     description: { type: String },
     appointmentDurationInMinutes: { type: Number },
     appointmentPrice: { type: Number },
-    businessId: { type: String, required: true }
+    businessId: { type: String, required: true },
+    attendantIds: [ { type: String, required: true }  ]
 }, { versionKey: false });
 
 const service = mongoose.model("services", serviceSchema);

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView, View, FlatList, Text, Pressable, Button } from 'react-native';
 import Styles from '@/constants/Styles';
 import { formatTime, ignoreDate } from '@/scripts/formatting';
+import { getServiceAttendants } from '@/networking/controllers/serviceController';
+import { getAttendant } from '@/networking/controllers/attendantController';
 
 export const AppointmentAttendantPage = ({ navigation, route }: any) => {
 
@@ -10,11 +12,15 @@ export const AppointmentAttendantPage = ({ navigation, route }: any) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
-    const [attendantsAvailable, setAttendantsAvailable] = useState([{}]);
+    const [attendantsAvailable, setAttendantsAvailable] = useState([{ _id: null }]);
 
     React.useEffect(() => {
-        setAttendantsAvailable([{ name: "Alice" }, { _id: null }]);
-        setLoading(false);
+        getServiceAttendants(appointmentDetails.service._id)
+            .then(data => data.forEach(async (id: string) => {
+                setAttendantsAvailable([ await getAttendant(id), ...attendantsAvailable ]);
+            }))
+            .then(() => setLoading(false))
+            .catch(error => { setError(true); console.log(error); });
     }, []);
 
     const renderAttendantAvailable = (attendantAvailable: any) => {
@@ -42,7 +48,8 @@ export const AppointmentAttendantPage = ({ navigation, route }: any) => {
                     <Text style={ Styles.h2 }>Time</Text>
                     <View style={ Styles.row }>
                         <Text style={ Styles.bodyText }>From { appointmentDetails.time.startTime } to { appointmentDetails.time.endTime }</Text>
-                        <Button title="Change" />
+                        <Button title="Change"
+                            onPress={ () => navigation.navigate("Appointment Time", { appointmentDetails: appointmentDetails }) } />
                     </View>
                 </View>
                 <View style={ Styles.verticalListContainer }>

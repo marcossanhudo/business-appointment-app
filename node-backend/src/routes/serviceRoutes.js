@@ -4,6 +4,7 @@ import ServiceController from "../controllers/serviceController.js";
 const router = express.Router();
 
 router.get("/services/availableTimes", ServiceController.getServiceAvailableTimes);
+router.get("/services/attendants/:id/", ServiceController.getServiceAttendants);
 router.get("/services", ServiceController.getServicesFromBusiness);
 router.get("/services", ServiceController.getAllServices);
 router.get("/services/:id", ServiceController.getService);

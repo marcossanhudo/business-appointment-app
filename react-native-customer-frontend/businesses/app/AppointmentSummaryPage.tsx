@@ -25,7 +25,7 @@ export const AppointmentSummaryPage = ({ navigation, route }: any) => {
                     </View>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxSecondaryHeading }>Attendant</Text>
-                        <Text style={ Styles.infoBoxBodyText }>{ appointmentDetails.attendant.name }</Text>
+                        <Text style={ Styles.infoBoxBodyText }>{ appointmentDetails.attendant._id == null ? "Whoever is available" : appointmentDetails.attendant.name }</Text>
                     </View>
                 </View>
                 <View style={[ Styles.infoBox, { backgroundColor: '#F0F0F0' } ]}>
