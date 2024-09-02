@@ -1,7 +1,3 @@
-import "@/networking/routes/attendantRoutes";
-import "@/networking/routes/businessRoutes";
-import "@/networking/routes/serviceRoutes";
-
 const BASE = "http://localhost:3000/";
 
 const businessesRoute = BASE + "businesses/";
