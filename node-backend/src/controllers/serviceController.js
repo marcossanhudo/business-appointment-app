@@ -26,6 +26,18 @@ class ServiceController {
         }
     }
 
+    static async getServiceAttendants(req, res) {
+        try {
+            const foundService = await service.findById(req.params.id);
+            const foundAttendants = foundService.attendantIds;
+            res.status(200).json(foundAttendants);
+        } catch (error) {
+            res.status(500).json({
+                message: "Internal server error on ServiceController.getServiceAttendants(): " + error.message
+            });
+        }
+    }
+
     static async getService(req, res) {
         try {
             const foundService = await service.findById(req.params.id);
