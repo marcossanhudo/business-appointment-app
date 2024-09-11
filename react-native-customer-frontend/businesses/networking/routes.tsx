@@ -5,5 +5,6 @@ const servicesRoute = BASE + "services/";
 const serviceAvailableTimesRoute = servicesRoute + "availableTimes/";
 const serviceAttendantsRoute = servicesRoute + "attendants/";
 const attendantsRoute = BASE + "attendants/";
+const appointmentsRoute = BASE + "appointments/";
 
-export { BASE, businessesRoute, servicesRoute, serviceAvailableTimesRoute, serviceAttendantsRoute, attendantsRoute };
+export { BASE, businessesRoute, servicesRoute, serviceAvailableTimesRoute, serviceAttendantsRoute, attendantsRoute, appointmentsRoute };
