@@ -1,8 +1,13 @@
-import { appointmentsRoute } from "../routes";
+import { appointmentsRoute, jsonHeaders } from "../routes";
 
-async function postAppointment(appointmentDetails: object) {
-    return await fetch(appointmentsRoute, { method: "POST", body: JSON.stringify(appointmentDetails) })
+async function getAppointment(appointmentId: string) {
+    return await fetch(appointmentsRoute + appointmentId, { method: "GET" })
         .then(res => res.json());
 }
 
-export { postAppointment };
+async function postAppointment(appointmentDetails: object) {
+    return await fetch(appointmentsRoute, { method: "POST", headers: jsonHeaders, body: JSON.stringify(appointmentDetails) })
+        .then(res => res.json());
+}
+
+export { getAppointment, postAppointment };

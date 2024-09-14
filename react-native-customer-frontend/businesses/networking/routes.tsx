@@ -7,4 +7,9 @@ const serviceAttendantsRoute = servicesRoute + "attendants/";
 const attendantsRoute = BASE + "attendants/";
 const appointmentsRoute = BASE + "appointments/";
 
-export { BASE, businessesRoute, servicesRoute, serviceAvailableTimesRoute, serviceAttendantsRoute, attendantsRoute, appointmentsRoute };
+const jsonHeaders = {
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+};
+
+export { BASE, businessesRoute, servicesRoute, serviceAvailableTimesRoute, serviceAttendantsRoute, attendantsRoute, appointmentsRoute, jsonHeaders };
