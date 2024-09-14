@@ -53,7 +53,8 @@ export const AppointmentTimePage = ({ navigation, route }: any) => {
                     <Text style={ Styles.h3 }>Date</Text>
                     <DatePicker
                         date={ appointmentDate }
-                        setDate={ setAppointmentDate } />
+                        setDate={ setAppointmentDate }
+                        min={ Date.now() } />
                     <Text style={ Styles.h3 }>Time</Text>
                     {
                         loading
