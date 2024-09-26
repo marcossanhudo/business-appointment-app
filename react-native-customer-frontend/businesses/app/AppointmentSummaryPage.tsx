@@ -18,7 +18,7 @@ export const AppointmentSummaryPage = ({ navigation, route }: any) => {
         postAppointment({
             serviceId: appointmentDetails.service._id,
             customerId: TEST_CUSTOMER_ID, // appointmentDetails.customerId,
-            attendantId: TEST_ATTENDANT_ID,
+            attendantId: appointmentDetails.attendant._id,
             startDateTime: appointmentDetails.time.startTime,
             endDateTime: appointmentDetails.time.endTime,
             status: "pending"

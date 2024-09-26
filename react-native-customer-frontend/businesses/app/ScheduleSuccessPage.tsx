@@ -67,7 +67,9 @@ export const ScheduleSuccessPage = ({ navigation, route }: any) => {
         await getService(appointment.serviceId)
         .then((service) => appointment = { ...appointment, service })
         .then(() => getBusiness(appointment.service.businessId))
-        .then((business) => appointment = { ...appointment, business });
+        .then((business) => appointment = { ...appointment, business })
+        .then(() => appointment.attendantId && getAttendant(appointment.attendantId))
+        .then((attendant) => appointment = { ...appointment, attendant });
 
         return appointment;
     };
@@ -94,7 +96,7 @@ export const ScheduleSuccessPage = ({ navigation, route }: any) => {
                     </View>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxSecondaryHeading }>Attendant</Text>
-                        <Text style={ Styles.infoBoxBodyText }>{ "Bob" /* appointment.attendant.name */ }</Text>
+                        <Text style={ Styles.infoBoxBodyText }>{ appointment.attendant == null ? "Whoever is available" : appointment.attendant.name }</Text>
                     </View>
                 </View>
                 }
