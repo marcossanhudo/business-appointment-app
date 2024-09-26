@@ -2,10 +2,30 @@ import React, { useState } from 'react';
 import { ScrollView, View, Text, Pressable, Button } from 'react-native';
 import Styles from '@/constants/Styles';
 import { formatTime, ignoreDate } from '@/scripts/formatting';
+import { postAppointment } from '@/networking/controllers/appointmentController';
 
 export const AppointmentSummaryPage = ({ navigation, route }: any) => {
 
+    const TEST_SERVICE_ID = "66b84b5f4d019d6b83778176";
+    const TEST_CUSTOMER_ID = "66b84b5f4d019d6b83778176";
+    const TEST_ATTENDANT_ID = "66b84b5f4d019d6b83778176";
+    const TEST_START_DATE_TIME = "2024-09-13T12:00:00.000Z-03:00";
+    const TEST_END_DATE_TIME = "2024-09-13T12:30:00.000Z-03:00";
+
     const appointmentDetails = route.params.appointmentDetails;
+
+    const postAppointmentAndContinue = () => {
+        postAppointment({
+            serviceId: appointmentDetails.service._id,
+            customerId: TEST_CUSTOMER_ID, // appointmentDetails.customerId,
+            attendantId: appointmentDetails.attendant._id,
+            startDateTime: appointmentDetails.time.startTime,
+            endDateTime: appointmentDetails.time.endTime,
+            status: "pending"
+        })
+        .then((json) => json && navigation.navigate("Schedule Success", { appointmentId: json.appointment._id }))
+        .catch(error => { console.log(error); });
+    }
 
     return (
         <ScrollView style={{ backgroundColor: '#FFFFFF' }}>
@@ -40,7 +60,8 @@ export const AppointmentSummaryPage = ({ navigation, route }: any) => {
                 </View>
             </View>
             <View style={ Styles.mainButtonArea }>
-                <Button title="Schedule appointment" />
+                <Button title="Schedule appointment"
+                    onPress={ () => postAppointmentAndContinue() }/>
             </View>
         </ScrollView>
     );

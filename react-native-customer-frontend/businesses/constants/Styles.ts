@@ -119,12 +119,23 @@ export default StyleSheet.create({
         fontWeight: '400'
     },
 
+    column: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        gap: SpacingSizes.secondary,
+        alignContent: 'center'
+    },
+
     row: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         gap: SpacingSizes.secondary,
         alignContent: 'center'
+    },
+    rowItem: {
+        paddingEnd: SpacingSizes.secondary
     },
 
     datePicker: {
@@ -149,5 +160,12 @@ export default StyleSheet.create({
         alignContent: 'center',
         fontSize: FontSizes.bigNumber,
         fontWeight: '500'
+    },
+
+    receiptPriceDecoration: {
+        paddingBottom: SpacingSizes.secondary,
+        borderBottomColor: "#AAAAAA",
+        borderBottomWidth: 1,
+        borderStyle: "dashed",
     }
 });
