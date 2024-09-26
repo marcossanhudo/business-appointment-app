@@ -4,7 +4,8 @@ import { getAttendant } from "@/networking/controllers/attendantController";
 import { getBusiness } from "@/networking/controllers/businessController";
 import { getService } from "@/networking/controllers/serviceController";
 import React, { useState, useEffect } from "react";
-import { ScrollView, View, Text, Button, FlatList } from "react-native";
+import { ScrollView, View, Text, FlatList } from "react-native";
+import { Button } from "@/components/Button/Button";
 
 export const ScheduleSuccessPage = ({ navigation, route }: any) => {
 
@@ -107,7 +108,9 @@ export const ScheduleSuccessPage = ({ navigation, route }: any) => {
                     </View>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxSecondaryHeading }>Payment options</Text>
-                        <Button title={ paymentOptionsButtonTitle }
+                        <Button
+                            type="inline"
+                            label={ paymentOptionsButtonTitle }
                             onPress={ () => { showPaymentOptions ? collapsePaymentOptions() : expandPaymentOptions() } } />
                     </View>
                     {
@@ -147,8 +150,12 @@ export const ScheduleSuccessPage = ({ navigation, route }: any) => {
                     }
                 </View>
                 <View style={ Styles.column }>
-                    <Button title={ "Cancel appointment" } />
-                    <Button title={ "OK" }
+                    <Button
+                        type="secondary"
+                        label={ "Cancel appointment" } />
+                    <Button
+                        type="primary"
+                        label={ "OK" }
                         onPress={ () => navigation.reset({ index: 0, routes: [{ name: "Home" }] }) } />
                 </View>
             </View>

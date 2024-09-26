@@ -1,7 +1,8 @@
 import Styles from '@/constants/Styles';
 import { ignoreTime, midnight } from '@/scripts/formatting';
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text } from 'react-native';
+import { Button } from '@/components/Button/Button';
 
 export const DatePicker = ({ date, setDate, min, max }: any) => {
 
@@ -45,7 +46,9 @@ export const DatePicker = ({ date, setDate, min, max }: any) => {
             accessibilityLanguage={ accessibilityLanguage }
             style={ Styles.datePicker }
         >
-            <Button title="<"
+            <Button
+                type="inline"
+                label="<"
                 disabled={ disablePreviousDayButton }
                 accessibilityLabel="Previous day"
                 onPress={ () => treatDateChange(date - DAY_DURATION_IN_MILLISECONDS) } />
@@ -53,7 +56,9 @@ export const DatePicker = ({ date, setDate, min, max }: any) => {
                 accessibilityLabel={ "Selected date: " + date }
                 style={ Styles.datePickerSelectedDate }
             >{ displayedDate() }</Text>
-            <Button title=">"
+            <Button
+                type="inline"
+                label=">"
                 disabled={ disableNextDayButton }
                 accessibilityLabel="Next day"
                 onPress={ () => treatDateChange(date + DAY_DURATION_IN_MILLISECONDS) } />
