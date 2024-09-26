@@ -6,7 +6,12 @@ const businessSchema = new mongoose.Schema({
     openingTime: { type: String, required: true },
     closingTime: { type: String, required: true },
     address: { type: String, required: true },
-    description: { type: String, required: true }
+    description: { type: String, required: true },
+    paymentOptions: {
+        cash: { type: Boolean, required: true },
+        debit: [ { cardCompanyName: { type: String, required: true } } ],
+        credit: [ { cardCompanyName: { type: String, required: true } } ]
+    }
 }, { versionKey: false });
 
 const business = mongoose.model("businesses", businessSchema);

@@ -20,6 +20,7 @@ export const ScheduleSuccessPage = ({ navigation, route }: any) => {
             _id: "",
             name: "",
             paymentOptions: {
+                cash: false,
                 credit: [{}],
                 debit: [{}]
             }
@@ -49,7 +50,7 @@ export const ScheduleSuccessPage = ({ navigation, route }: any) => {
 
     const renderPaymentOption = (paymentOption: any) => {
         return (
-            <Text style={ Styles.rowItem }>{ paymentOption.name }</Text>
+            <Text style={ Styles.rowItem }>{ paymentOption.cardCompanyName }</Text>
         );
     }
 
@@ -93,7 +94,7 @@ export const ScheduleSuccessPage = ({ navigation, route }: any) => {
                     </View>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxSecondaryHeading }>Attendant</Text>
-                        <Text style={ Styles.infoBoxBodyText }>{ appointment.attendant.name }</Text>
+                        <Text style={ Styles.infoBoxBodyText }>{ "Bob" /* appointment.attendant.name */ }</Text>
                     </View>
                 </View>
                 }
@@ -112,25 +113,34 @@ export const ScheduleSuccessPage = ({ navigation, route }: any) => {
                         showPaymentOptions &&
                         <View style={ Styles.column }>
                             <Text style={ Styles.bodyText }>You'll pay in the business.</Text>
-                            <View style={ Styles.row }>
-                                <Text style={ Styles.infoBoxSecondaryHeading }>Cash</Text>
-                            </View>
-                            <View style={ Styles.row }>
-                                <Text style={ Styles.infoBoxSecondaryHeading }>Credit</Text>
-                                <FlatList
-                                    data={ appointment.business.paymentOptions.credit }
-                                    horizontal={ true }
-                                    renderItem={ ({ item }) => renderPaymentOption(item) }
-                                />
-                            </View>
-                            <View style={ Styles.row }>
-                                <Text style={ Styles.infoBoxSecondaryHeading }>Debit</Text>
-                                <FlatList
-                                    data={ appointment.business.paymentOptions.debit }
-                                    horizontal={ true }
-                                    renderItem={ ({ item }) => renderPaymentOption(item) }
-                                />
-                            </View>
+                            { 
+                                appointment.business.paymentOptions.cash &&
+                                <View style={ Styles.row }>
+                                    <Text style={ Styles.infoBoxSecondaryHeading }>Cash</Text>
+                                </View>
+                            }
+                            {
+                                appointment.business.paymentOptions.credit.length > 0 &&
+                                <View style={ Styles.row }>
+                                    <Text style={ Styles.infoBoxSecondaryHeading }>Credit</Text>
+                                    <FlatList
+                                        data={ appointment.business.paymentOptions.credit }
+                                        horizontal={ true }
+                                        renderItem={ ({ item }) => renderPaymentOption(item) }
+                                    />
+                                </View>
+                            }
+                            {
+                                appointment.business.paymentOptions.debit.length > 0 &&
+                                <View style={ Styles.row }>
+                                    <Text style={ Styles.infoBoxSecondaryHeading }>Debit</Text>
+                                    <FlatList
+                                        data={ appointment.business.paymentOptions.debit }
+                                        horizontal={ true }
+                                        renderItem={ ({ item }) => renderPaymentOption(item) }
+                                    />
+                                </View>
+                            }
                         </View> 
                     }
                 </View>
