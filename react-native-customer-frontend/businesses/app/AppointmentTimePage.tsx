@@ -3,7 +3,7 @@ import { ScrollView, View, FlatList, Text, Pressable } from 'react-native';
 import Styles from '@/constants/Styles';
 import { getServiceAvailableTimes } from '@/networking/controllers/serviceController';
 import { formatTime, ignoreDate, ignoreTime } from '@/scripts/formatting';
-import { DatePicker } from '@/components/DatePicker';
+import { DatePicker } from '@/components/Date Picker/DatePicker';
 
 export const AppointmentTimePage = ({ navigation, route }: any) => {
 
