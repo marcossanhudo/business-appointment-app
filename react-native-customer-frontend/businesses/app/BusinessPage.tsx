@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, Text, View, StyleSheet, Button, Pressable } from 'react-native';
+import { ScrollView, Text, View, Pressable } from 'react-native';
+import { Button } from '@/components/Button/Button';
 import Styles from '@/constants/Styles';
 import { formatTime } from '@/scripts/formatting';
 import { FlatList } from 'react-native-gesture-handler';
@@ -69,12 +70,16 @@ export const BusinessPage = ({ navigation, route }: any) => {
                         <Text style={ Styles.infoBoxBodyText }>Open from { businessInfo.openingTime } to { businessInfo.closingTime }</Text>
                         <View style={ Styles.row }>
                             <Text style={ Styles.infoBoxBodyText }>{ businessInfo.address }</Text>
-                            <Button title='Map' />
+                            <Button
+                                type="inline"
+                                label="Map" />
                         </View>
                         <View style={ Styles.row }>
                             <Text style={ Styles.infoBoxSecondaryHeading }>Payment options</Text>
                             <View>
-                                <Button title='Review' />
+                                <Button
+                                    type="inline"
+                                    label="Review" />
                             </View>
                         </View>
                     </View>

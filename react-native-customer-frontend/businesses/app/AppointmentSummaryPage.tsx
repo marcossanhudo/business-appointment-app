@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text, Pressable, Button } from 'react-native';
+import { ScrollView, View, Text, Pressable } from 'react-native';
+import { Button } from '@/components/Button/Button';
 import Styles from '@/constants/Styles';
 import { formatTime, ignoreDate } from '@/scripts/formatting';
 import { postAppointment } from '@/networking/controllers/appointmentController';
@@ -33,7 +34,9 @@ export const AppointmentSummaryPage = ({ navigation, route }: any) => {
                 <View style={ Styles.infoBox }>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxPrimaryHeading }>{ appointmentDetails.service.name }</Text>
-                        <Button title="Edit" />
+                        <Button
+                            type="inline"
+                            label="Edit" />
                     </View>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxSecondaryHeading }>Place</Text>
@@ -60,7 +63,9 @@ export const AppointmentSummaryPage = ({ navigation, route }: any) => {
                 </View>
             </View>
             <View style={ Styles.mainButtonArea }>
-                <Button title="Schedule appointment"
+                <Button
+                    label="Schedule appointment"
+                    type="primary"
                     onPress={ () => postAppointmentAndContinue() }/>
             </View>
         </ScrollView>

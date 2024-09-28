@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, FlatList, Text, Pressable, Button } from 'react-native';
+import { ScrollView, View, FlatList, Text, Pressable } from 'react-native';
+import { Button } from '@/components/Button/Button';
 import Styles from '@/constants/Styles';
 import { formatTime, ignoreDate } from '@/scripts/formatting';
 import { getServiceAttendants } from '@/networking/controllers/serviceController';
@@ -48,7 +49,9 @@ export const AppointmentAttendantPage = ({ navigation, route }: any) => {
                     <Text style={ Styles.h2 }>Time</Text>
                     <View style={ Styles.row }>
                         <Text style={ Styles.bodyText }>From { appointmentDetails.time.startTime } to { appointmentDetails.time.endTime }</Text>
-                        <Button title="Change"
+                        <Button
+                            type="inline"
+                            label="Change"
                             onPress={ () => navigation.navigate("Appointment Time", { appointmentDetails: appointmentDetails }) } />
                     </View>
                 </View>
