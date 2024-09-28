@@ -132,7 +132,8 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         gap: SpacingSizes.secondary,
-        alignContent: 'center'
+        alignContent: 'center',
+        alignItems: 'center'
     },
     rowItem: {
         paddingEnd: SpacingSizes.secondary
