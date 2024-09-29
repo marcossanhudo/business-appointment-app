@@ -5,6 +5,8 @@ import Styles from '@/constants/Styles';
 import { formatTime, ignoreDate } from '@/scripts/formatting';
 import { getServiceAttendants } from '@/networking/controllers/serviceController';
 import { getAttendant } from '@/networking/controllers/attendantController';
+import { VerticalMenu } from '@/components/Vertical Menu/VerticalMenu';
+import { MenuItem } from '@/components/Menu Item/MenuItem';
 
 export const AppointmentAttendantPage = ({ navigation, route }: any) => {
 
@@ -26,12 +28,9 @@ export const AppointmentAttendantPage = ({ navigation, route }: any) => {
 
     const renderAttendantAvailable = (attendantAvailable: any) => {
         return (
-            <Pressable style={ Styles.verticalListOption }
-                onPress={ () => navigation.navigate("Appointment Summary", { appointmentDetails: { ...appointmentDetails, attendant: attendantAvailable }})}>
-                <Text style={ Styles.verticalListOptionName }>{
-                    attendantAvailable._id === null ? "Anyone is okay" : attendantAvailable.name
-                }</Text>
-            </Pressable>
+            <MenuItem
+                name={ attendantAvailable._id === null ? "Anyone is okay" : attendantAvailable.name }
+                onPress={ () => navigation.navigate("Appointment Summary", { appointmentDetails: { ...appointmentDetails, attendant: attendantAvailable }})} />
         );
     }
 
@@ -66,9 +65,11 @@ export const AppointmentAttendantPage = ({ navigation, route }: any) => {
                         ? <View>
                             <Text>An error occured. Please try again later.</Text>
                         </View>
-                        : <FlatList
-                            data={ attendantsAvailable }
-                            renderItem={ ({item}) => renderAttendantAvailable(item) } />
+                        : <VerticalMenu
+                            items={ attendantsAvailable }
+                            renderItem={ renderAttendantAvailable }
+                            accessibilityLabel="Available attendants menu"
+                            accessibilityHint="Lets you choose the attendant for your appointment." />
                     }
                     <View style={ Styles.infoBox }>
                         <Text style={ Styles.infoBoxBodyText }>If the person you want isn’t available, try a different time.</Text>
