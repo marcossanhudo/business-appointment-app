@@ -4,6 +4,8 @@ import Styles from '@/constants/Styles';
 import { getServiceAvailableTimes } from '@/networking/controllers/serviceController';
 import { formatTime, ignoreDate, ignoreTime } from '@/scripts/formatting';
 import { DatePicker } from '@/components/Date Picker/DatePicker';
+import { Menu } from '@/components/Menu/Menu';
+import { MenuItem } from '@/components/Menu Item/MenuItem';
 
 export const AppointmentTimePage = ({ navigation, route }: any) => {
 
@@ -30,11 +32,10 @@ export const AppointmentTimePage = ({ navigation, route }: any) => {
 
     const renderTimeAvailable = (timeAvailable: any) => {
         return (
-            <Pressable style={ Styles.verticalListOption }
-                onPress={ () => navigation.navigate("Appointment Attendant", { appointmentDetails: { ...appointmentDetails, time: timeAvailable } }) }>
-                <Text style={ Styles.verticalListOptionName }>{ timeAvailable.startTime }</Text>
-                <Text style={ Styles.verticalListOptionDetails }>until { timeAvailable.endTime }</Text>
-            </Pressable>
+            <MenuItem
+                name={ timeAvailable.startTime }
+                onPress={ () => navigation.navigate("Appointment Attendant", { appointmentDetails: { ...appointmentDetails, time: timeAvailable } }) }
+                firstLine={ "until " + timeAvailable.endTime } />
         );
     };
 
@@ -65,9 +66,11 @@ export const AppointmentTimePage = ({ navigation, route }: any) => {
                         ? <View>
                             <Text>An error occured. Please try again later.</Text>
                         </View>
-                        : <FlatList
-                            data={ timesAvailable }
-                            renderItem={ ({item}) => renderTimeAvailable(item) }/>
+                        : <Menu
+                            items={ timesAvailable }
+                            renderItem={ renderTimeAvailable }
+                            accessibilityLabel="Available times menu"
+                            accessibilityHint="Lets you choose the time for your appointment." />
                     }
                 </View>
             </View>
