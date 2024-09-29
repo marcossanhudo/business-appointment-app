@@ -4,7 +4,7 @@ import Styles from '@/constants/Styles';
 import { getServiceAvailableTimes } from '@/networking/controllers/serviceController';
 import { formatTime, ignoreDate, ignoreTime } from '@/scripts/formatting';
 import { DatePicker } from '@/components/Date Picker/DatePicker';
-import { VerticalMenu } from '@/components/Vertical Menu/VerticalMenu';
+import { Menu } from '@/components/Menu/Menu';
 import { MenuItem } from '@/components/Menu Item/MenuItem';
 
 export const AppointmentTimePage = ({ navigation, route }: any) => {
@@ -66,7 +66,7 @@ export const AppointmentTimePage = ({ navigation, route }: any) => {
                         ? <View>
                             <Text>An error occured. Please try again later.</Text>
                         </View>
-                        : <VerticalMenu
+                        : <Menu
                             items={ timesAvailable }
                             renderItem={ renderTimeAvailable }
                             accessibilityLabel="Available times menu"

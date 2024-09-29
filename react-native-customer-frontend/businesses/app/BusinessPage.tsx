@@ -7,7 +7,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import { getBusiness } from '@/networking/controllers/businessController';
 import { getServicesFromBusiness } from '@/networking/controllers/serviceController';
 import { MenuItem } from '@/components/Menu Item/MenuItem';
-import { VerticalMenu } from '@/components/Vertical Menu/VerticalMenu';
+import { Menu } from '@/components/Menu/Menu';
 
 export const BusinessPage = ({ navigation, route }: any) => {
 
@@ -48,7 +48,8 @@ export const BusinessPage = ({ navigation, route }: any) => {
                 name={ service.name }
                 onPress={ () => navigation.navigate("Appointment Time", { appointmentDetails: { business: businessInfo, service: service } }) }
                 firstLine={ "$ " + service.appointmentPrice }
-                secondLine={ service.appointmentDurationInMinutes + " minutes" } />
+                secondLine={ service.appointmentDurationInMinutes + " minutes" }
+                horizontalDetails={ true } />
             );
     }
 
@@ -85,7 +86,7 @@ export const BusinessPage = ({ navigation, route }: any) => {
                     </View>
                     <View style={ Styles.verticalListContainer }>
                         <Text style={ Styles.h2 }>Services</Text>
-                        <VerticalMenu
+                        <Menu
                             items={ services }
                             renderItem={ renderService }
                             accessibilityLabel="Services list"

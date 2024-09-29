@@ -4,7 +4,6 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
     item: {
         padding: SpacingSizes.secondary,
-        marginBottom: SpacingSizes.secondary,
         display: 'flex',
         flexDirection: 'column',
         gap: SpacingSizes.secondary,
@@ -13,6 +12,14 @@ export default StyleSheet.create({
         borderColor: '#CCCCCC',
         borderRadius: 8
     },
+    
+    inVerticalList: {
+        marginBottom: SpacingSizes.secondary,
+    },
+    inHorizontalList: {
+        marginEnd: SpacingSizes.secondary,
+        width: 240,
+    },
 
     name: {
         fontSize: FontSizes.optionName,
@@ -20,13 +27,20 @@ export default StyleSheet.create({
     },
 
     details: {
-        display: 'flex',
+        display: 'flex'
+    },
+    
+    verticalDetails: {
+        flexDirection: 'column',
+        gap: SpacingSizes.tertiary
+    },
+    horizontalDetails: {
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
     
     detailLine: {
         fontSize: FontSizes.bodyText,
-        fontWeight: '400',
+        fontWeight: '400'
     }
 });
