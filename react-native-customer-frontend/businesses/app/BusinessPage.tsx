@@ -6,6 +6,8 @@ import { formatTime } from '@/scripts/formatting';
 import { FlatList } from 'react-native-gesture-handler';
 import { getBusiness } from '@/networking/controllers/businessController';
 import { getServicesFromBusiness } from '@/networking/controllers/serviceController';
+import { MenuItem } from '@/components/Menu Item/MenuItem';
+import { Menu } from '@/components/Menu/Menu';
 
 export const BusinessPage = ({ navigation, route }: any) => {
 
@@ -42,14 +44,13 @@ export const BusinessPage = ({ navigation, route }: any) => {
 
     const renderService = (service: any) => {
         return(
-            <Pressable style={ Styles.verticalListOption }
-                onPress={ () => navigation.navigate("Appointment Time", { appointmentDetails: { business: businessInfo, service: service } }) }>
-                <Text style={ Styles.verticalListOptionName }>{ service.name }</Text>
-                <View style={ Styles.verticalListOptionDetails }>
-                    <Text>$ { service.appointmentPrice }</Text>
-                    <Text>{ service.appointmentDurationInMinutes } minutes</Text>
-                </View>
-            </Pressable>);
+            <MenuItem
+                name={ service.name }
+                onPress={ () => navigation.navigate("Appointment Time", { appointmentDetails: { business: businessInfo, service: service } }) }
+                firstLine={ "$ " + service.appointmentPrice }
+                secondLine={ service.appointmentDurationInMinutes + " minutes" }
+                horizontalDetails={ true } />
+            );
     }
 
     return(
@@ -85,10 +86,11 @@ export const BusinessPage = ({ navigation, route }: any) => {
                     </View>
                     <View style={ Styles.verticalListContainer }>
                         <Text style={ Styles.h2 }>Services</Text>
-                        <FlatList
-                            data={ services }
-                            renderItem={ ({item}) => renderService(item) }
-                        />  
+                        <Menu
+                            items={ services }
+                            renderItem={ renderService }
+                            accessibilityLabel="Services list"
+                            accessibilityHint="Lets you choose a service to book an appointment." />  
                     </View>
                 </View>
             } 
