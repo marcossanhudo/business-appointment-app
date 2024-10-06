@@ -6,8 +6,12 @@ import { getAllBusinesses } from '@/networking/controllers/businessController';
 import { Menu } from '@/components/Menu/Menu';
 import { MenuItem } from '@/components/Menu Item/MenuItem';
 import { AppPageLink } from '@/components/App Page Link/AppPageLink';
+import { getFirstUpcomingAppointment } from '@/networking/controllers/appointmentController';
 
 const HomePage = ({ navigation }: any) => {
+
+    const TEST_CUSTOMER_ID = "66b84b5f4d019d6b83778176";
+    const customerId = TEST_CUSTOMER_ID;
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -27,11 +31,15 @@ const HomePage = ({ navigation }: any) => {
     });
 
     React.useEffect(() => {
+        getFirstUpcomingAppointment(customerId, Date.now())
+            .then(json => setFirstUpcomingAppointment(json))
+            .catch(error => { setError(true); console.log(error); });
+
         getAllBusinesses()
             .then(json => setBusinesses(json))
             .catch(error => { setError(true); console.log(error); })
             .finally(() => setLoading(false));
-    }, [ ]);
+    }, []);
 
     const renderBusiness = (business: any) => {
         return(
