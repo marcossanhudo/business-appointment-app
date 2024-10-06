@@ -5,6 +5,7 @@ import { formatTime } from '@/scripts/formatting';
 import { getAllBusinesses } from '@/networking/controllers/businessController';
 import { Menu } from '@/components/Menu/Menu';
 import { MenuItem } from '@/components/Menu Item/MenuItem';
+import { AppPageLink } from '@/components/App Page Link/AppPageLink';
 
 const HomePage = ({ navigation }: any) => {
 
@@ -19,6 +20,11 @@ const HomePage = ({ navigation }: any) => {
             address: String
         }
     ]);
+    const [firstUpcomingAppointment, setFirstUpcomingAppointment] = useState({
+        serviceName: "",
+        appointmentStartDateTime: 0,
+        businessName: ""
+    });
 
     React.useEffect(() => {
         getAllBusinesses()
@@ -38,11 +44,28 @@ const HomePage = ({ navigation }: any) => {
             );
     }
 
+    const renderFirstUpcomingAppointment = () => {
+        return(
+            <MenuItem
+                name={ firstUpcomingAppointment.serviceName }
+                firstLine={ firstUpcomingAppointment.appointmentStartDateTime }
+                secondLine={ firstUpcomingAppointment.businessName } />
+        )
+    }
+
     return(
         <ScrollView style={{ backgroundColor: '#FFFFFF' }}>
             <View style={ Styles.page }>
                 <Text style={ Styles.h1 }>Businesses</Text>
-                <Text>What do you need today?</Text>
+                {
+                    firstUpcomingAppointment
+                    ? <View style={ Styles.column }>
+                        <Text style={ Styles.h2 }>Your next appointment</Text>
+                        { renderFirstUpcomingAppointment() }
+                        <AppPageLink label="See all your appointments" />
+                    </View>
+                    : <Text>What do you need today?</Text>
+                }
                 <Text style={ Styles.h2 }>Places</Text>
                 {   
                     loading
