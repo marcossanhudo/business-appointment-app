@@ -4,11 +4,11 @@ class BusinessController {
 
     static async getBusinesses(req, res) {
         try {
-            const foundBusinesses = await business.find({});
+            const foundBusinesses = await business.find(req.query);
             res.status(200).json(foundBusinesses);
         } catch (error) {
             res.status(500).json({
-                message: "Internal server error on BusinessController.getAllBusinesses(): " + error
+                message: "Internal server error on BusinessController.getBusinesses(): " + error.message
             });
         }
     }
@@ -19,7 +19,7 @@ class BusinessController {
             res.status(200).json(foundBusiness);
         } catch (error) {
             res.status(500).json({
-                message: "Internal server error on BusinessController.getBusiness(): " + error
+                message: "Internal server error on BusinessController.getBusiness(): " + error.message
             });
         }
     }
@@ -33,7 +33,7 @@ class BusinessController {
             });
         } catch (error) {
             res.status(500).json({
-                message: "Internal server error on BusinessController.createBusiness(): " + error
+                message: "Internal server error on BusinessController.createBusiness(): " + error.message
             });
         }
     }
@@ -47,7 +47,7 @@ class BusinessController {
             });
         } catch (error) {
             res.status(500).json({
-                message: "Internal server error on BusinessController.updateBusiness(): " + error
+                message: "Internal server error on BusinessController.updateBusiness(): " + error.message
             });
         }
     }
@@ -61,7 +61,7 @@ class BusinessController {
             });
         } catch (error) {
             res.status(500).json({
-                message: "Internal server error on BusinessController.deleteBusiness(): " + error
+                message: "Internal server error on BusinessController.deleteBusiness(): " + error.message
             });
         }
     }

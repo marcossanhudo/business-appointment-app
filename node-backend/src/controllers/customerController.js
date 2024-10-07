@@ -7,11 +7,11 @@ class CustomerController {
 
     static async getCustomers(req, res) {
         try {
-            const foundCustomers = await customer.find({});
+            const foundCustomers = await customer.find(req.query);
             res.status(200).json(foundCustomers);
         } catch (error) {
             res.status(500).json({
-                message: "Internal server error on CustomerController.getAllCustomers(): " + error.message
+                message: "Internal server error on CustomerController.getCustomers(): " + error.message
             });
         }
     }
@@ -47,7 +47,7 @@ class CustomerController {
                 );
         } catch (error) {
             res.status(500).json({
-                message: "Internal server error on CustomerController.getCustomerFirstUpcomingAppointment(): " + error
+                message: "Internal server error on CustomerController.getCustomerFirstUpcomingAppointment(): " + error.message
             })
         }
     }

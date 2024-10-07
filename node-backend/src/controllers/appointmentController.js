@@ -1,16 +1,14 @@
 import appointment from "../models/Appointment.js";
-import service from "../models/Service.js";
-import business from "../models/Business.js";
 
 class AppointmentController {
 
     static async getAppointments(req, res) {
         try {
-            const foundAppointments = await appointment.find({});
+            const foundAppointments = await appointment.find(req.query);
             res.status(200).json(foundAppointments);
         } catch (error) {
             res.status(500).json({
-                message: "Internal server error on AppointmentController.getAllAppointments(): " + error
+                message: "Internal server error on AppointmentController.getAppointments(): " + error.message
             });
         }
     }
@@ -21,7 +19,7 @@ class AppointmentController {
             res.status(200).json(foundAppointment);
         } catch (error) {
             res.status(500).json({
-                message: "Internal server error on AppointmentController.getAppointment(): " + error
+                message: "Internal server error on AppointmentController.getAppointment(): " + error.message
             });
         }
     }
@@ -35,7 +33,7 @@ class AppointmentController {
             });
         } catch (error) {
             res.status(500).json({
-                message: "Internal server error on AppointmentController.createAppointment(): " + error
+                message: "Internal server error on AppointmentController.createAppointment(): " + error.message
             });
         }
     }
@@ -49,7 +47,7 @@ class AppointmentController {
             });
         } catch (error) {
             res.status(500).json({
-                message: "Internal server error on AppointmentController.updateAppointment(): " + error
+                message: "Internal server error on AppointmentController.updateAppointment(): " + error,message
             });
         }
     }
@@ -63,7 +61,7 @@ class AppointmentController {
             });
         } catch (error) {
             res.status(500).json({
-                message: "Internal server error on AppointmentController.deleteAppointment(): " + error
+                message: "Internal server error on AppointmentController.deleteAppointment(): " + error.message
             });
         }
     }
