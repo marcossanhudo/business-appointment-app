@@ -1,7 +1,7 @@
-import { attendantsRoute } from "../routes";
+import { attendantsRoute, attendantRoute } from "../routers/attendantRouter";
 
 async function getAttendant(attendantId: string) {
-    return await fetch(attendantsRoute + attendantId, { method: "GET" })
+    return await fetch(attendantRoute(attendantId), { method: "GET" })
         .then(res => res.json());
 }
 

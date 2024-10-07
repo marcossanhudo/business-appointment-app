@@ -3,7 +3,7 @@ import BusinessController from "../controllers/businessController.js";
 
 const router = express.Router();
 
-router.get("/businesses", BusinessController.getAllBusinesses);
+router.get("/businesses", BusinessController.getBusinesses);
 router.get("/businesses/:id", BusinessController.getBusiness);
 router.post("/businesses", BusinessController.createBusiness);
 router.put("/businesses/:id", BusinessController.updateBusiness);
