@@ -4,24 +4,13 @@ import { minutesToMilliseconds, midnight, timeToMilliseconds, UTCStringTimeToLoc
 
 class ServiceController {
 
-    static async getAllServices(req, res) {
+    static async getServices(req, res) {
         try {
-            const foundServices = await service.find({});
+            const foundServices = await service.find(req.query);
             res.status(200).json(foundServices);
         } catch (error) {
             res.status(500).json({
-                message: "Internal server error on ServiceController.getAllServices(): " + error.message
-            });
-        }
-    }
-
-    static async getServicesFromBusiness(req, res) {
-        try {
-            const foundServices = await service.find({ businessId: req.query.businessId });
-            res.status(200).json(foundServices);
-        } catch (error) {
-            res.status(500).json({
-                message: "Internal server error on ServiceController.getServicesFromBusiness(): " + error.message
+                message: "Internal server error on ServiceController._getServices(): " + error.message
             });
         }
     }
@@ -96,7 +85,7 @@ class ServiceController {
             const availableTimes = [];
 
             const queryDateTime = Number.parseFloat(req.query.appointmentDate);
-            const appointmentService = await service.findById(req.query.serviceId);
+            const appointmentService = await service.findById(req.params.id);
             const appointmentBusiness = await business.findById(appointmentService.businessId);
             const appointmentDurationInMinutes = appointmentService.appointmentDurationInMinutes;
             

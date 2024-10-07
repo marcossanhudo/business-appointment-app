@@ -1,22 +1,22 @@
-import { servicesRoute, serviceAvailableTimesRoute, serviceAttendantsRoute } from "../routes";
+import { serviceRoute, servicesFromBusinessRoute, serviceAvailableTimesRoute, serviceAttendantsRoute } from "../routers/serviceRouter";
 
 async function getServicesFromBusiness(businessId: string) { 
-    return await fetch(servicesRoute + "?businessId=" + businessId, { method: "GET" })
+    return await fetch(servicesFromBusinessRoute(businessId), { method: "GET" })
         .then(res => res.json());
 }
 
 async function getService(serviceId: string) {
-    return await fetch(servicesRoute + serviceId, { method: "GET" })
+    return await fetch(serviceRoute(serviceId), { method: "GET" })
         .then(res => res.json());
 }
 
 async function getServiceAvailableTimes(serviceId: string, appointmentDate: number) {
-    return await fetch(serviceAvailableTimesRoute + "?serviceId=" + serviceId + "&appointmentDate=" + appointmentDate, { method: "GET" })
+    return await fetch(serviceAvailableTimesRoute(serviceId, appointmentDate), { method: "GET" })
         .then(res => res.json());
 }
 
 async function getServiceAttendants(serviceId: string) {
-    return await fetch(serviceAttendantsRoute + serviceId)
+    return await fetch(serviceAttendantsRoute(serviceId))
         .then(res => res.json());
 }
 
