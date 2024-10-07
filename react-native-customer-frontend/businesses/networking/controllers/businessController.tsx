@@ -1,4 +1,4 @@
-import { businessesRoute } from "../routes";
+import { businessesRoute } from "../routers";
 
 async function getAllBusinesses() { 
     return await fetch(businessesRoute, { method: "GET" })

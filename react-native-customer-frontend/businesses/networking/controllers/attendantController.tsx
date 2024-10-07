@@ -1,4 +1,4 @@
-import { attendantsRoute } from "../routes";
+import { attendantsRoute } from "../routers";
 
 async function getAttendant(attendantId: string) {
     return await fetch(attendantsRoute + attendantId, { method: "GET" })
