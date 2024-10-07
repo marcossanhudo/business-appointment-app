@@ -6,7 +6,7 @@ import { getAllBusinesses } from '@/networking/controllers/businessController';
 import { Menu } from '@/components/Menu/Menu';
 import { MenuItem } from '@/components/Menu Item/MenuItem';
 import { AppPageLink } from '@/components/App Page Link/AppPageLink';
-import { getFirstUpcomingAppointment } from '@/networking/controllers/appointmentController';
+import { getFirstUpcomingAppointment } from '@/networking/controllers/customerController';
 
 const HomePage = ({ navigation }: any) => {
 
@@ -31,9 +31,9 @@ const HomePage = ({ navigation }: any) => {
     });
 
     React.useEffect(() => {
-        getFirstUpcomingAppointment(customerId, Date.now())
+        /*getFirstUpcomingAppointment(customerId, Date.now())
             .then(json => setFirstUpcomingAppointment(json))
-            .catch(error => { setError(true); console.log(error); });
+            .catch(error => { setError(true); console.log(error); });*/
 
         getAllBusinesses()
             .then(json => setBusinesses(json))
