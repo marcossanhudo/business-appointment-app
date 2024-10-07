@@ -1,7 +1,8 @@
-import { appointmentsRoute, jsonHeaders } from "../routes";
+import { appointmentsRoute, appointmentRoute } from "../routers/appointmentRouter";
+import { jsonHeaders } from "../routers/index";
 
 async function getAppointment(appointmentId: string) {
-    return await fetch(appointmentsRoute + appointmentId, { method: "GET" })
+    return await fetch(appointmentRoute(appointmentId), { method: "GET" })
         .then(res => res.json());
 }
 

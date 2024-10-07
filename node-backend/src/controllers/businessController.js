@@ -2,7 +2,7 @@ import business from "../models/Business.js";
 
 class BusinessController {
 
-    static async getAllBusinesses(req, res) {
+    static async getBusinesses(req, res) {
         try {
             const foundBusinesses = await business.find({});
             res.status(200).json(foundBusinesses);

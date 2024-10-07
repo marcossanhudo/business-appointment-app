@@ -2,7 +2,7 @@ import attendant from "../models/Attendant.js";
 
 class AttendantController {
 
-    static async getAllAttendants(req, res) {
+    static async getAttendants(req, res) {
         try {
             const foundAttendants = await attendant.find({});
             res.status(200).json(foundAttendants);

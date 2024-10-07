@@ -2,7 +2,7 @@ import appointment from "../models/Appointment.js";
 
 class AppointmentController {
 
-    static async getAllAppointments(req, res) {
+    static async getAppointments(req, res) {
         try {
             const foundAppointments = await appointment.find({});
             res.status(200).json(foundAppointments);

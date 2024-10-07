@@ -2,7 +2,7 @@ import customer from "../models/Customer.js";
 
 class CustomerController {
 
-    static async getAllCustomers(req, res) {
+    static async getCustomers(req, res) {
         try {
             const foundCustomers = await customer.find({});
             res.status(200).json(foundCustomers);
