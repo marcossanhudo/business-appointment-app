@@ -1,4 +1,4 @@
-import { businessesRoute } from "../routers";
+import { businessesRoute, businessRoute } from "../routers/businessRouter";
 
 async function getAllBusinesses() { 
     return await fetch(businessesRoute, { method: "GET" })
@@ -6,7 +6,7 @@ async function getAllBusinesses() {
 }
 
 async function getBusiness(businessId: string) {
-    return await fetch(businessesRoute + businessId, { method: "GET" })
+    return await fetch(businessRoute(businessId), { method: "GET" })
         .then(res => res.json());
 }
 
