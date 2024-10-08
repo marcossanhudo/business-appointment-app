@@ -3,8 +3,8 @@ import mongoose from "mongoose";
 const businessSchema = new mongoose.Schema({
     id: { type: mongoose.Schema.Types.ObjectId },
     name: { type: String, required: true },
-    openingTime: { type: String, required: true },
-    closingTime: { type: String, required: true },
+    openingTime: { type: Number, required: true },
+    closingTime: { type: Number, required: true },
     address: { type: String, required: true },
     description: { type: String, required: true },
     paymentOptions: {
