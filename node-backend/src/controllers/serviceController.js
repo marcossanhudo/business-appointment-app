@@ -10,7 +10,7 @@ class ServiceController {
             res.status(200).json(foundServices);
         } catch (error) {
             res.status(500).json({
-                message: "Internal server error on ServiceController._getServices(): " + error.message
+                message: "Internal server error on ServiceController.getServices(): " + error.message
             });
         }
     }
