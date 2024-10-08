@@ -5,8 +5,13 @@ import { formatTime } from '@/scripts/formatting';
 import { getAllBusinesses } from '@/networking/controllers/businessController';
 import { Menu } from '@/components/Menu/Menu';
 import { MenuItem } from '@/components/Menu Item/MenuItem';
+import { AppPageLink } from '@/components/App Page Link/AppPageLink';
+import { getFirstUpcomingAppointment } from '@/networking/controllers/customerController';
 
 const HomePage = ({ navigation }: any) => {
+
+    const TEST_CUSTOMER_ID = "66b84b5f4d019d6b83778176";
+    const customerId = TEST_CUSTOMER_ID;
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -19,13 +24,22 @@ const HomePage = ({ navigation }: any) => {
             address: String
         }
     ]);
+    const [firstUpcomingAppointment, setFirstUpcomingAppointment] = useState({
+        serviceName: "",
+        appointmentStartDateTime: 0,
+        businessName: ""
+    });
 
     React.useEffect(() => {
+        /*getFirstUpcomingAppointment(customerId, Date.now())
+            .then(json => setFirstUpcomingAppointment(json))
+            .catch(error => { setError(true); console.log(error); });*/
+
         getAllBusinesses()
             .then(json => setBusinesses(json))
             .catch(error => { setError(true); console.log(error); })
             .finally(() => setLoading(false));
-    }, [ ]);
+    }, []);
 
     const renderBusiness = (business: any) => {
         return(
@@ -38,11 +52,28 @@ const HomePage = ({ navigation }: any) => {
             );
     }
 
+    const renderFirstUpcomingAppointment = () => {
+        return(
+            <MenuItem
+                name={ firstUpcomingAppointment.serviceName }
+                firstLine={ firstUpcomingAppointment.appointmentStartDateTime }
+                secondLine={ firstUpcomingAppointment.businessName } />
+        )
+    }
+
     return(
         <ScrollView style={{ backgroundColor: '#FFFFFF' }}>
             <View style={ Styles.page }>
                 <Text style={ Styles.h1 }>Businesses</Text>
-                <Text>What do you need today?</Text>
+                {
+                    firstUpcomingAppointment
+                    ? <View style={ Styles.column }>
+                        <Text style={ Styles.h2 }>Your next appointment</Text>
+                        { renderFirstUpcomingAppointment() }
+                        <AppPageLink label="See all your appointments" />
+                    </View>
+                    : <Text>What do you need today?</Text>
+                }
                 <Text style={ Styles.h2 }>Places</Text>
                 {   
                     loading

@@ -4,11 +4,11 @@ class AttendantController {
 
     static async getAttendants(req, res) {
         try {
-            const foundAttendants = await attendant.find({});
+            const foundAttendants = await attendant.find(req.query);
             res.status(200).json(foundAttendants);
         } catch (error) {
             res.status(500).json({
-                message: "Internal server error on AttendantController.getAllAttendants(): " + error.message
+                message: "Internal server error on AttendantController.getAttendants(): " + error.message
             });
         }
     }
