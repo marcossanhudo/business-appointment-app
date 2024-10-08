@@ -1,27 +1,9 @@
-function formatTime(time: string): string {
-    var formattedTime: string = "";
-    
-    var timeComponents: string[] = time.split('\u003A');
-    var partOfTheDay: string = "";
+function getLocaleTimeString(time: number): string {
+    return new Date(time).toLocaleTimeString();
+}
 
-    if (parseInt(timeComponents[0]) > 12) {
-        formattedTime += parseInt(timeComponents[0]) - 12;
-        partOfTheDay = "PM";
-    } else {
-        formattedTime += parseInt(timeComponents[0]);
-        partOfTheDay = "AM";
-    }
-
-    if (parseInt(timeComponents[2]) > 0) {
-        var formattedSeconds: string = timeComponents[2].split(".")[0]; 
-        formattedTime += "h " + timeComponents[1] + "min " + formattedSeconds + "s";
-    } else if (parseInt(timeComponents[1]) > 0) {
-        formattedTime += "h " + timeComponents[1];
-    }
-
-    formattedTime += " " + partOfTheDay;
-
-    return formattedTime;
+function getLocaleDateTimeString(dateTime: number): string {
+    return new Date(dateTime).toLocaleString();
 }
 
 function ignoreDate(date: string) {
@@ -36,4 +18,4 @@ function midnight(date: string) {
     return new Date(date + "T00:00:00.000Z");
 }
 
-export { formatTime, ignoreDate, ignoreTime, midnight };
+export { getLocaleTimeString, getLocaleDateTimeString, ignoreDate, ignoreTime, midnight };

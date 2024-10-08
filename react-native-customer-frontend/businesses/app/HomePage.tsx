@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, FlatList, View, Text, Pressable } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, View, Text } from 'react-native';
 import Styles from '@/constants/Styles';
-import { formatTime } from '@/scripts/formatting';
+import { getLocaleTimeString } from '@/scripts/formatting';
 import { getAllBusinesses } from '@/networking/controllers/businessController';
 import { Menu } from '@/components/Menu/Menu';
 import { MenuItem } from '@/components/Menu Item/MenuItem';
@@ -46,7 +46,7 @@ const HomePage = ({ navigation }: any) => {
             <MenuItem
                 name={ business.name }
                 onPress={ () => navigation.navigate("Business", { id: business._id }) }
-                firstLine={ "Open from " + business.openingTime + " to " + business.closingTime }
+                firstLine={ "Open from " + getLocaleTimeString(business.openingTime) + " to " + getLocaleTimeString(business.closingTime) }
                 secondLine={ business.address }
                 inHorizontalList={ true } />
             );
