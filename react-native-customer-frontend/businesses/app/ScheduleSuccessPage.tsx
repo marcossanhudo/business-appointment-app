@@ -93,7 +93,7 @@ export const ScheduleSuccessPage = ({ navigation, route }: any) => {
                     </View>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxSecondaryHeading }>Time</Text>
-                        <Text style={ Styles.infoBoxBodyText }>{ appointment.startDateTime } to { appointment.endDateTime }</Text>
+                        <Text style={ Styles.infoBoxBodyText }>From { new Date(appointment.startDateTime).toLocaleString() } to { new Date(appointment.endDateTime).toLocaleString() }</Text>
                     </View>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxSecondaryHeading }>Attendant</Text>

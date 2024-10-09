@@ -1,7 +1,6 @@
 import React from "react";
 import { ScrollView, View, Text } from "react-native";
 import { Menu } from "@/components/Menu/Menu";
-import { MenuItem } from "@/components/Menu Item/MenuItem";
 import Styles from "@/constants/Styles";
 import { AppPageLink } from "@/components/App Page Link/AppPageLink";
 

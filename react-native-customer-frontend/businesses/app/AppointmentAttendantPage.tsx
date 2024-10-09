@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { ScrollView, View, FlatList, Text, Pressable } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, View, Text } from 'react-native';
 import { Button } from '@/components/Button/Button';
 import Styles from '@/constants/Styles';
-import { formatTime, ignoreDate } from '@/scripts/formatting';
+import { getLocaleDateTimeString } from '@/scripts/formatting';
 import { getServiceAttendants } from '@/networking/controllers/serviceController';
 import { getAttendant } from '@/networking/controllers/attendantController';
 import { Menu } from '@/components/Menu/Menu';
@@ -47,7 +47,7 @@ export const AppointmentAttendantPage = ({ navigation, route }: any) => {
                 <View>
                     <Text style={ Styles.h2 }>Time</Text>
                     <View style={ Styles.row }>
-                        <Text style={ Styles.bodyText }>From { appointmentDetails.time.startTime } to { appointmentDetails.time.endTime }</Text>
+                        <Text style={ Styles.bodyText }>From { getLocaleDateTimeString(appointmentDetails.time.startTime) } to { getLocaleDateTimeString(appointmentDetails.time.endTime) }</Text>
                         <Button
                             type="inline"
                             label="Change"

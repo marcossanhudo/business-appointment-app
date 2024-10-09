@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { ScrollView, View, FlatList, Text, Pressable } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, View, Text } from 'react-native';
 import Styles from '@/constants/Styles';
 import { getServiceAvailableTimes } from '@/networking/controllers/serviceController';
-import { formatTime, ignoreDate, ignoreTime } from '@/scripts/formatting';
+import { getLocaleTimeString } from '@/scripts/formatting';
 import { DatePicker } from '@/components/Date Picker/DatePicker';
 import { Menu } from '@/components/Menu/Menu';
 import { MenuItem } from '@/components/Menu Item/MenuItem';
@@ -33,9 +33,9 @@ export const AppointmentTimePage = ({ navigation, route }: any) => {
     const renderTimeAvailable = (timeAvailable: any) => {
         return (
             <MenuItem
-                name={ timeAvailable.startTime }
+                name={ getLocaleTimeString(timeAvailable.startTime) }
                 onPress={ () => navigation.navigate("Appointment Attendant", { appointmentDetails: { ...appointmentDetails, time: timeAvailable } }) }
-                firstLine={ "until " + timeAvailable.endTime } />
+                firstLine={ "until " + getLocaleTimeString(timeAvailable.endTime) } />
         );
     };
 
