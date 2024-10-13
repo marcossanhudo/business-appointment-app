@@ -1,8 +1,8 @@
 import Styles from './Styles';
-import { ignoreTime, midnight } from '@/scripts/formatting';
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
-import { Button } from '@/components/Button/Button';
+import { InlineButton } from '@/components/Buttons/Inline Button/InlineButton';
+import { getLocaleDateString } from '@/scripts/formatting';
 
 export const DatePicker = ({ date, setDate, min, max }: any) => {
 
@@ -13,7 +13,11 @@ export const DatePicker = ({ date, setDate, min, max }: any) => {
     const [disableNextDayButton, setDisableNextDayButton] = useState(Boolean);
 
     const displayedDate = () => {
-        return ignoreTime(new Date(date).toISOString());
+        return getLocaleDateString(date);
+    }
+
+    const narratedDate = () => {
+        return "Selected date: " + displayedDate();
     }
 
     const calculateDay = (date: number) => {
@@ -46,17 +50,17 @@ export const DatePicker = ({ date, setDate, min, max }: any) => {
             accessibilityLanguage={ accessibilityLanguage }
             style={ Styles.picker }
         >
-            <Button
+            <InlineButton
                 type="inline"
                 label="<"
                 disabled={ disablePreviousDayButton }
                 accessibilityLabel="Previous day"
                 onPress={ () => treatDateChange(date - DAY_DURATION_IN_MILLISECONDS) } />
             <Text
-                accessibilityLabel={ "Selected date: " + date }
+                accessibilityLabel={ narratedDate() }
                 style={ Styles.selectedDate }
             >{ displayedDate() }</Text>
-            <Button
+            <InlineButton
                 type="inline"
                 label=">"
                 disabled={ disableNextDayButton }

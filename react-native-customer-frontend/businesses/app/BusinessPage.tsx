@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { ScrollView, Text, View, Pressable } from 'react-native';
-import { Button } from '@/components/Button/Button';
+import React, { useState } from 'react';
+import { ScrollView, Text, View } from 'react-native';
+import { InlineButton } from '@/components/Buttons/Inline Button/InlineButton';
 import Styles from '@/constants/Styles';
-import { formatTime } from '@/scripts/formatting';
-import { FlatList } from 'react-native-gesture-handler';
+import { getLocaleTimeString } from '@/scripts/formatting';
 import { getBusiness } from '@/networking/controllers/businessController';
 import { getServicesFromBusiness } from '@/networking/controllers/serviceController';
 import { MenuItem } from '@/components/Menu Item/MenuItem';
@@ -16,8 +15,8 @@ export const BusinessPage = ({ navigation, route }: any) => {
     const [businessInfo, setBusinessInfo] = useState({
         name: "",
         description: "",
-        openingTime: "",
-        closingTime: "",
+        openingTime: 0,
+        closingTime: 0,
         address: ""
     });
     const [services, setServices] = useState([{
@@ -68,18 +67,16 @@ export const BusinessPage = ({ navigation, route }: any) => {
                     <Text style={ Styles.h1 }>{ businessInfo.name }</Text>
                     <Text style={ Styles.infoBoxBodyText }>{ businessInfo.description }</Text>
                     <View style={ Styles.infoBox }>
-                        <Text style={ Styles.infoBoxBodyText }>Open from { businessInfo.openingTime } to { businessInfo.closingTime }</Text>
+                        <Text style={ Styles.infoBoxBodyText }>Open from { getLocaleTimeString(businessInfo.openingTime) } to { getLocaleTimeString(businessInfo.closingTime) }</Text>
                         <View style={ Styles.row }>
                             <Text style={ Styles.infoBoxBodyText }>{ businessInfo.address }</Text>
-                            <Button
-                                type="inline"
+                            <InlineButton
                                 label="Map" />
                         </View>
                         <View style={ Styles.row }>
                             <Text style={ Styles.infoBoxSecondaryHeading }>Payment options</Text>
                             <View>
-                                <Button
-                                    type="inline"
+                                <InlineButton
                                     label="Review" />
                             </View>
                         </View>

@@ -1,14 +1,17 @@
 import customer from "../models/Customer.js";
+import appointment from "../models/Appointment.js";
+import service from "../models/Service.js";
+import business from "../models/Business.js";
 
 class CustomerController {
 
     static async getCustomers(req, res) {
         try {
-            const foundCustomers = await customer.find({});
+            const foundCustomers = await customer.find(req.query);
             res.status(200).json(foundCustomers);
         } catch (error) {
             res.status(500).json({
-                message: "Internal server error on CustomerController.getAllCustomers(): " + error.message
+                message: "Internal server error on CustomerController.getCustomers(): " + error.message
             });
         }
     }
@@ -21,6 +24,31 @@ class CustomerController {
             res.status(500).json({
                 message: "Internal server error on CustomerController.getCustomer(): " + error.message
             });
+        }
+    }
+
+    static async getCustomerFirstUpcomingAppointment(req, res) {
+        try {
+            let firstUpcomingAppointment = {};
+            let serviceName = "";
+            let businessName = "";
+
+            await appointment.find({ customerId: req.query.customerId, startDateTime: { $gte: req.query.onOrAfter } })
+                .then(foundAppointments => firstUpcomingAppointment = foundAppointments[0])
+                .then(serviceName = await service.findById(firstUpcomingAppointment.serviceId).name)
+                .then(businessName = await business.findById(firstUpcomingAppointment.businessId).name)
+                .then(
+                    await res.status(200).json({
+                        _id: firstUpcomingAppointment._id,
+                        serviceName: serviceName,
+                        startDateTime: firstUpcomingAppointment.startDateTime,
+                        businessName: businessName
+                    })
+                );
+        } catch (error) {
+            res.status(500).json({
+                message: "Internal server error on CustomerController.getCustomerFirstUpcomingAppointment(): " + error.message
+            })
         }
     }
 

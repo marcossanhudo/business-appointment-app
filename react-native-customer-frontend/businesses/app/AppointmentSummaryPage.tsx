@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { ScrollView, View, Text, Pressable } from 'react-native';
-import { Button } from '@/components/Button/Button';
+import React from 'react';
+import { ScrollView, View, Text } from 'react-native';
+import { PrimaryButton } from '@/components/Buttons/Primary Button/PrimaryButton';
 import Styles from '@/constants/Styles';
-import { formatTime, ignoreDate } from '@/scripts/formatting';
+import { getLocaleDateTimeString } from '@/scripts/formatting';
 import { postAppointment } from '@/networking/controllers/appointmentController';
+import { InlineButton } from '@/components/Buttons/Inline Button/InlineButton';
 
 export const AppointmentSummaryPage = ({ navigation, route }: any) => {
 
@@ -30,8 +31,7 @@ export const AppointmentSummaryPage = ({ navigation, route }: any) => {
                 <View style={ Styles.infoBox }>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxPrimaryHeading }>{ appointmentDetails.service.name }</Text>
-                        <Button
-                            type="inline"
+                        <InlineButton
                             label="Edit" />
                     </View>
                     <View style={ Styles.row }>
@@ -40,7 +40,7 @@ export const AppointmentSummaryPage = ({ navigation, route }: any) => {
                     </View>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxSecondaryHeading }>Time</Text>
-                        <Text style={ Styles.infoBoxBodyText }>From { appointmentDetails.time.startTime } to { appointmentDetails.time.endTime }</Text>
+                        <Text style={ Styles.infoBoxBodyText }>From { getLocaleDateTimeString(appointmentDetails.time.startTime) } to { getLocaleDateTimeString(appointmentDetails.time.endTime) }</Text>
                     </View>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxSecondaryHeading }>Attendant</Text>
@@ -59,9 +59,8 @@ export const AppointmentSummaryPage = ({ navigation, route }: any) => {
                 </View>
             </View>
             <View style={ Styles.mainButtonArea }>
-                <Button
+                <PrimaryButton
                     label="Schedule appointment"
-                    type="primary"
                     onPress={ () => postAppointmentAndContinue() }/>
             </View>
         </ScrollView>

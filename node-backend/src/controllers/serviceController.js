@@ -10,7 +10,7 @@ class ServiceController {
             res.status(200).json(foundServices);
         } catch (error) {
             res.status(500).json({
-                message: "Internal server error on ServiceController._getServices(): " + error.message
+                message: "Internal server error on ServiceController.getServices(): " + error.message
             });
         }
     }
@@ -91,17 +91,16 @@ class ServiceController {
             
             const appointmentDurationInMilliseconds = minutesToMilliseconds(appointmentDurationInMinutes);
             const appointmentDateMidnight = midnight(queryDateTime);
-            const businessOpeningTimeOnAppointmentDate = appointmentDateMidnight + timeToMilliseconds(appointmentBusiness.openingTime);
-            const businessClosingTimeOnAppointmentDate = appointmentDateMidnight + timeToMilliseconds(appointmentBusiness.closingTime);
-            const businessTimeZone = getTimeZone(appointmentBusiness.openingTime);
+            const businessOpeningTimeOnAppointmentDate = appointmentDateMidnight + appointmentBusiness.openingTime;
+            const businessClosingTimeOnAppointmentDate = appointmentDateMidnight + appointmentBusiness.closingTime;
 
             var startTime = businessOpeningTimeOnAppointmentDate;
             var endTime = startTime + appointmentDurationInMilliseconds;
 
             while (endTime <= businessClosingTimeOnAppointmentDate) {
                 availableTimes.push({
-                    startTime: addTimeZone(new Date(startTime), businessTimeZone),
-                    endTime: addTimeZone(new Date(endTime), businessTimeZone)
+                    startTime: startTime,
+                    endTime: endTime
                 });
                 startTime += appointmentDurationInMilliseconds;
                 endTime += appointmentDurationInMilliseconds;

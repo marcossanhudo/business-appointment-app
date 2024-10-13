@@ -5,7 +5,9 @@ import { getBusiness } from "@/networking/controllers/businessController";
 import { getService } from "@/networking/controllers/serviceController";
 import React, { useState, useEffect } from "react";
 import { ScrollView, View, Text, FlatList } from "react-native";
-import { Button } from "@/components/Button/Button";
+import { InlineButton } from "@/components/Buttons/Inline Button/InlineButton";
+import { SecondaryButton } from "@/components/Buttons/Secondary Button/SecondaryButton";
+import { PrimaryButton } from "@/components/Buttons/Primary Button/PrimaryButton";
 
 export const ScheduleSuccessPage = ({ navigation, route }: any) => {
 
@@ -93,7 +95,7 @@ export const ScheduleSuccessPage = ({ navigation, route }: any) => {
                     </View>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxSecondaryHeading }>Time</Text>
-                        <Text style={ Styles.infoBoxBodyText }>{ appointment.startDateTime } to { appointment.endDateTime }</Text>
+                        <Text style={ Styles.infoBoxBodyText }>From { new Date(appointment.startDateTime).toLocaleString() } to { new Date(appointment.endDateTime).toLocaleString() }</Text>
                     </View>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxSecondaryHeading }>Attendant</Text>
@@ -108,8 +110,7 @@ export const ScheduleSuccessPage = ({ navigation, route }: any) => {
                     </View>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxSecondaryHeading }>Payment options</Text>
-                        <Button
-                            type="inline"
+                        <InlineButton
                             label={ paymentOptionsButtonTitle }
                             onPress={ () => { showPaymentOptions ? collapsePaymentOptions() : expandPaymentOptions() } } />
                     </View>
@@ -150,11 +151,9 @@ export const ScheduleSuccessPage = ({ navigation, route }: any) => {
                     }
                 </View>
                 <View style={ Styles.column }>
-                    <Button
-                        type="secondary"
+                    <SecondaryButton
                         label={ "Cancel appointment" } />
-                    <Button
-                        type="primary"
+                    <PrimaryButton
                         label={ "OK" }
                         onPress={ () => navigation.reset({ index: 0, routes: [{ name: "Home" }] }) } />
                 </View>
