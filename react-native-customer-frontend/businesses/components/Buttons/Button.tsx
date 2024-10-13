@@ -39,8 +39,9 @@ export const Button = ({ label, onPress, disabled, accessibilityLabel, accessibi
             accessibilityLabel={ accessibilityLabel }
             accessibilityLanguage={ accessibilityLanguage }
             style={ buttonStyle }
-            onPressIn={ setPressStyling }
             onHoverIn={ setHoverStyling }
+            onPressIn={ setPressStyling }
+            onPressOut={ setHoverStyling }
             onHoverOut={ setEnabledRestStyling }
         >
             <Text style={ labelStyle }>

@@ -61,7 +61,6 @@ export const AppointmentSummaryPage = ({ navigation, route }: any) => {
             <View style={ Styles.mainButtonArea }>
                 <PrimaryButton
                     label="Schedule appointment"
-                    type="primary"
                     onPress={ () => postAppointmentAndContinue() }/>
             </View>
         </ScrollView>
