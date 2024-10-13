@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
-import { Button } from '@/components/Button/Button';
+import { InlineButton } from '@/components/Buttons/Inline Button/InlineButton';
 import Styles from '@/constants/Styles';
 import { getLocaleTimeString } from '@/scripts/formatting';
 import { getBusiness } from '@/networking/controllers/businessController';
@@ -70,15 +70,13 @@ export const BusinessPage = ({ navigation, route }: any) => {
                         <Text style={ Styles.infoBoxBodyText }>Open from { getLocaleTimeString(businessInfo.openingTime) } to { getLocaleTimeString(businessInfo.closingTime) }</Text>
                         <View style={ Styles.row }>
                             <Text style={ Styles.infoBoxBodyText }>{ businessInfo.address }</Text>
-                            <Button
-                                type="inline"
+                            <InlineButton
                                 label="Map" />
                         </View>
                         <View style={ Styles.row }>
                             <Text style={ Styles.infoBoxSecondaryHeading }>Payment options</Text>
                             <View>
-                                <Button
-                                    type="inline"
+                                <InlineButton
                                     label="Review" />
                             </View>
                         </View>
