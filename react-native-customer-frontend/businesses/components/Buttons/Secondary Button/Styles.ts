@@ -10,19 +10,37 @@ export const buttonStyles = StyleSheet.create({
     },
     
     enabledResting: {
-        borderColor: "#000000",
+        borderColor: "#000000"
     },
-
     disabled: {
-        borderColor: "#606060",
+        borderColor: "#606060"
+    },
+    onHover: {
+        borderColor: "#202020"
+    },
+    onPress: {
+        borderColor: "#404040"
     }
 });
 
 export const labelStyles = StyleSheet.create({
     allStates: {
-        color: "#000000",
         fontWeight: 700,
         textAlign: "center",
         fontSize: 18
+    },
+
+    enabledResting: {
+        color: "#000000"
+    },
+    disabled: {
+        color: "#606060"
+    },
+    onHover: {
+        color: "#202020"
+    },
+    onPress: {
+        color: "#404040",
+        fontSize: 16
     }
 });

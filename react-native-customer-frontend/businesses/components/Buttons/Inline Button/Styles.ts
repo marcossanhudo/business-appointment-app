@@ -5,22 +5,32 @@ export const buttonStyles = StyleSheet.create({
     allStates: {
         backgroundColor: "#DDDDDD",
         padding: SpacingSizes.tertiary,
-        borderWidth: 1,
-        borderColor: "#CCCCCC",
+        borderWidth: 2,
         borderRadius: SpacingSizes.tertiary
+    },
+    
+    enabledResting: {
+        borderColor: "#606060",
+    },
+    disabled: {
+        borderColor: "#7D7D7D"
+    },
+    onHover: {
+        borderColor: "#404040"
+    },
+    onPress: {
+        borderColor: "#202020"
     }
 });
 
 export const labelStyles = StyleSheet.create({
     allStates: {
+        color: "#000000",
         fontWeight: 500,
         textAlign: "center",
         fontSize: 12
     },
-    
-    enabledResting: {
-        color: "#000000"
-    },
+
     disabled: {
         color: "#606060"
     },
