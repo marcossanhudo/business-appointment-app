@@ -27,7 +27,8 @@ export const labelStyles = StyleSheet.create({
     allStates: {
         fontWeight: 700,
         textAlign: "center",
-        fontSize: 18
+        fontSize: 18,
+        lineHeight: 27
     },
 
     enabledResting: {

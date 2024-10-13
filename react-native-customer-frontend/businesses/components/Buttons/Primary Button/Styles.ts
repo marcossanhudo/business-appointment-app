@@ -4,8 +4,7 @@ import { SpacingSizes } from "@/constants/StyleVariables";
 export const buttonStyles = StyleSheet.create({
     allStates: {
         padding: SpacingSizes.secondary,
-        borderRadius: SpacingSizes.tertiary,
-        justifyContent: "center"
+        borderRadius: SpacingSizes.tertiary
     },
 
     enabledResting: {
@@ -28,6 +27,7 @@ export const labelStyles = StyleSheet.create({
         fontWeight: 700,
         textAlign: "center",
         fontSize: 18,
+        lineHeight: 27
     },
 
     onPress: {

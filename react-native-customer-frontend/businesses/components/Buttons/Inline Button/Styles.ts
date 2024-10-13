@@ -28,7 +28,8 @@ export const labelStyles = StyleSheet.create({
         color: "#000000",
         fontWeight: 500,
         textAlign: "center",
-        fontSize: 12
+        fontSize: 12,
+        lineHeight: 18
     },
 
     disabled: {
