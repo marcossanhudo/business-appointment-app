@@ -1,7 +1,7 @@
 import Styles from './Styles';
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
-import { Button } from '@/components/Button/Button';
+import { InlineButton } from '@/components/Buttons/Inline Button/InlineButton';
 import { getLocaleDateString } from '@/scripts/formatting';
 
 export const DatePicker = ({ date, setDate, min, max }: any) => {
@@ -50,7 +50,7 @@ export const DatePicker = ({ date, setDate, min, max }: any) => {
             accessibilityLanguage={ accessibilityLanguage }
             style={ Styles.picker }
         >
-            <Button
+            <InlineButton
                 type="inline"
                 label="<"
                 disabled={ disablePreviousDayButton }
@@ -60,7 +60,7 @@ export const DatePicker = ({ date, setDate, min, max }: any) => {
                 accessibilityLabel={ narratedDate() }
                 style={ Styles.selectedDate }
             >{ displayedDate() }</Text>
-            <Button
+            <InlineButton
                 type="inline"
                 label=">"
                 disabled={ disableNextDayButton }

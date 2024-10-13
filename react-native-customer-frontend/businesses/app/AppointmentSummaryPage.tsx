@@ -1,9 +1,10 @@
 import React from 'react';
 import { ScrollView, View, Text } from 'react-native';
-import { Button } from '@/components/Button/Button';
+import { PrimaryButton } from '@/components/Buttons/Primary Button/PrimaryButton';
 import Styles from '@/constants/Styles';
 import { getLocaleDateTimeString } from '@/scripts/formatting';
 import { postAppointment } from '@/networking/controllers/appointmentController';
+import { InlineButton } from '@/components/Buttons/Inline Button/InlineButton';
 
 export const AppointmentSummaryPage = ({ navigation, route }: any) => {
 
@@ -30,8 +31,7 @@ export const AppointmentSummaryPage = ({ navigation, route }: any) => {
                 <View style={ Styles.infoBox }>
                     <View style={ Styles.row }>
                         <Text style={ Styles.infoBoxPrimaryHeading }>{ appointmentDetails.service.name }</Text>
-                        <Button
-                            type="inline"
+                        <InlineButton
                             label="Edit" />
                     </View>
                     <View style={ Styles.row }>
@@ -59,7 +59,7 @@ export const AppointmentSummaryPage = ({ navigation, route }: any) => {
                 </View>
             </View>
             <View style={ Styles.mainButtonArea }>
-                <Button
+                <PrimaryButton
                     label="Schedule appointment"
                     type="primary"
                     onPress={ () => postAppointmentAndContinue() }/>
