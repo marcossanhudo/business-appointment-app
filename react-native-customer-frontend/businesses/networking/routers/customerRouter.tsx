@@ -7,7 +7,7 @@ const customerRoute = (customerId: string) => {
 }
 
 const customerFirstUpcomingAppointmentRoute = (customerId: string, currentDateTime: number) => {
-    return customerRoute(customerId) + "/appointments/firstUpcoming" + "&onOrAfter=" + currentDateTime
+    return customerRoute(customerId) + "/appointments/firstUpcoming" + "?onOrAfter=" + currentDateTime
 }
 
 export { customersRoute, customerRoute, customerFirstUpcomingAppointmentRoute }

@@ -30,21 +30,21 @@ class CustomerController {
     static async getCustomerFirstUpcomingAppointment(req, res) {
         try {
             let firstUpcomingAppointment = {};
-            let serviceName = "";
-            let businessName = "";
+            let appointmentService = {};
+            let appointmentBusiness = {};
 
-            await appointment.find({ customerId: req.query.customerId, startDateTime: { $gte: req.query.onOrAfter } })
+            await appointment.find({ customerId: req.params.id, startDateTime: { $gte: req.query.onOrAfter } })
                 .then(foundAppointments => firstUpcomingAppointment = foundAppointments[0])
-                .then(serviceName = await service.findById(firstUpcomingAppointment.serviceId).name)
-                .then(businessName = await business.findById(firstUpcomingAppointment.businessId).name)
-                .then(
-                    await res.status(200).json({
+                .then(async () => appointmentService = await service.findById(firstUpcomingAppointment.serviceId))
+                .then(async () => appointmentBusiness = await business.findById(appointmentService.businessId))
+                .then(() => {
+                    res.status(200).json({
                         _id: firstUpcomingAppointment._id,
-                        serviceName: serviceName,
+                        serviceName: appointmentService.name,
                         startDateTime: firstUpcomingAppointment.startDateTime,
-                        businessName: businessName
+                        businessName: appointmentBusiness.name
                     })
-                );
+                });
         } catch (error) {
             res.status(500).json({
                 message: "Internal server error on CustomerController.getCustomerFirstUpcomingAppointment(): " + error.message

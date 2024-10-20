@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ScrollView, View, Text } from 'react-native';
 import Styles from '@/constants/Styles';
-import { getLocaleTimeString } from '@/scripts/formatting';
+import { getLocaleDateTimeString, getLocaleTimeString } from '@/scripts/formatting';
 import { getAllBusinesses } from '@/networking/controllers/businessController';
 import { Menu } from '@/components/Menu/Menu';
 import { MenuItem } from '@/components/Menu Item/MenuItem';
@@ -25,15 +25,16 @@ const HomePage = ({ navigation }: any) => {
         }
     ]);
     const [firstUpcomingAppointment, setFirstUpcomingAppointment] = useState({
+        _id: "",
         serviceName: "",
-        appointmentStartDateTime: 0,
+        startDateTime: 0,
         businessName: ""
     });
 
     React.useEffect(() => {
-        /*getFirstUpcomingAppointment(customerId, Date.now())
+        getFirstUpcomingAppointment(customerId, Date.now())
             .then(json => setFirstUpcomingAppointment(json))
-            .catch(error => { setError(true); console.log(error); });*/
+            .catch(error => { setError(true); console.log(error); });
 
         getAllBusinesses()
             .then(json => setBusinesses(json))
@@ -56,7 +57,7 @@ const HomePage = ({ navigation }: any) => {
         return(
             <MenuItem
                 name={ firstUpcomingAppointment.serviceName }
-                firstLine={ firstUpcomingAppointment.appointmentStartDateTime }
+                firstLine={ getLocaleDateTimeString(firstUpcomingAppointment.startDateTime) }
                 secondLine={ firstUpcomingAppointment.businessName } />
         )
     }
@@ -66,7 +67,7 @@ const HomePage = ({ navigation }: any) => {
             <View style={ Styles.page }>
                 <Text style={ Styles.h1 }>Businesses</Text>
                 {
-                    firstUpcomingAppointment
+                    firstUpcomingAppointment !== null
                     ? <View style={ Styles.column }>
                         <Text style={ Styles.h2 }>Your next appointment</Text>
                         { renderFirstUpcomingAppointment() }
