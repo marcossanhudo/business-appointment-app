@@ -67,7 +67,7 @@ const HomePage = ({ navigation }: any) => {
             <View style={ Styles.page }>
                 <Text style={ Styles.h1 }>Businesses</Text>
                 {
-                    firstUpcomingAppointment !== null
+                    !loading && firstUpcomingAppointment !== null
                     ? <View style={ Styles.column }>
                         <Text style={ Styles.h2 }>Your next appointment</Text>
                         { renderFirstUpcomingAppointment() }

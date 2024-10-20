@@ -2,7 +2,7 @@ import { customersRoute, customerRoute, customerFirstUpcomingAppointmentRoute } 
 
 async function getFirstUpcomingAppointment(customerId: string, currentDateTime: number) {
     return await fetch(customerFirstUpcomingAppointmentRoute(customerId, currentDateTime), { method: "GET" })
-        .then(res => res.json());
+        .then(res => res.status === 200 ? res.json() : null);
 }
 
 export { getFirstUpcomingAppointment };
