@@ -10,12 +10,12 @@ const customerFirstUpcomingAppointmentRoute = (customerId: string, onOrAfter: nu
     return customerRoute(customerId) + "/appointments/firstUpcoming" + "?onOrAfter=" + onOrAfter
 }
 
-const customerAppointmentsForCurrentDayRoute = (customerId: string, currentDateTime: number) => {
-    return customerRoute(customerId) + "/appointments" + "?date=" + currentDateTime
+const customerAppointmentsForSpecificDayRoute = (customerId: string, currentDateTime: number) => {
+    return customerRoute(customerId) + "/appointments/day/" + currentDateTime
 }
 
 const customerAppointmentsOnOrAfterRoute = (customerId: string, onOrAfter: number) => {
     return customerRoute(customerId) + "/appointments" + "?onOrAfter=" + onOrAfter
 }
 
-export { customersRoute, customerRoute, customerFirstUpcomingAppointmentRoute, customerAppointmentsForCurrentDayRoute, customerAppointmentsOnOrAfterRoute }
+export { customersRoute, customerRoute, customerFirstUpcomingAppointmentRoute, customerAppointmentsForSpecificDayRoute, customerAppointmentsOnOrAfterRoute }

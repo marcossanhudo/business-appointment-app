@@ -71,12 +71,12 @@ const HomePage = ({ navigation }: any) => {
                     ? <View style={ Styles.column }>
                         <Text style={ Styles.h2 }>Your next appointment</Text>
                         { renderFirstUpcomingAppointment() }
-                        <AppPageLink
-                            label="See all your appointments"
-                            onPress={ () => navigation.navigate("Your Appointments") } />
                     </View>
                     : <Text>What do you need today?</Text>
                 }
+                <AppPageLink
+                    label="See all your appointments"
+                    onPress={ () => navigation.navigate("Your Appointments") } />
                 <Text style={ Styles.h2 }>Places</Text>
                 {   
                     loading

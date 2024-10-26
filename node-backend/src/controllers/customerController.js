@@ -2,6 +2,8 @@ import customer from "../models/Customer.js";
 import appointment from "../models/Appointment.js";
 import service from "../models/Service.js";
 import business from "../models/Business.js";
+import { midnightOf } from "../utils/conversions.js";
+import { DAY_DURATION_IN_MILLISECONDS } from "../utils/timeDurations.js";
 
 class CustomerController {
 
@@ -23,6 +25,69 @@ class CustomerController {
         } catch (error) {
             res.status(500).json({
                 message: "Internal server error on CustomerController.getCustomer(): " + error.message
+            });
+        }
+    }
+
+    static async getCustomerAppointments(req, res) {
+        try {
+            let args = { customerId: req.params.id, ...req.query };
+
+            if (req.query.onOrAfter)
+                args = { ...args, onOrAfter: null, startDateTime: { $gte: req.query.onOrAfter }};
+
+            if (req.query.onOrBefore)
+                args = { ...args, onOrBefore: null, startDateTime: { $lte: req.query.onOrBefore }};
+
+            const foundAppointments = await appointment.find(args);
+
+            if (foundAppointments.length === 0) {
+                res.status(404).send();
+            } else {
+                for (let index = 0; index < foundAppointments.length; index++) {
+                    let foundAppointment = foundAppointments[index];
+
+                    const appointmentService = await service.findById(foundAppointment.serviceId);
+                    const appointmentBusiness = await business.findById(appointmentService.businessId);
+                    
+                    foundAppointment = { business: appointmentBusiness, service: appointmentService, ...foundAppointment._doc };
+                    foundAppointments[index] = foundAppointment;
+                }
+
+                res.status(200).json(foundAppointments);
+            }
+        } catch (error) {
+            res.status(500).json({
+                message: "Internal server error on CustomerController.getCustomerAppointments(): " + error.message
+            });
+        }
+    }
+
+    static async getCustomerAppointmentsForSpecificDay(req, res) {
+        try {
+            const midnight = midnightOf(req.params.day);
+            const nextMidnight = midnight + DAY_DURATION_IN_MILLISECONDS;
+
+            let foundAppointments = await appointment.find({ customerId: req.params.id, startDateTime: { $gte: midnight, $lt: nextMidnight }});
+
+            if (foundAppointments.length === 0) {
+                res.status(404).send();
+            } else {
+                for (let index = 0; index < foundAppointments.length; index++) {
+                    let foundAppointment = foundAppointments[index];
+
+                    const appointmentService = await service.findById(foundAppointment.serviceId);
+                    const appointmentBusiness = await business.findById(appointmentService.businessId);
+                    
+                    foundAppointment = { business: appointmentBusiness, service: appointmentService, ...foundAppointment._doc };
+                    foundAppointments[index] = foundAppointment;
+                }
+
+                res.status(200).json(foundAppointments);
+            }
+        } catch (error) {
+            res.status(500).json({
+                message: "Internal server error on CustomerController.getCustomerAppointmentsForSpecificDay(): " + error.message
             });
         }
     }

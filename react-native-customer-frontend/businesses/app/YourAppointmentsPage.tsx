@@ -5,7 +5,7 @@ import Styles from "@/constants/Styles";
 import { AppPageLink } from "@/components/App Page Link/AppPageLink";
 import { MenuItem } from "@/components/Menu Item/MenuItem";
 import { getLocaleDateTimeString } from "@/scripts/formatting";
-import { getAppointmentsForCurrentDay, getAppointmentsOnOrAfter } from "@/networking/controllers/customerController";
+import { getAppointmentsForSpecificDay, getAppointmentsOnOrAfter } from "@/networking/controllers/customerController";
 
 export const YourAppointmentsPage = ({ navigation, route }: any) => {
 
@@ -22,7 +22,7 @@ export const YourAppointmentsPage = ({ navigation, route }: any) => {
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        getAppointmentsForCurrentDay(customerId, Date.now())
+        getAppointmentsForSpecificDay(customerId, Date.now())
         .then(json => setTodaysAppointments(json))
         .then(() => getAppointmentsOnOrAfter(customerId, Date.now()))
         .then(json => setLaterAppointments(json))
@@ -41,7 +41,7 @@ export const YourAppointmentsPage = ({ navigation, route }: any) => {
     }
 
     return(
-        <ScrollView>
+        <ScrollView style={ Styles.page }>
             {
                 loading
                 ? <View>
@@ -52,26 +52,36 @@ export const YourAppointmentsPage = ({ navigation, route }: any) => {
                     <Text>An error occured. Please try again later.</Text>
                 </View>
                 : <View>
-                    { 
-                        todaysAppointments.length > 0 &&
-                        <View>
+                        <View style={ Styles.verticalListContainer }>
                             <Text style={ Styles.h2 }>Today's appointments</Text>
-                            <Menu
-                                items={ todaysAppointments }
-                                accessibilityLabel="Today's appointments list"
-                                renderItem={ renderAppointment } />
+                            { 
+                                todaysAppointments !== null
+                                ? <View>
+                                    <Menu
+                                        items={ todaysAppointments }
+                                        accessibilityLabel="Today's appointments list"
+                                        renderItem={ renderAppointment } />
+                                </View>
+                                : <View>
+                                    <Text style={[ Styles.bodyText, { marginTop: 48, marginBottom: 48, textAlign: "center" } ]}>You have no later appointments.</Text>
+                                </View>
+                            }
                         </View>
-                    }
-                    { 
-                        laterAppointments.length > 0 &&
-                        <View>
+                        <View style={ Styles.verticalListContainer }>
                             <Text style={ Styles.h2 }>Later appointments</Text>
-                            <Menu
-                                items={ laterAppointments }
-                                accessibilityLabel="Later appointments list"
-                                renderItem={ renderAppointment } />
+                            { 
+                                laterAppointments !== null
+                                ? <View>
+                                    <Menu
+                                        items={ laterAppointments }
+                                        accessibilityLabel="Later appointments list"
+                                        renderItem={ renderAppointment } />
+                                </View>
+                                : <View>
+                                    <Text style={[ Styles.bodyText, { marginTop: 48, marginBottom: 48, textAlign: "center" } ]}>You have no later appointments.</Text>
+                                </View>
+                            }
                         </View>
-                    }
                 </View>
             }
             <View>
