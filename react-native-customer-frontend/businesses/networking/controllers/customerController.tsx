@@ -1,4 +1,4 @@
-import { customersRoute, customerRoute, customerFirstUpcomingAppointmentRoute, customerAppointmentsForSpecificDayRoute, customerAppointmentsOnOrAfterRoute } from "../routers/customerRouter";
+import { customersRoute, customerRoute, customerAppointmentsRoute, customerFirstUpcomingAppointmentRoute, customerAppointmentsForSpecificDayRoute, customerAppointmentsOnOrAfterRoute } from "../routers/customerRouter";
 
 async function getFirstUpcomingAppointment(customerId: string, currentDateTime: number) {
     return await fetch(customerFirstUpcomingAppointmentRoute(customerId, currentDateTime), { method: "GET" })
@@ -15,4 +15,15 @@ async function getAppointmentsOnOrAfter(customerId: string, currentDateTime: num
         .then(res => res.status === 200 ? res.json() : null);
 }
 
-export { getFirstUpcomingAppointment, getAppointmentsForSpecificDay, getAppointmentsOnOrAfter };
+/*  Parameters:
+ *  - onOrAfter: number
+ *  - onOrBefore: number
+ *  - limit: number
+ *  - sort: { attribute: string, order: string }
+ */
+async function getAppointments(customerId: string, queryParams: object) {
+    return await fetch(customerAppointmentsRoute(customerId, queryParams), { method: "GET" })
+        .then(res => res.status === 200 ? res.json() : null);
+}
+
+export { getFirstUpcomingAppointment, getAppointmentsForSpecificDay, getAppointmentsOnOrAfter, getAppointments };

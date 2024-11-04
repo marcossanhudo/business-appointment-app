@@ -38,7 +38,7 @@ const App = () => {
         <Stack.Screen
           name="Your Appointments"
           component={ YourAppointmentsPage }
-          options={{ title: "Success" }} />
+          options={{ title: "Your appointments" }} />
       </Stack.Navigator>
   );
 }

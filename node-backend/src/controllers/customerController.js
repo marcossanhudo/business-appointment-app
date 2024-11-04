@@ -31,15 +31,25 @@ class CustomerController {
 
     static async getCustomerAppointments(req, res) {
         try {
-            let args = { customerId: req.params.id, ...req.query };
+            let args = { customerId: req.params.id };
+            let sort = null;
+            let limit = null;
 
             if (req.query.onOrAfter)
-                args = { ...args, onOrAfter: null, startDateTime: { $gte: req.query.onOrAfter }};
+                args = { ...args, startDateTime: { $gte: req.query.onOrAfter }};
 
             if (req.query.onOrBefore)
-                args = { ...args, onOrBefore: null, startDateTime: { $lte: req.query.onOrBefore }};
+                args = { ...args, startDateTime: { $lte: req.query.onOrBefore }};
 
-            const foundAppointments = await appointment.find(args);
+            if (req.query.sortBy && req.query.sortOrder)
+                sort = { [req.query.sortBy]: req.query.sortOrder }
+
+            if (req.query.limit)
+                limit = req.query.limit;
+
+            const foundAppointments = await appointment.find(args)
+                    .sort(sort)
+                    .limit(limit);
 
             if (foundAppointments.length === 0) {
                 res.status(404).send();

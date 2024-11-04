@@ -1,4 +1,5 @@
 import { BASE } from ".";
+import { getQueryParamString } from "./utils";
 
 const customersRoute = BASE + "customers/";
 
@@ -18,4 +19,8 @@ const customerAppointmentsOnOrAfterRoute = (customerId: string, onOrAfter: numbe
     return customerRoute(customerId) + "/appointments" + "?onOrAfter=" + onOrAfter
 }
 
-export { customersRoute, customerRoute, customerFirstUpcomingAppointmentRoute, customerAppointmentsForSpecificDayRoute, customerAppointmentsOnOrAfterRoute }
+const customerAppointmentsRoute = (customerId: string, queryParams: { [key: string]: any }) => {
+    return customerRoute(customerId) + "/appointments" + getQueryParamString(queryParams); 
+}
+
+export { customersRoute, customerRoute, customerAppointmentsRoute, customerFirstUpcomingAppointmentRoute, customerAppointmentsForSpecificDayRoute, customerAppointmentsOnOrAfterRoute }

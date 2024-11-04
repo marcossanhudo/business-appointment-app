@@ -5,7 +5,7 @@ import Styles from "@/constants/Styles";
 import { AppPageLink } from "@/components/App Page Link/AppPageLink";
 import { MenuItem } from "@/components/Menu Item/MenuItem";
 import { getLocaleDateTimeString } from "@/scripts/formatting";
-import { getAppointmentsForSpecificDay, getAppointmentsOnOrAfter } from "@/networking/controllers/customerController";
+import { getAppointments, getAppointmentsForSpecificDay, getAppointmentsOnOrAfter } from "@/networking/controllers/customerController";
 
 export const YourAppointmentsPage = ({ navigation, route }: any) => {
 
@@ -26,6 +26,7 @@ export const YourAppointmentsPage = ({ navigation, route }: any) => {
         .then(json => setTodaysAppointments(json))
         .then(() => getAppointmentsOnOrAfter(customerId, Date.now()))
         .then(json => setLaterAppointments(json))
+        .then(() => getAppointments(customerId, { onOrAfter: Date.now(), sortBy: "startDateTime", sortOrder: "asc", limit: 3 }))
         .then(() => setLoading(false))
         .catch(error => { setError(true); console.log(error); })
     }, []);
