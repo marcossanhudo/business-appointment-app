@@ -12,6 +12,9 @@ export const YourAppointmentsPage = ({ navigation, route }: any) => {
     const TEST_CUSTOMER_ID = "66b84b5f4d019d6b83778176";
 
     const customerId = TEST_CUSTOMER_ID;
+    const LATER_APPOINTMENTS_ITEM_LIMIT = 3;
+    const LATER_APPOINTMENTS_SORT_BY = "startDateTime";
+    const LATER_APPOINTMENTS_SORT_ORDER = "asc";
 
     const [todaysAppointments, setTodaysAppointments] = useState([]);
 
@@ -24,9 +27,8 @@ export const YourAppointmentsPage = ({ navigation, route }: any) => {
     useEffect(() => {
         getAppointmentsForSpecificDay(customerId, Date.now())
         .then(json => setTodaysAppointments(json))
-        .then(() => getAppointmentsOnOrAfter(customerId, Date.now()))
+        .then(() => getAppointments(customerId, { onOrAfter: Date.now(), sortBy: LATER_APPOINTMENTS_SORT_BY, sortOrder: LATER_APPOINTMENTS_SORT_ORDER, limit: LATER_APPOINTMENTS_ITEM_LIMIT })) // Fix onOrAfter
         .then(json => setLaterAppointments(json))
-        .then(() => getAppointments(customerId, { onOrAfter: Date.now(), sortBy: "startDateTime", sortOrder: "asc", limit: 3 }))
         .then(() => setLoading(false))
         .catch(error => { setError(true); console.log(error); })
     }, []);
