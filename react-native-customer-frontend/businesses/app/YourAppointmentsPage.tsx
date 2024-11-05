@@ -4,7 +4,7 @@ import { Menu } from "@/components/Menu/Menu";
 import Styles from "@/constants/Styles";
 import { AppPageLink } from "@/components/App Page Link/AppPageLink";
 import { MenuItem } from "@/components/Menu Item/MenuItem";
-import { getLocaleDateTimeString } from "@/scripts/formatting";
+import { getLocaleDateTimeString, nextMidnightFrom } from "@/scripts/formatting";
 import { getAppointments, getAppointmentsForSpecificDay, getAppointmentsOnOrAfter } from "@/networking/controllers/customerController";
 
 export const YourAppointmentsPage = ({ navigation, route }: any) => {
@@ -16,6 +16,13 @@ export const YourAppointmentsPage = ({ navigation, route }: any) => {
     const LATER_APPOINTMENTS_SORT_BY = "startDateTime";
     const LATER_APPOINTMENTS_SORT_ORDER = "asc";
 
+    const LATER_APPOINTMENTS_FILTERS = {
+        onOrAfter: nextMidnightFrom(Date.now()),
+        sortBy: LATER_APPOINTMENTS_SORT_BY,
+        sortOrder: LATER_APPOINTMENTS_SORT_ORDER,
+        limit: LATER_APPOINTMENTS_ITEM_LIMIT
+    }
+
     const [todaysAppointments, setTodaysAppointments] = useState([]);
 
     const [laterAppointments, setLaterAppointments] = useState([]);
@@ -25,9 +32,9 @@ export const YourAppointmentsPage = ({ navigation, route }: any) => {
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        getAppointmentsForSpecificDay(customerId, Date.now())
+        getAppointmentsForSpecificDay(customerId, Date.now()) // sort these by startDateTime too
         .then(json => setTodaysAppointments(json))
-        .then(() => getAppointments(customerId, { onOrAfter: Date.now(), sortBy: LATER_APPOINTMENTS_SORT_BY, sortOrder: LATER_APPOINTMENTS_SORT_ORDER, limit: LATER_APPOINTMENTS_ITEM_LIMIT })) // Fix onOrAfter
+        .then(() => getAppointments(customerId, LATER_APPOINTMENTS_FILTERS))
         .then(json => setLaterAppointments(json))
         .then(() => setLoading(false))
         .catch(error => { setError(true); console.log(error); })
