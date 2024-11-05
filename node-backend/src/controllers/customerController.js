@@ -38,8 +38,14 @@ class CustomerController {
             if (req.query.onOrAfter)
                 args = { ...args, startDateTime: { $gte: req.query.onOrAfter }};
 
+            if (req.query.after)
+                args = { ...args, startDateTime: { $gt: req.query.after }};
+
             if (req.query.onOrBefore)
                 args = { ...args, startDateTime: { $lte: req.query.onOrBefore }};
+
+            if (req.query.before)
+                args = { ...args, startDateTime: { $lt: req.query.before }};
 
             if (req.query.sortBy && req.query.sortOrder)
                 sort = { [req.query.sortBy]: req.query.sortOrder }
@@ -69,6 +75,60 @@ class CustomerController {
         } catch (error) {
             res.status(500).json({
                 message: "Internal server error on CustomerController.getCustomerAppointments(): " + error.message
+            });
+        }
+    }
+
+    static async getCustomerLaterAppointments(req, res) {
+        const LATER_APPOINTMENTS_FILTERS = {
+            onOrAfter: req.params.day, // check whether this is correct
+            sortBy: "startDateTime",
+            sortOrder: "asc",
+            limit: 3
+        }
+
+        req.query = { ...req.query, ...LATER_APPOINTMENTS_FILTERS };
+
+        try {
+            await CustomerController.getCustomerAppointments(req, res);
+        } catch (error) {
+            res.status(500).json({
+                message: "Internal server error on CustomerController.getCustomerLaterAppointments(): " + error.message
+            });
+        }
+    }
+
+    static async getCustomerAllUpcomingAppointments(req, res) {
+        const ALL_UPCOMING_APPOINTMENTS_FILTERS = {
+            onOrAfter: req.params.day,
+            sortBy: "startDateTime",
+            sortOrder: "asc"
+        }
+
+        req.query = { ...req.query, ...ALL_UPCOMING_APPOINTMENTS_FILTERS };
+
+        try {
+            await CustomerController.getCustomerAppointments(req, res);
+        } catch (error) {
+            res.status(500).json({
+                message: "Internal server error on CustomerController.getCustomerAllUpcomingAppointments(): " + error.message
+            });
+        }
+    }
+
+    static async getCustomerAllPastAppointments(req, res) {
+        const ALL_PAST_APPOINTMENTS_FILTERS = {
+            before: req.params.day,
+            sortBy: "startDateTime",
+            sortOrder: "asc"
+        }
+
+        req.query = { ...req.query, ...ALL_PAST_APPOINTMENTS_FILTERS };
+        try {
+            await CustomerController.getCustomerAppointments(req, res);
+        } catch (error) {
+            res.status(500).json({
+                message: "Internal server error on CustomerController.getCustomerAllPastAppointments(): " + error.message
             });
         }
     }

@@ -15,6 +15,10 @@ const customerAppointmentsForSpecificDayRoute = (customerId: string, currentDate
     return customerRoute(customerId) + "/appointments/day/" + currentDateTime
 }
 
+const customerLaterAppointmentsRoute = (customerId: string, currentDateTime: number) => {
+    return customerRoute(customerId) + "/appointments/later/" + currentDateTime;
+}
+
 const customerAppointmentsOnOrAfterRoute = (customerId: string, onOrAfter: number) => {
     return customerRoute(customerId) + "/appointments" + "?onOrAfter=" + onOrAfter
 }
@@ -23,4 +27,4 @@ const customerAppointmentsRoute = (customerId: string, queryParams: { [key: stri
     return customerRoute(customerId) + "/appointments" + getQueryParamString(queryParams); 
 }
 
-export { customersRoute, customerRoute, customerAppointmentsRoute, customerFirstUpcomingAppointmentRoute, customerAppointmentsForSpecificDayRoute, customerAppointmentsOnOrAfterRoute }
+export { customersRoute, customerRoute, customerAppointmentsRoute, customerFirstUpcomingAppointmentRoute, customerAppointmentsForSpecificDayRoute, customerLaterAppointmentsRoute, customerAppointmentsOnOrAfterRoute }
