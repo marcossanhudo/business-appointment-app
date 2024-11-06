@@ -36,16 +36,16 @@ class CustomerController {
             let limit = null;
 
             if (req.query.onOrAfter)
-                args = { ...args, startDateTime: { $gte: req.query.onOrAfter }};
+                args = { ...args, startDateTime: { ...args.startDateTime, $gte: req.query.onOrAfter }};
 
             if (req.query.after)
-                args = { ...args, startDateTime: { $gt: req.query.after }};
+                args = { ...args, startDateTime: { ...args.startDateTime, $gt: req.query.after }};
 
             if (req.query.onOrBefore)
-                args = { ...args, startDateTime: { $lte: req.query.onOrBefore }};
+                args = { ...args, startDateTime: { ...args.startDateTime, $lte: req.query.onOrBefore }};
 
             if (req.query.before)
-                args = { ...args, startDateTime: { $lt: req.query.before }};
+                args = { ...args, startDateTime: { ...args.startDateTime, $lt: req.query.before }};
 
             if (req.query.sortBy && req.query.sortOrder)
                 sort = { [req.query.sortBy]: req.query.sortOrder }
@@ -124,6 +124,7 @@ class CustomerController {
         }
 
         req.query = { ...req.query, ...ALL_PAST_APPOINTMENTS_FILTERS };
+
         try {
             await CustomerController.getCustomerAppointments(req, res);
         } catch (error) {
@@ -134,27 +135,21 @@ class CustomerController {
     }
 
     static async getCustomerAppointmentsForSpecificDay(req, res) {
+        const userMidnight = midnightOf(req.params.day);
+
+        const SPECIFIC_DAYS_APPOINTMENTS_FILTERS = {
+            onOrAfter: userMidnight,
+            before: userMidnight + DAY_DURATION_IN_MILLISECONDS,
+            sortBy: "startDateTime",
+            sortOrder: "asc"
+        }
+
+        req.query = { ...req.query, ...SPECIFIC_DAYS_APPOINTMENTS_FILTERS };
+
+        console.log(req.query);
+
         try {
-            const midnight = midnightOf(req.params.day);
-            const nextMidnight = midnight + DAY_DURATION_IN_MILLISECONDS;
-
-            let foundAppointments = await appointment.find({ customerId: req.params.id, startDateTime: { $gte: midnight, $lt: nextMidnight }});
-
-            if (foundAppointments.length === 0) {
-                res.status(404).send();
-            } else {
-                for (let index = 0; index < foundAppointments.length; index++) {
-                    let foundAppointment = foundAppointments[index];
-
-                    const appointmentService = await service.findById(foundAppointment.serviceId);
-                    const appointmentBusiness = await business.findById(appointmentService.businessId);
-                    
-                    foundAppointment = { business: appointmentBusiness, service: appointmentService, ...foundAppointment._doc };
-                    foundAppointments[index] = foundAppointment;
-                }
-
-                res.status(200).json(foundAppointments);
-            }
+            await CustomerController.getCustomerAppointments(req, res);
         } catch (error) {
             res.status(500).json({
                 message: "Internal server error on CustomerController.getCustomerAppointmentsForSpecificDay(): " + error.message
