@@ -146,8 +146,6 @@ class CustomerController {
 
         req.query = { ...req.query, ...SPECIFIC_DAYS_APPOINTMENTS_FILTERS };
 
-        console.log(req.query);
-
         try {
             await CustomerController.getCustomerAppointments(req, res);
         } catch (error) {
@@ -158,28 +156,17 @@ class CustomerController {
     }
 
     static async getCustomerFirstUpcomingAppointment(req, res) {
+        const FIRST_UPCOMING_APPOINTMENT_FILTERS = {
+            onOrAfter: req.params.currentDateTime,
+            sortBy: "startDateTime",
+            sortOrder: "asc",
+            limit: 1
+        }
+
+        req.query = { ...req.query, ...FIRST_UPCOMING_APPOINTMENT_FILTERS };
+
         try {
-            let firstUpcomingAppointment = {};
-            let appointmentService = {};
-            let appointmentBusiness = {};
-
-            const foundAppointments = await appointment.find({ customerId: req.params.id, startDateTime: { $gte: req.query.onOrAfter } });
-
-            if (foundAppointments.length === 0) {
-                res.status(404).send();
-            } else {
-                firstUpcomingAppointment = foundAppointments[0];
-
-                appointmentService = await service.findById(firstUpcomingAppointment.serviceId);
-                appointmentBusiness = await business.findById(appointmentService.businessId);
-                
-                res.status(200).json({
-                    _id: firstUpcomingAppointment._id,
-                    serviceName: appointmentService.name,
-                    startDateTime: firstUpcomingAppointment.startDateTime,
-                    businessName: appointmentBusiness.name
-                });
-            }
+            await CustomerController.getCustomerAppointments(req, res);            
         } catch (error) {
             res.status(500).json({
                 message: "Internal server error on CustomerController.getCustomerFirstUpcomingAppointment(): " + error.message

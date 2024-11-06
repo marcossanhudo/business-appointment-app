@@ -1,7 +1,8 @@
-import { nextMidnightFrom } from "@/scripts/formatting";
 import { customerAppointmentsRoute, customerLaterAppointmentsRoute, customerFirstUpcomingAppointmentRoute, customerAppointmentsForSpecificDayRoute, customerAppointmentsOnOrAfterRoute } from "../routers/customerRouter";
 
-async function getFirstUpcomingAppointment(customerId: string, currentDateTime: number) {
+async function getFirstUpcomingAppointment(customerId: string) {
+    const currentDateTime = Date.now();
+
     return await fetch(customerFirstUpcomingAppointmentRoute(customerId, currentDateTime), { method: "GET" })
         .then(res => res.status === 200 ? res.json() : null);
 }

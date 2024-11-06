@@ -7,8 +7,8 @@ const customerRoute = (customerId: string) => {
     return customersRoute + customerId;
 }
 
-const customerFirstUpcomingAppointmentRoute = (customerId: string, onOrAfter: number) => {
-    return customerRoute(customerId) + "/appointments/firstUpcoming" + "?onOrAfter=" + onOrAfter
+const customerFirstUpcomingAppointmentRoute = (customerId: string, currentDateTime: number) => {
+    return customerRoute(customerId) + "/appointments/upcoming/first/" + currentDateTime
 }
 
 const customerAppointmentsForSpecificDayRoute = (customerId: string, currentDateTime: number) => {

@@ -26,14 +26,14 @@ const HomePage = ({ navigation }: any) => {
     ]);
     const [firstUpcomingAppointment, setFirstUpcomingAppointment] = useState({
         _id: "",
-        serviceName: "",
+        service: { name: "" },
         startDateTime: 0,
-        businessName: ""
+        business: { name: "" }
     });
 
     React.useEffect(() => {
-        getFirstUpcomingAppointment(customerId, Date.now())
-            .then(json => setFirstUpcomingAppointment(json))
+        getFirstUpcomingAppointment(customerId)
+            .then(json => setFirstUpcomingAppointment(json[0]))
             .catch(error => { setError(true); console.log(error); });
 
         getAllBusinesses()
@@ -56,9 +56,9 @@ const HomePage = ({ navigation }: any) => {
     const renderFirstUpcomingAppointment = () => {
         return(
             <MenuItem
-                name={ firstUpcomingAppointment.serviceName }
+                name={ firstUpcomingAppointment.service.name }
                 firstLine={ getLocaleDateTimeString(firstUpcomingAppointment.startDateTime) }
-                secondLine={ firstUpcomingAppointment.businessName } />
+                secondLine={ firstUpcomingAppointment.business.name } />
         )
     }
 

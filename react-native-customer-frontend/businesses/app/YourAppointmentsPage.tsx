@@ -22,7 +22,7 @@ export const YourAppointmentsPage = ({ navigation, route }: any) => {
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        getTodaysAppointments(customerId) // sort these by startDateTime too
+        getTodaysAppointments(customerId)
         .then(json => setTodaysAppointments(json))
         .then(() => getLaterAppointments(customerId))
         .then(json => setLaterAppointments(json))
