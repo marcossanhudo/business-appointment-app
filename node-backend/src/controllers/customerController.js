@@ -80,8 +80,10 @@ class CustomerController {
     }
 
     static async getCustomerLaterAppointments(req, res) {
+        const nextUserMidnight = midnightOf(req.params.day) + DAY_DURATION_IN_MILLISECONDS;
+
         const LATER_APPOINTMENTS_FILTERS = {
-            onOrAfter: req.params.day, // check whether this is correct
+            onOrAfter: nextUserMidnight,
             sortBy: "startDateTime",
             sortOrder: "asc",
             limit: 3

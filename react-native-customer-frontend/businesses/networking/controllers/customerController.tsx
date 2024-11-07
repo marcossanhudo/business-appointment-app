@@ -17,7 +17,9 @@ async function getAppointmentsForSpecificDay(customerId: string, currentDateTime
 }
 
 async function getLaterAppointments(customerId: string) {
-    return await fetch(customerLaterAppointmentsRoute(customerId, Date.now()), { method: "GET"})
+    const currentDateTime = Date.now();
+
+    return await fetch(customerLaterAppointmentsRoute(customerId, currentDateTime), { method: "GET"})
         .then(res => res.status === 200 ? res.json() : null);
 }
 
