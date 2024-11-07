@@ -1,13 +1,10 @@
-const SECOND_DURATION_IN_MILLISECONDS = 1000;
-const MINUTE_DURATION_IN_MILLISECONDS = 60 * SECOND_DURATION_IN_MILLISECONDS;
-const HOUR_DURATION_IN_MILLISECONDS = 60 * MINUTE_DURATION_IN_MILLISECONDS;
-const DAY_DURATION_IN_MILLISECONDS = 24 * HOUR_DURATION_IN_MILLISECONDS;
+import { SECOND_DURATION_IN_MILLISECONDS, MINUTE_DURATION_IN_MILLISECONDS, HOUR_DURATION_IN_MILLISECONDS, DAY_DURATION_IN_MILLISECONDS } from "./timeDurations.js";
 
 function minutesToMilliseconds(minutes) {
     return minutes * MINUTE_DURATION_IN_MILLISECONDS;
 }
 
-function midnight(date) {
+function midnightOf(date) {
     return Math.floor(date / DAY_DURATION_IN_MILLISECONDS) * DAY_DURATION_IN_MILLISECONDS;
 }
 
@@ -55,4 +52,4 @@ function addTimeZone(dateTime, timeZone) {
     return dateTime.toISOString().split("Z")[0] + timeZone;
 }
 
-export { minutesToMilliseconds, midnight, timeToMilliseconds, timeZoneToMilliseconds, UTCStringTimeToLocalMilliseconds, getTimeZone, addTimeZone };
+export { minutesToMilliseconds, midnightOf, timeToMilliseconds, timeZoneToMilliseconds, UTCStringTimeToLocalMilliseconds, getTimeZone, addTimeZone };

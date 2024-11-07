@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ScrollView, View, Text } from 'react-native';
 import Styles from '@/constants/Styles';
-import { getLocaleTimeString } from '@/scripts/formatting';
+import { getLocaleDateTimeString, getLocaleTimeString } from '@/scripts/formatting';
 import { getAllBusinesses } from '@/networking/controllers/businessController';
 import { Menu } from '@/components/Menu/Menu';
 import { MenuItem } from '@/components/Menu Item/MenuItem';
@@ -25,15 +25,16 @@ const HomePage = ({ navigation }: any) => {
         }
     ]);
     const [firstUpcomingAppointment, setFirstUpcomingAppointment] = useState({
-        serviceName: "",
-        appointmentStartDateTime: 0,
-        businessName: ""
+        _id: "",
+        service: { name: "" },
+        startDateTime: 0,
+        business: { name: "" }
     });
 
     React.useEffect(() => {
-        /*getFirstUpcomingAppointment(customerId, Date.now())
-            .then(json => setFirstUpcomingAppointment(json))
-            .catch(error => { setError(true); console.log(error); });*/
+        getFirstUpcomingAppointment(customerId)
+            .then(json => setFirstUpcomingAppointment(json[0]))
+            .catch(error => { setError(true); console.log(error); });
 
         getAllBusinesses()
             .then(json => setBusinesses(json))
@@ -55,9 +56,9 @@ const HomePage = ({ navigation }: any) => {
     const renderFirstUpcomingAppointment = () => {
         return(
             <MenuItem
-                name={ firstUpcomingAppointment.serviceName }
-                firstLine={ firstUpcomingAppointment.appointmentStartDateTime }
-                secondLine={ firstUpcomingAppointment.businessName } />
+                name={ firstUpcomingAppointment.service.name }
+                firstLine={ getLocaleDateTimeString(firstUpcomingAppointment.startDateTime) }
+                secondLine={ firstUpcomingAppointment.business.name } />
         )
     }
 
@@ -66,14 +67,16 @@ const HomePage = ({ navigation }: any) => {
             <View style={ Styles.page }>
                 <Text style={ Styles.h1 }>Businesses</Text>
                 {
-                    firstUpcomingAppointment
+                    !loading && firstUpcomingAppointment !== null
                     ? <View style={ Styles.column }>
                         <Text style={ Styles.h2 }>Your next appointment</Text>
                         { renderFirstUpcomingAppointment() }
-                        <AppPageLink label="See all your appointments" />
                     </View>
                     : <Text>What do you need today?</Text>
                 }
+                <AppPageLink
+                    label="See all your appointments"
+                    onPress={ () => navigation.navigate("Your Appointments") } />
                 <Text style={ Styles.h2 }>Places</Text>
                 {   
                     loading

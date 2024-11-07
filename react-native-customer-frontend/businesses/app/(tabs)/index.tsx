@@ -6,6 +6,7 @@ import { AppointmentTimePage } from '../AppointmentTimePage';
 import { AppointmentAttendantPage } from '../AppointmentAttendantPage';
 import { AppointmentSummaryPage } from '../AppointmentSummaryPage';
 import { ScheduleSuccessPage } from '../ScheduleSuccessPage';
+import { YourAppointmentsPage } from '../YourAppointmentsPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +35,10 @@ const App = () => {
           name="Schedule Success"
           component={ ScheduleSuccessPage }
           options={{ title: "Success" }} />
+        <Stack.Screen
+          name="Your Appointments"
+          component={ YourAppointmentsPage }
+          options={{ title: "Your appointments" }} />
       </Stack.Navigator>
   );
 }

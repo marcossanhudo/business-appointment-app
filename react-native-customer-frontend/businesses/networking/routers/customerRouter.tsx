@@ -1,4 +1,5 @@
 import { BASE } from ".";
+import { getQueryParamString } from "./utils";
 
 const customersRoute = BASE + "customers/";
 
@@ -7,7 +8,19 @@ const customerRoute = (customerId: string) => {
 }
 
 const customerFirstUpcomingAppointmentRoute = (customerId: string, currentDateTime: number) => {
-    return customerRoute(customerId) + "/appointments/firstUpcoming" + "&onOrAfter=" + currentDateTime
+    return customerRoute(customerId) + "/appointments/upcoming/first/" + currentDateTime
 }
 
-export { customersRoute, customerRoute, customerFirstUpcomingAppointmentRoute }
+const customerAppointmentsForSpecificDayRoute = (customerId: string, currentDateTime: number) => {
+    return customerRoute(customerId) + "/appointments/day/" + currentDateTime
+}
+
+const customerLaterAppointmentsRoute = (customerId: string, currentDateTime: number) => {
+    return customerRoute(customerId) + "/appointments/later/" + currentDateTime;
+}
+
+const customerAppointmentsRoute = (customerId: string, queryParams: { [key: string]: any }) => {
+    return customerRoute(customerId) + "/appointments" + getQueryParamString(queryParams); 
+}
+
+export { customersRoute, customerRoute, customerAppointmentsRoute, customerFirstUpcomingAppointmentRoute, customerAppointmentsForSpecificDayRoute, customerLaterAppointmentsRoute }
