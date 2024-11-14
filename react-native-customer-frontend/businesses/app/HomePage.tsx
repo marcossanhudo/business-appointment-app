@@ -7,6 +7,8 @@ import { Menu } from '@/components/Menu/Menu';
 import { MenuItem } from '@/components/Menu Item/MenuItem';
 import { AppPageLink } from '@/components/App Page Link/AppPageLink';
 import { getFirstUpcomingAppointment } from '@/networking/controllers/customerController';
+import BusinessDTO from '@/dto/BusinessDTO';
+import AppointmentDTO from '@/dto/AppointmentDTO';
 
 const HomePage = ({ navigation }: any) => {
 
@@ -15,29 +17,16 @@ const HomePage = ({ navigation }: any) => {
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [businesses, setBusinesses] = useState([
-        {
-            _id: String,
-            name: String,
-            openingTime: String,
-            closingTime: String,
-            address: String
-        }
-    ]);
-    const [firstUpcomingAppointment, setFirstUpcomingAppointment] = useState({
-        _id: "",
-        service: { name: "" },
-        startDateTime: 0,
-        business: { name: "" }
-    });
+    const [businesses, setBusinesses] = useState(Array<BusinessDTO>);
+    const [firstUpcomingAppointment, setFirstUpcomingAppointment] = useState<AppointmentDTO | null>(null);
 
     React.useEffect(() => {
         getFirstUpcomingAppointment(customerId)
-            .then(json => setFirstUpcomingAppointment(json[0]))
+            .then(appointment => setFirstUpcomingAppointment(appointment))
             .catch(error => { setError(true); console.log(error); });
 
         getAllBusinesses()
-            .then(json => setBusinesses(json))
+            .then(businesses => setBusinesses(businesses))
             .catch(error => { setError(true); console.log(error); })
             .finally(() => setLoading(false));
     }, []);
