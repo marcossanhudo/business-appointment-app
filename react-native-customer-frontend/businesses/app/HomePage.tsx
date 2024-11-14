@@ -17,7 +17,7 @@ const HomePage = ({ navigation }: any) => {
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [businesses, setBusinesses] = useState(Array<BusinessDTO>);
+    const [businesses, setBusinesses] = useState<Array<BusinessDTO>>([]);
     const [firstUpcomingAppointment, setFirstUpcomingAppointment] = useState<AppointmentDTO | null>(null);
 
     React.useEffect(() => {
@@ -43,12 +43,13 @@ const HomePage = ({ navigation }: any) => {
     }
 
     const renderFirstUpcomingAppointment = () => {
-        return(
-            <MenuItem
-                name={ firstUpcomingAppointment.service.name }
-                firstLine={ getLocaleDateTimeString(firstUpcomingAppointment.startDateTime) }
-                secondLine={ firstUpcomingAppointment.business.name } />
-        )
+        if (firstUpcomingAppointment !== null)
+            return(
+                <MenuItem
+                    name={ firstUpcomingAppointment.service.name }
+                    firstLine={ getLocaleDateTimeString(firstUpcomingAppointment.startDateTime) }
+                    secondLine={ firstUpcomingAppointment.business.name } />
+            )
     }
 
     return(
