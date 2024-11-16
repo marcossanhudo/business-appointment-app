@@ -6,6 +6,7 @@ import { AppPageLink } from "@/components/App Page Link/AppPageLink";
 import { MenuItem } from "@/components/Menu Item/MenuItem";
 import { getLocaleDateTimeString } from "@/scripts/formatting";
 import { getLaterAppointments, getTodaysAppointments } from "@/networking/controllers/customerController";
+import AppointmentDTO from "@/dto/AppointmentDTO";
 
 export const YourAppointmentsPage = ({ navigation, route }: any) => {
 
@@ -13,9 +14,9 @@ export const YourAppointmentsPage = ({ navigation, route }: any) => {
 
     const customerId = TEST_CUSTOMER_ID;
 
-    const [todaysAppointments, setTodaysAppointments] = useState([]);
+    const [todaysAppointments, setTodaysAppointments] = useState<Array<AppointmentDTO>>([]);
 
-    const [laterAppointments, setLaterAppointments] = useState([]);
+    const [laterAppointments, setLaterAppointments] = useState<Array<AppointmentDTO>>([]);
 
     const [loading, setLoading] = useState(true);
 
@@ -23,9 +24,9 @@ export const YourAppointmentsPage = ({ navigation, route }: any) => {
 
     useEffect(() => {
         getTodaysAppointments(customerId)
-        .then(json => setTodaysAppointments(json))
+        .then(todaysAppointments => setTodaysAppointments(todaysAppointments))
         .then(() => getLaterAppointments(customerId))
-        .then(json => setLaterAppointments(json))
+        .then(laterAppointments => setLaterAppointments(laterAppointments))
         .then(() => setLoading(false))
         .catch(error => { setError(true); console.log(error); })
     }, []);
@@ -55,7 +56,7 @@ export const YourAppointmentsPage = ({ navigation, route }: any) => {
                         <View style={ Styles.verticalListContainer }>
                             <Text style={ Styles.h2 }>Today's appointments</Text>
                             { 
-                                todaysAppointments !== null
+                                todaysAppointments.length > 0
                                 ? <View>
                                     <Menu
                                         items={ todaysAppointments }
@@ -70,7 +71,7 @@ export const YourAppointmentsPage = ({ navigation, route }: any) => {
                         <View style={ Styles.verticalListContainer }>
                             <Text style={ Styles.h2 }>Later appointments</Text>
                             { 
-                                laterAppointments !== null
+                                laterAppointments.length > 0
                                 ? <View>
                                     <Menu
                                         items={ laterAppointments }

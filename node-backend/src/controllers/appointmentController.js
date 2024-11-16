@@ -1,4 +1,7 @@
 import appointment from "../models/Appointment.js";
+import service from "../models/Service.js";
+import business from "../models/Business.js";
+import attendant from "../models/Attendant.js";
 
 class AppointmentController {
 
@@ -20,6 +23,33 @@ class AppointmentController {
         } catch (error) {
             res.status(500).json({
                 message: "Internal server error on AppointmentController.getAppointment(): " + error.message
+            });
+        }
+    }
+
+    static async getExtendedAppointment(req, res) {
+        try {
+            let foundAppointment = await appointment.findById(req.params.id);
+
+            if (foundAppointment === null) {
+                res.status(404).send();
+            } else {
+                let appointmentAttendant = null;
+                
+                const appointmentService = await service.findById(foundAppointment.serviceId);
+                const appointmentBusiness = await business.findById(appointmentService.businessId);
+
+                if (foundAppointment.attendantId !== null) {
+                    appointmentAttendant = await attendant.findById(foundAppointment.attendantId);
+                }
+                
+                foundAppointment = { business: appointmentBusiness, service: appointmentService, attendant: appointmentAttendant, ...foundAppointment._doc };
+
+                res.status(200).json(foundAppointment);
+            }
+        } catch (error) {
+            res.status(500).json({
+                message: "Internal server error on AppointmentController.getExtendedAppointment(): " + error.message
             });
         }
     }

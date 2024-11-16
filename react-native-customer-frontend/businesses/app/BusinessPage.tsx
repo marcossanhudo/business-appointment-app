@@ -7,36 +7,26 @@ import { getBusiness } from '@/networking/controllers/businessController';
 import { getServicesFromBusiness } from '@/networking/controllers/serviceController';
 import { MenuItem } from '@/components/Menu Item/MenuItem';
 import { Menu } from '@/components/Menu/Menu';
+import BusinessDTO from '@/dto/BusinessDTO';
+import ServiceDTO from '@/dto/ServiceDTO';
 
 export const BusinessPage = ({ navigation, route }: any) => {
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [businessInfo, setBusinessInfo] = useState({
-        name: "",
-        description: "",
-        openingTime: 0,
-        closingTime: 0,
-        address: ""
-    });
-    const [services, setServices] = useState([{
-        _id: "",
-        name: "",
-        appointmentDurationInMinutes: 0,
-        appointmentPrice: 0,
-        businessId: ""
-    }]);
+    const [businessInfo, setBusinessInfo] = useState<BusinessDTO | null>(null);
+    const [services, setServices] = useState<Array<ServiceDTO>>([]);
 
     React.useEffect(() => {
         getBusiness(route.params.id)
-            .then(json => setBusinessInfo(json))
+            .then(business => setBusinessInfo(business))
             .catch(error => { setError(true); console.log(error.message); })
             .finally(() => setLoading(false));
     }, []);
 
     React.useEffect(() => {
         getServicesFromBusiness(route.params.id)
-            .then(json => setServices(json))
+            .then(services => setServices(services))
             .then(() => console.log(services))
             .catch(error => { setError(true); console.log(error.message); });
     }, []);
@@ -59,7 +49,7 @@ export const BusinessPage = ({ navigation, route }: any) => {
                 ? <View style={ Styles.page }>
                     <Text>Loading</Text>
                 </View>
-                : error
+                : error || businessInfo === null
                 ? <View style={ Styles.page }>
                     <Text>An error occured. Please try again later.</Text>
                 </View>

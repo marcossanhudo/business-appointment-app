@@ -6,6 +6,7 @@ import { getLocaleTimeString } from '@/scripts/formatting';
 import { DatePicker } from '@/components/Date Picker/DatePicker';
 import { Menu } from '@/components/Menu/Menu';
 import { MenuItem } from '@/components/Menu Item/MenuItem';
+import AvailableTimeDTO from '@/dto/AvailableTimeDTO';
 
 export const AppointmentTimePage = ({ navigation, route }: any) => {
 
@@ -14,17 +15,15 @@ export const AppointmentTimePage = ({ navigation, route }: any) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
-    const [timesAvailable, setTimesAvailable] = useState([{
-
-    }]);
+    const [timesAvailable, setTimesAvailable] = useState<Array<AvailableTimeDTO>>([]);
     const [appointmentDate, setAppointmentDate] = useState(Date.now());
 
     React.useEffect(() => {
         try {
             getServiceAvailableTimes(appointmentDetails.service._id, appointmentDate)
-                .then(json => setTimesAvailable(json))
-                .catch(error => { setError(true); console.log(error); })
-                .finally(() => setLoading(false));
+            .then(availableTimes => setTimesAvailable(availableTimes))
+            .catch(error => { setError(true); console.log(error); })
+            .finally(() => setLoading(false));
         } catch (error) {
             console.log(error);
         }

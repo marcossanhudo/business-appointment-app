@@ -7,6 +7,7 @@ import { getAttendant } from '@/networking/controllers/attendantController';
 import { Menu } from '@/components/Menu/Menu';
 import { MenuItem } from '@/components/Menu Item/MenuItem';
 import { InlineButton } from '@/components/Buttons/Inline Button/InlineButton';
+import AttendantDTO from '@/dto/AttendantDTO';
 
 export const AppointmentAttendantPage = ({ navigation, route }: any) => {
 
@@ -15,7 +16,7 @@ export const AppointmentAttendantPage = ({ navigation, route }: any) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
-    const [attendantsAvailable, setAttendantsAvailable] = useState([{ _id: null }]);
+    const [attendantsAvailable, setAttendantsAvailable] = useState<Array<AttendantDTO>>([{ _id: null, name: "" }]);
 
     React.useEffect(() => {
         getServiceAttendants(appointmentDetails.service._id)
