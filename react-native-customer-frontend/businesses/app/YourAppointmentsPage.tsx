@@ -31,7 +31,7 @@ export const YourAppointmentsPage = ({ navigation, route }: any) => {
         .catch(error => { setError(true); console.log(error); })
     }, []);
 
-    const renderAppointment = (appointment: any) => {
+    const renderAppointment = (appointment: AppointmentDTO) => {
         return(
             <MenuItem
                 name={ appointment.service.name }

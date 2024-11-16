@@ -27,7 +27,7 @@ export const AppointmentAttendantPage = ({ navigation, route }: any) => {
             .catch(error => { setError(true); console.log(error); });
     }, []);
 
-    const renderAttendantAvailable = (attendantAvailable: any) => {
+    const renderAttendantAvailable = (attendantAvailable: AttendantDTO) => {
         return (
             <MenuItem
                 name={ attendantAvailable._id === null ? "Anyone is okay" : attendantAvailable.name }

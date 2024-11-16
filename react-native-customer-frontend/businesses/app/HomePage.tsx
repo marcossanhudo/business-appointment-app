@@ -31,7 +31,7 @@ const HomePage = ({ navigation }: any) => {
             .finally(() => setLoading(false));
     }, []);
 
-    const renderBusiness = (business: any) => {
+    const renderBusiness = (business: BusinessDTO) => {
         return(
             <MenuItem
                 name={ business.name }

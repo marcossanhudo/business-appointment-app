@@ -31,7 +31,7 @@ export const BusinessPage = ({ navigation, route }: any) => {
             .catch(error => { setError(true); console.log(error.message); });
     }, []);
 
-    const renderService = (service: any) => {
+    const renderService = (service: ServiceDTO) => {
         return(
             <MenuItem
                 name={ service.name }

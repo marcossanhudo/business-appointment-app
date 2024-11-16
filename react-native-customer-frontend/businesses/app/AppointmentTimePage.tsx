@@ -29,7 +29,7 @@ export const AppointmentTimePage = ({ navigation, route }: any) => {
         }
     }, [appointmentDate]);
 
-    const renderTimeAvailable = (timeAvailable: any) => {
+    const renderTimeAvailable = (timeAvailable: AvailableTimeDTO) => {
         return (
             <MenuItem
                 name={ getLocaleTimeString(timeAvailable.startTime) }
