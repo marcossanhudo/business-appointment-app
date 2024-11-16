@@ -6,7 +6,7 @@ export default class ServiceDTO {
     businessId: String;
 
     constructor(data: any) {
-        this._id = data.id;
+        this._id = data._id;
         this.name = data.name;
         this.appointmentDurationInMinutes = data.appointmentDurationInMinutes;
         this.appointmentPrice = data.appointmentPrice;

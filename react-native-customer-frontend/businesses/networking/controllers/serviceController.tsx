@@ -1,5 +1,6 @@
 import ServiceDTO from "@/dto/ServiceDTO";
 import { serviceRoute, servicesFromBusinessRoute, serviceAvailableTimesRoute, serviceAttendantsRoute } from "../routers/serviceRouter";
+import AvailableTimeDTO from "@/dto/AvailableTimeDTO";
 
 async function getServicesFromBusiness(businessId: string) { 
     return await fetch(servicesFromBusinessRoute(businessId), { method: "GET" })
@@ -13,7 +14,7 @@ async function getService(serviceId: string) {
 
 async function getServiceAvailableTimes(serviceId: string, appointmentDate: number) {
     return await fetch(serviceAvailableTimesRoute(serviceId, appointmentDate), { method: "GET" })
-        .then(res => res.json());
+        .then(res => res.status === 200 ? res.json().then(json => AvailableTimeDTO.jsonArrayToDtoArray(json)) : []);
 }
 
 async function getServiceAttendants(serviceId: string) {
