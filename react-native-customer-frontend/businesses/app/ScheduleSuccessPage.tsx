@@ -48,11 +48,11 @@ export const ScheduleSuccessPage = ({ navigation, route }: any) => {
     return (
         <ScrollView>
             {
-                error || appointment === null
-                ? <Text>An error occured. Please try again later.</Text>
-
-                : loading
+                loading
                 ? <Text>Loading.</Text>
+
+                : error || appointment === null
+                ? <Text>An error occured. Please try again later.</Text>
 
                 : <View style={ Styles.page }>
                     <View style={ Styles.column }>
