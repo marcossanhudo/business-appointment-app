@@ -11,7 +11,7 @@ export const AppPageLink = ({ label, onPress }: any) => {
         <Pressable
             style={[ AppStyles.row, Styles.link ]}
             role="link"
-            onPress={ onPress} >
+            onPress={ onPress } >
             <Text style={ AppStyles.h2 }>{ label }</Text>
             <Image
                 role="presentation"

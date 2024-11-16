@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { ScrollView, View, Text } from 'react-native';
 import Styles from '@/constants/Styles';
-import { getLocaleTimeString } from '@/scripts/formatting';
+import { getLocaleDateTimeString, getLocaleTimeString } from '@/scripts/formatting';
 import { getAllBusinesses } from '@/networking/controllers/businessController';
 import { Menu } from '@/components/Menu/Menu';
 import { MenuItem } from '@/components/Menu Item/MenuItem';
 import { AppPageLink } from '@/components/App Page Link/AppPageLink';
 import { getFirstUpcomingAppointment } from '@/networking/controllers/customerController';
+import BusinessDTO from '@/dto/BusinessDTO';
+import AppointmentDTO from '@/dto/AppointmentDTO';
 
 const HomePage = ({ navigation }: any) => {
 
@@ -15,28 +17,16 @@ const HomePage = ({ navigation }: any) => {
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [businesses, setBusinesses] = useState([
-        {
-            _id: String,
-            name: String,
-            openingTime: String,
-            closingTime: String,
-            address: String
-        }
-    ]);
-    const [firstUpcomingAppointment, setFirstUpcomingAppointment] = useState({
-        serviceName: "",
-        appointmentStartDateTime: 0,
-        businessName: ""
-    });
+    const [businesses, setBusinesses] = useState<Array<BusinessDTO>>([]);
+    const [firstUpcomingAppointment, setFirstUpcomingAppointment] = useState<AppointmentDTO | null>(null);
 
     React.useEffect(() => {
-        /*getFirstUpcomingAppointment(customerId, Date.now())
-            .then(json => setFirstUpcomingAppointment(json))
-            .catch(error => { setError(true); console.log(error); });*/
+        getFirstUpcomingAppointment(customerId)
+            .then(appointment => setFirstUpcomingAppointment(appointment))
+            .catch(error => { setError(true); console.log(error); });
 
         getAllBusinesses()
-            .then(json => setBusinesses(json))
+            .then(businesses => setBusinesses(businesses))
             .catch(error => { setError(true); console.log(error); })
             .finally(() => setLoading(false));
     }, []);
@@ -53,12 +43,13 @@ const HomePage = ({ navigation }: any) => {
     }
 
     const renderFirstUpcomingAppointment = () => {
-        return(
-            <MenuItem
-                name={ firstUpcomingAppointment.serviceName }
-                firstLine={ firstUpcomingAppointment.appointmentStartDateTime }
-                secondLine={ firstUpcomingAppointment.businessName } />
-        )
+        if (firstUpcomingAppointment !== null)
+            return(
+                <MenuItem
+                    name={ firstUpcomingAppointment.service.name }
+                    firstLine={ getLocaleDateTimeString(firstUpcomingAppointment.startDateTime) }
+                    secondLine={ firstUpcomingAppointment.business.name } />
+            )
     }
 
     return(
@@ -66,14 +57,16 @@ const HomePage = ({ navigation }: any) => {
             <View style={ Styles.page }>
                 <Text style={ Styles.h1 }>Businesses</Text>
                 {
-                    firstUpcomingAppointment
+                    !loading && firstUpcomingAppointment !== null
                     ? <View style={ Styles.column }>
                         <Text style={ Styles.h2 }>Your next appointment</Text>
                         { renderFirstUpcomingAppointment() }
-                        <AppPageLink label="See all your appointments" />
                     </View>
                     : <Text>What do you need today?</Text>
                 }
+                <AppPageLink
+                    label="See all your appointments"
+                    onPress={ () => navigation.navigate("Your Appointments") } />
                 <Text style={ Styles.h2 }>Places</Text>
                 {   
                     loading
