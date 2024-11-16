@@ -12,4 +12,15 @@ export default class ServiceDTO {
         this.appointmentPrice = data.appointmentPrice;
         this.businessId = data.businessId;
     }
+
+    static jsonArrayToDtoArray(jsonArray: Array<Object>): Array<ServiceDTO> {
+        let arr = new Array<ServiceDTO>;
+                
+        jsonArray.forEach((object: Object) => {
+            arr.push(new ServiceDTO(object));
+        });
+
+        return arr;
+    }
+
 }

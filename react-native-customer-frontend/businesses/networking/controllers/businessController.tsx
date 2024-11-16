@@ -3,16 +3,7 @@ import { businessesRoute, businessRoute } from "../routers/businessRouter";
 
 async function getAllBusinesses() { 
     return await fetch(businessesRoute, { method: "GET" })
-        .then(res => {
-            let arr = new Array<BusinessDTO>;
-                
-            res.json()
-                .then(json => json.forEach((object: Object) => {
-                    arr.push(new BusinessDTO(object));
-                }));
-
-            return arr;
-        });
+        .then(res => res.json().then(json => BusinessDTO.jsonArrayToDtoArray(json)));
 }
 
 async function getBusiness(businessId: string) {

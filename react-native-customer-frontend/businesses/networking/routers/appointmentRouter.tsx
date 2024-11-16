@@ -6,4 +6,8 @@ const appointmentRoute = (appointmentId: string) => {
     return appointmentsRoute + appointmentId;
 }
 
-export { appointmentsRoute, appointmentRoute };
+const extendedAppointmentRoute = (appointmentId: string) => {
+    return appointmentsRoute + appointmentId + "/extended";
+}
+
+export { appointmentsRoute, appointmentRoute, extendedAppointmentRoute };

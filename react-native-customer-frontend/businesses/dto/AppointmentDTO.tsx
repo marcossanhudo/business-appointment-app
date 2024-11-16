@@ -33,4 +33,15 @@ export default class AppointmentDTO {
         this.business = data.business;
         this.attendant = data.attendant;
     }
+
+    static jsonArrayToDtoArray(jsonArray: Array<Object>): Array<AppointmentDTO> {
+        let arr = new Array<AppointmentDTO>;
+                
+        jsonArray.forEach((object: Object) => {
+            arr.push(new AppointmentDTO(object));
+        });
+
+        return arr;
+    }
+
 }

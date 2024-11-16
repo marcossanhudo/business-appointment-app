@@ -1,9 +1,15 @@
-import { appointmentsRoute, appointmentRoute } from "../routers/appointmentRouter";
+import AppointmentDTO from "@/dto/AppointmentDTO";
+import { appointmentsRoute, appointmentRoute, extendedAppointmentRoute } from "../routers/appointmentRouter";
 import { jsonHeaders } from "../routers/index";
 
 async function getAppointment(appointmentId: string) {
     return await fetch(appointmentRoute(appointmentId), { method: "GET" })
-        .then(res => res.json());
+        .then(res => res.status === 200 ? res.json().then(json => new AppointmentDTO(json)) : null);
+}
+
+async function getExtendedAppointment(appointmentId: string) {
+    return await fetch(extendedAppointmentRoute(appointmentId), { method: "GET" })
+        .then(res => res.status === 200 ? res.json().then(json => new AppointmentDTO(json)) : null);
 }
 
 async function postAppointment(appointmentDetails: object) {
@@ -11,4 +17,4 @@ async function postAppointment(appointmentDetails: object) {
         .then(res => res.json());
 }
 
-export { getAppointment, postAppointment };
+export { getAppointment, getExtendedAppointment, postAppointment };

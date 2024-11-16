@@ -22,4 +22,15 @@ export default class BusinessDTO {
         this.address = data.address;
         this.paymentOptions = data.paymentOptions;
     }
+
+    static jsonArrayToDtoArray(jsonArray: Array<Object>): Array<BusinessDTO> {
+        let arr = new Array<BusinessDTO>;
+                
+        jsonArray.forEach((object: Object) => {
+            arr.push(new BusinessDTO(object));
+        });
+
+        return arr;
+    }
+    
 }
