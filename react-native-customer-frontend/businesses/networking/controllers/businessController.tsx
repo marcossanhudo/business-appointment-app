@@ -8,7 +8,7 @@ async function getAllBusinesses() {
 
 async function getBusiness(businessId: string) {
     return await fetch(businessRoute(businessId), { method: "GET" })
-        .then(res => res.json());
+        .then(res => res.status === 200 ? res.json().then(json => new BusinessDTO(json)) : null);
 }
 
 export { getAllBusinesses, getBusiness };
