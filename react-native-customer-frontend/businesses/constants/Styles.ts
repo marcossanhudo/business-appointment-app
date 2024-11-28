@@ -118,6 +118,11 @@ export default StyleSheet.create({
         fontSize: FontSizes.bodyText,
         fontWeight: '400'
     },
+    reminder: {
+        fontSize: FontSizes.bodyText,
+        fontWeight: '400',
+        paddingVertical: SpacingSizes.primary
+    },
 
     column: {
         display: 'flex',

@@ -47,6 +47,7 @@ const HomePage = ({ navigation }: any) => {
             return(
                 <MenuItem
                     name={ firstUpcomingAppointment.service.name }
+                    onPress={ navigation.navigate("Appointment Details", { id: firstUpcomingAppointment._id }) }
                     firstLine={ getLocaleDateTimeString(firstUpcomingAppointment.startDateTime) }
                     secondLine={ firstUpcomingAppointment.business.name } />
             )
