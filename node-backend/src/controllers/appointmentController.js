@@ -56,7 +56,9 @@ class AppointmentController {
 
     static async createAppointment(req, res) {
         try {
-            const createdAppointment = await appointment.create(req.body);
+            const appointmentService = await service.findById(req.body.serviceId);
+            const appointmentBody = { ...req.body, price: appointmentService.appointmentPrice };
+            const createdAppointment = await appointment.create(appointmentBody);
             res.status(200).json({
                 message: "Appointment successfully created.",
                 appointment: createdAppointment

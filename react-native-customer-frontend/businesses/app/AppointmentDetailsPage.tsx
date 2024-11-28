@@ -68,7 +68,7 @@ export const AppointmentDetailsPage = ({ navigation, route }: any) => {
                     <View style={ Styles.infoBox }>
                         <View style={[ Styles.row, Styles.receiptPriceDecoration ]}>
                             <Text style={ Styles.bigNumberLegend }>Price</Text>
-                            <Text style={ Styles.bigNumber }>$ { appointment.service.appointmentPrice }</Text>
+                            <Text style={ Styles.bigNumber }>$ { appointment.price }</Text>
                         </View>
                         <View style={ Styles.row }>
                             <Text style={ Styles.infoBoxPrimaryHeading }>Payment options</Text>

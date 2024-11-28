@@ -1,5 +1,6 @@
 export default class AppointmentDTO {
     _id: String;
+    price: number;
     service: {
         _id: String,
         name: String,
@@ -27,6 +28,7 @@ export default class AppointmentDTO {
 
     constructor(data: any) {
         this._id = data._id;
+        this.price = data.price;
         this.service = data.service;
         this.startDateTime = data.startDateTime;
         this.endDateTime = data.endDateTime;

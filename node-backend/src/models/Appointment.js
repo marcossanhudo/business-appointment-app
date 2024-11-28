@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const appointmentSchema = new mongoose.Schema({
     id: { type: mongoose.Schema.Types.ObjectId },
+    price: { type: Number, required: true },
     serviceId: { type: mongoose.Schema.Types.ObjectId, required: true },
     customerId: { type: mongoose.Schema.Types.ObjectId, required: true },
     attendantId: { type: mongoose.Schema.Types.ObjectId },
